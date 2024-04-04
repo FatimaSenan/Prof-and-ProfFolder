@@ -167,7 +167,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" elevation={4} sx={{backgroundColor:"#ffffff",color:"#2C6975"}}>
+      <AppBar position="fixed" elevation={4} sx={{backgroundColor:"#ffffff",color:"#A66253"}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -198,10 +198,10 @@ export default function Navbar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            {/*<IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
-              </Badge>
+  </Badge>
             </IconButton>
             <IconButton
               size="large"
@@ -211,7 +211,7 @@ export default function Navbar() {
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton>*/}
             <IconButton
               size="large"
               edge="end"

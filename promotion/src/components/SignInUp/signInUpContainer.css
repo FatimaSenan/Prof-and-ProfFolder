@@ -1,0 +1,164 @@
+.sign-in-up-container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 9px;
+    padding-bottom: 15px;
+    width: 600px;
+    overflow: hidden;
+    
+}
+.sign-in-up-container .header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    margin-top: 10px;
+}
+.sign-in-up-container .header .text{
+    color: #A66253;
+    font-size: 40px;
+    font-weight: 600;
+}
+.sign-in-up-container .header .underline{
+    width: 61px;
+    height: 6px;
+    background: #A66253;
+    border-radius: 9px;
+}
+.sign-in-up-container .inputs{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sign-in-up-container .inputs .input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 430px;
+    height: 45px;
+    background-color: #f2F2F2;
+    border-radius: 10px;
+}
+.sign-in-up-container .inputs .input:first-child {
+    margin-top: 7px;
+}
+.sign-in-up-container .inputs .input .input-icon{
+    margin: 0px 30px;
+    color: #404040;
+}
+.sign-in-up-container .inputs .input input{
+    height: 50px;
+    width: 370px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 19px;
+}
+.sign-in-up-container .accept-forgot{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 70px;
+    margin-top: 27px;
+    font-size: 18px;
+}
+.accept-forgot .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+.sign-in-up-container .submit-container{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+    
+}
+.sign-in-up-container .submit-container .submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 72%;
+    height: 50px;
+    background-color: #A66253;
+    color: #D9ABA0;
+    border-radius: 40px;
+    font-size: 19px;
+    font-weight: 700px;
+    cursor: pointer;
+    border: none
+}
+.sign-in-up-container .remember-forgot a,
+.sign-in-up-container .register-link a,
+.sign-in-up-container .login-link a{
+    color:#D9ABA0;
+}
+.sign-in-up-container .login-link, .sign-in-up-container .register-link{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 70px;
+    font-size: 18px;
+    gap: 10px;
+    
+    
+}
+@media screen and (max-width: 590px){
+    .sign-in-up-container .inputs .input{
+        width: 420px;
+        
+    }
+    .sign-in-up-container .inputs .input input{
+        width: 340px;
+    
+    }
+}
+@media screen and (max-width: 540px){
+    .sign-in-up-container .inputs .input{
+        width: 400px;
+        
+    }
+    .sign-in-up-container .inputs .input input{
+        width: 320px;
+       font-size: 17px;
+    }
+}
+@media screen and (max-width: 510px){
+    .sign-in-up-container .inputs .input{
+        width: 380px;
+        
+    }
+    .sign-in-up-container .inputs .input input{
+        width: 300px;
+       font-size: 17px;
+    }
+}
+@media screen and (max-width: 430px){
+    .sign-in-up-container .inputs .input{
+        width: 350px;
+        
+    }
+    .sign-in-up-container .inputs .input input{
+       width: 300px;
+       font-size: 17px;
+    }
+    .sign-in-up-container .accept-forgot{
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 400px){
+    .sign-in-up-container .inputs .input{
+        width: 300px;
+    }
+    .sign-in-up-container .inputs .input input{
+        font-size: 15px;
+     }
+     .sign-in-up-container .inputs .input .input-icon{
+        margin: 0px 20px;
+        font-size: 18px;;
+    }
+}

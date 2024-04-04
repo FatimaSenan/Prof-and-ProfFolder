@@ -1,0 +1,16 @@
+
+.profile-container{
+    display:flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-top: 3rem;
+    width: 100%;
+   
+}
+@media screen and (max-width: 600px) {
+    .profile-container{
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}

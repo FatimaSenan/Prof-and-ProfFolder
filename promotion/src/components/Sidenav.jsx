@@ -98,7 +98,7 @@ export default function Sidenav() {
           </IconButton>
        </DrawerHeader>
         <Divider />
-        <List sx={{color:"#2C6975"}}>
+        <List sx={{color:"#A66253"}}>
           
             <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/')}} >
               <ListItemButton
@@ -115,7 +115,7 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <MdHome color="#2C6975" />
+                  <MdHome color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="Accueil" sx={{opacity:open ? 1:0}} />
               </ListItemButton>
@@ -136,7 +136,7 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <RxActivityLog color="#2C6975" />
+                  <RxActivityLog color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="Liste des Activités" sx={{opacity:open ? 1:0}}/>
               </ListItemButton>
@@ -157,7 +157,7 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <CgProfile color="#2C6975" />
+                  <CgProfile color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="Profile" sx={{opacity:open ? 1:0}} />
               </ListItemButton>
@@ -166,7 +166,7 @@ export default function Sidenav() {
         </List>
         <Divider />
 
-        <ListItem disablePadding sx={{ display: 'block',color:"#2C6975" }} onClick={()=>{navigate('/parametres')}} >
+        <ListItem disablePadding sx={{ display: 'block',color:"#A66253" }} onClick={()=>{navigate('/parametres')}} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -181,13 +181,13 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <IoMdSettings color="#2C6975" />
+                  <IoMdSettings color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="Paramètres" sx={{opacity:open ? 1:0}} />
               </ListItemButton>
             </ListItem>
         
-        <ListItem disablePadding sx={{ display: 'block',color:"#2C6975" }} onClick={()=>{navigate('/apropos')}}>
+        <ListItem disablePadding sx={{ display: 'block',color:"#A66253" }} onClick={()=>{navigate('/apropos')}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -202,13 +202,13 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <FaCircleInfo color="#2C6975" />
+                  <FaCircleInfo color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="A propos" sx={{opacity:open ? 1:0}} />
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding sx={{ display: 'block',color:"#2C6975" }} onClick={()=>{navigate('/deconnexion')}}>
+            <ListItem disablePadding sx={{ display: 'block',color:"#A66253" }} onClick={()=>{navigate('/deconnexion')}}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -223,7 +223,7 @@ export default function Sidenav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <RiLogoutCircleLine color="#2C6975" />
+                  <RiLogoutCircleLine color="#A66253" />
                 </ListItemIcon>
                 <ListItemText primary="Déconnexion" sx={{opacity:open ? 1:0}} />
               </ListItemButton>

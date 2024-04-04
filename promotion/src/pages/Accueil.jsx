@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Navbar from '../components/Navbar';
 import Sidenav from '../components/Sidenav';
+import ChoiceCardsContainer from '../components/Menu/ChoiceCardsContainer';
 
 function Accueil() {
   return (
@@ -12,11 +13,11 @@ function Accueil() {
     <Box sx={{display:'flex'}}>
     <Sidenav/>
       
-      <h1>Accueil</h1>
+      
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 , display: 'flex',flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
         
-        
+        <ChoiceCardsContainer/>
       </Box>
 
       

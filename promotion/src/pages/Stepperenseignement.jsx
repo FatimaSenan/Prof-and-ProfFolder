@@ -18,7 +18,7 @@ function Apropos() {
       <CssBaseline />
       <Container component={Box} p={8}>
         <Paper component={Box} p={3}>
-          <h3>A Propos</h3>
+          <LinearStepper />
         </Paper>
       </Container>
   

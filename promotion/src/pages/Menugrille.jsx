@@ -17,9 +17,9 @@ function Listeactivities() {
         <Box sx={{ display: 'flex', paddingTop: '80px', paddingLeft:'40px' }}>
           <Sidenav />
           <Box sx={{ textAlign: 'left',color:'#A66253' }}>
-              <h3> Liste activities</h3>
+            <h3>Grille d'évaluation</h3>
             <Box sx={{ marginLeft: 'auto', marginRight: 'auto', width: '800px', height: '500px', p: 3 }}>
-              <Typeactivity/>
+              <Typeactivity />
             </Box>
           </Box>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }} />

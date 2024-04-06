@@ -130,26 +130,7 @@ export default function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+   
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -167,7 +148,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" elevation={4} sx={{backgroundColor:"#ffffff",color:"#2C6975"}}>
+      <AppBar position="fixed" elevation={4} sx={{backgroundColor:"#ffffff",color:"#A66253"}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -185,7 +166,7 @@ export default function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <img src='./icons/logo_test.jpg' height={40} />
+            <img src='./icons/logo_test_1.jpg' height={50}  />
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -198,20 +179,7 @@ export default function Navbar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            
             <IconButton
               size="large"
               edge="end"

@@ -7,6 +7,7 @@ import Deconnexion from './pages/Deconnexion';
 import Listeactivities from './pages/Listeactivities';
 import Parametres from './pages/Parametres';
 import Profile from './pages/Profile';
+import Stepperenseignement from './pages/Stepperenseignement';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path='/apropos' exact element={<Apropos/>}></Route>
         <Route path='/deconnexion' exact element={<Deconnexion/>}></Route>
         <Route path='/parametres' exact element={<Parametres/>}></Route>
+        <Route path='/stepper_enseignement' exact element={<Stepperenseignement/>}></Route>
+
       </Routes>
     </BrowserRouter>
   );

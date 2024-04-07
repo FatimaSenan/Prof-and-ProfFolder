@@ -14,7 +14,7 @@ function Typeactivity() {
     <Box sx={{ flexGrow: 1}}>
       <Grid container spacing={1}>
         <Grid xs={6}>
-          <Link to="/stepper_enseignement">
+          <Link to="/stepper_enseignement" style={{textDecoration:"none"}}>
             <Card sx={{ maxWidth: 345,'&:hover': { backgroundColor: '#ecd5d0' } }}>
               <CardActionArea>
                 <CardContent>

@@ -1,0 +1,21 @@
+.profil-image-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+@media screen and (max-width: 850px){
+    .profil-image-section{
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .delete-modify-btns{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .profil-image-section .delete-btn ,.profil-image-section .modify-btn{
+        font-size: 0.75rem;
+    }
+}

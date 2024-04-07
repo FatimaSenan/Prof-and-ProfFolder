@@ -13,97 +13,46 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
+    color: '#ecd5d0', // Change button text color
+    borderColor: '#ecd5d0', // Change button border color
+    '&:hover': {
+      backgroundColor: '#A66253', // Change button background color on hover
+      color: '#fff', // Change button text color on hover
   },
+},
   stepLabel: {
     color: "0D0D0D", // Modifier la couleur du label
   },
+  root:{
+    "& .MuiStepIcon-active": {color:"#A66253"},
+    "& .MuiStepIcon-completed":{color:"#A66253"}
+  }
   
 }));
 
 function getSteps() {
   return [
-    { label: "La production scientifique", points: 20 },
-    { label: "L'encadrement scientifique", points: 15 },
-    { label: "Les responsabilités scientifiques", points: 10 },
+    { label: "La production scientifique", points: 16 },
+    { label: "L'encadrement scientifique", points: 12 },
+    { label: "Les responsabilités scientifiques", points: 3 },
   ];
 }
 
 function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return (
-          <>
-            <TextField
-              id="first-name"
-              label="First Name"
-              variant="outlined"
-              placeholder="Enter Your First Name"
-              fullWidth
-              margin="normal"
-              name="firstName"
-            />
-            <TextField
-              id="last-name"
-              label="Last Name"
-              variant="outlined"
-              placeholder="Enter Your Last Name"
-              fullWidth
-              margin="normal"
-              name="lastName"
-            />
-          </>
-        );
-  
-      case 1:
-        return (
-          <>
-            <TextField
-              id="email"
-              label="E-mail"
-              variant="outlined"
-              placeholder="Enter Your E-mail Address"
-              fullWidth
-              margin="normal"
-              name="emailAddress"
-            />
-            <TextField
-              id="phone-number"
-              label="Phone Number"
-              variant="outlined"
-              placeholder="Enter Your Phone Number"
-              fullWidth
-              margin="normal"
-              name="phoneNumber"
-            />
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <TextField
-              id="cardNumber"
-              label="Card Number"
-              variant="outlined"
-              placeholder="Enter Your Card Number"
-              fullWidth
-              margin="normal"
-              name="cardNumber"
-            />
-            <TextField
-              id="cardMonth"
-              label="Card Month"
-              variant="outlined"
-              placeholder="Enter Your Card Month"
-              fullWidth
-              margin="normal"
-              name="cardMonth"
-            />
-          </>
-        );
-      default:
-        return "unknown step";
-    }
+  switch (step) {
+    case 0:
+      return <h3>"Form 1"</h3>;
+
+    case 1:
+      return <h3>"Form 2"</h3>;
+    
+    case 2:
+      return <h3>"Form 3"</h3>;
+    
+    default:
+      return "unknown step";
   }
+}
   
 
 const LinearStepper = () => {
@@ -165,7 +114,7 @@ const LinearStepper = () => {
             <Step {...stepProps} key={index}>
               <StepLabel
                 {...labelProps}
-                classes={{ label: classes.stepLabel }} // Appliquer une classe personnalisée au label
+                classes={{ label: classes.stepLabel ,root:classes.root}} // Appliquer une classe personnalisée au label
                 
               >
                 {step.label}
@@ -177,7 +126,7 @@ const LinearStepper = () => {
 
       {activeStep === steps.length ? (
         <Typography variant="h3" align="center">
-          Thank You
+          Terminé
         </Typography>
       ) : (
         <>
@@ -193,7 +142,7 @@ const LinearStepper = () => {
             <Button
               className={classes.button}
               variant="contained"
-              color="primary"
+              style={{ backgroundColor: '#A66253', color: '#0d0d0d' }}
               onClick={handleSkip}
             >
               Skip
@@ -202,8 +151,9 @@ const LinearStepper = () => {
           <Button
             className={classes.button}
             variant="contained"
-            color="primary"
+            style={{ backgroundColor: '#A66253', color: '#0d0d0d' }}
             onClick={handleNext}
+            
           >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>

@@ -53,10 +53,10 @@ export default function ChoiceCard({title, icon}) {
   return (
   // <Box className="choice-box" sx={{ maxWidth: 180 , boxShadow: '1px 1px 4px #404040', borderRadius: '7px'}} >
     <DemoPaper variant="elevation" className='choice-box '>
-        {iconDossier && <AssignmentIndIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#0D0D0D"}}/>}
-        {iconEvaluation && <Grading sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#0D0D0D"}}/>}
-        {iconInscription && <AssignmentIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#0D0D0D"}}/>}
-        {iconTableau && <TableChartIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#0D0D0D"}}/>}
+        {iconDossier && <AssignmentIndIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
+        {iconEvaluation && <Grading sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
+        {iconInscription && <AssignmentIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
+        {iconTableau && <TableChartIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
         <Typography sx={{ fontSize: 14 , fontWeight: 'bold'}} color="#0D0D0D" gutterBottom>
         {title}
       </Typography>

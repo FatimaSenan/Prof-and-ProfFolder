@@ -18,7 +18,7 @@ function Typeactivity() {
             <Card sx={{ minWidth: 345,'&:hover': { backgroundColor: '#ecd5d0' } }}>
               <CardActionArea>
                 <CardContent>
-                    <FaChalkboardTeacher fontSize={30}/>
+                    <FaChalkboardTeacher fontSize={30} color='#A66253'/>
                     <Typography gutterBottom variant="h6" component="div" >
                         Activités d'enseignement
                     </Typography>
@@ -34,7 +34,7 @@ function Typeactivity() {
           <Card sx={{ minWidth: 345 ,'&:hover': { backgroundColor: '#ecd5d0' }}}>
             <CardActionArea>
               <CardContent>
-                <GiArchiveResearch fontSize={30}/>
+                <GiArchiveResearch fontSize={30} color='#A66253'/>
                 <Typography gutterBottom variant="h6" component="div">
                    Activités de recherche
                 </Typography>

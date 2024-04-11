@@ -1,12 +1,14 @@
 import { useField } from "formik";
 
-const CustomSelect = ({ label, ...props }) => {
+const CustomSelect = ({ label,value, ...props }) => {
   const [field, meta] = useField(props);
+  
 
   return (
     <>
       <label>{label}</label>
       <select
+        value={value}
         {...field}
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}

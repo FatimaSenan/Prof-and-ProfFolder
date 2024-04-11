@@ -3,12 +3,11 @@ import Box from '@mui/material/Box';
 import Sidenav from '../components/Sidenav';
 import Navbar from '../components/Navbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Typeactivity from '../components/Typeactivity';
-
+import ChoiceCardsContainer from '../components/Menu/ChoiceCardsContainer';
 // Define your theme
 const theme = createTheme();
 
-function Listeactivities() {
+function Menuprincipal() {
   return (
     <ThemeProvider theme={theme}>
       <>
@@ -17,9 +16,9 @@ function Listeactivities() {
         <Box sx={{ display: 'flex', paddingTop: '80px', paddingLeft:'40px' }}>
           <Sidenav />
           <Box sx={{ textAlign: 'left',color:'#A66253' }}>
-            <h3>Grille d'évaluation</h3>
-            <Box sx={{ marginLeft: 'auto', marginRight: 'auto', width: '100%', height: '100%', p: 3 }}>
-              <Typeactivity />
+              <h3> Grille d'évaluation</h3>
+            <Box sx={{ marginLeft: 'auto', marginRight: 'auto', width: '800px', height: '500px', p: 3 }}>
+              <ChoiceCardsContainer/>
             </Box>
           </Box>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }} />
@@ -29,4 +28,4 @@ function Listeactivities() {
   );
 }
 
-export default Listeactivities;
+export default Menuprincipal;

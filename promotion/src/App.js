@@ -1,4 +1,3 @@
-import Sidenav from './components/Sidenav';
 import './App.css';
 import {Routes,Route,BrowserRouter} from "react-router-dom";
 import Accueil from './pages/Accueil';

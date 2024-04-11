@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import Sidenav from '../components/Sidenav';
 import Navbar from '../components/Navbar';
-import LinearStepper from '../components/LinearStepper'
 import { CssBaseline, Container, Paper } from "@material-ui/core";
 
 

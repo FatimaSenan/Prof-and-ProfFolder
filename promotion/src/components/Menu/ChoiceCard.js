@@ -1,16 +1,10 @@
 
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import './choiceCard.css';
-import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import GradingIcon from '@mui/icons-material/Grading';
 import { useState , useEffect} from 'react';
 import { Grading } from '@mui/icons-material';
 
@@ -45,17 +39,17 @@ export default function ChoiceCard({title, icon}) {
     const [iconEvaluation, setIconEvaluation] = useState(false);
     const [iconInscription, setIconInscription] = useState(false);
     const [iconTableau, setIconTableau] = useState(false);
-    useEffect(()=>
-    { if(icon === 'dossier')
+    useEffect(() => {
+      if (icon === 'dossier')
         setIconDossier(true);
-      else if(icon === 'evaluation')
+      else if (icon === 'evaluation')
         setIconEvaluation(true);
-      else if(icon === 'inscription')
+      else if (icon === 'inscription')
         setIconInscription(true);
-        else if(icon === 'tableau')
+      else if (icon === 'tableau')
         setIconTableau(true);
-       }
-      );
+    }, [icon]); // Include icon as a dependency
+    
   return (
   // <Box className="choice-box" sx={{ maxWidth: 180 , boxShadow: '1px 1px 4px #404040', borderRadius: '7px'}} >
     <DemoPaper variant="elevation" className='choice-box '>

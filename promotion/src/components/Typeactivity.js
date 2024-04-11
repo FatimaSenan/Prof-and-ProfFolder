@@ -13,9 +13,9 @@ function Typeactivity() {
   return (
     <Box sx={{ flexGrow: 1}}>
       <Grid container spacing={1}>
-        <Grid xs={6}>
+        <Grid >
           <Link to="/stepper_enseignement" style={{textDecoration:"none"}}>
-            <Card sx={{ maxWidth: 345,'&:hover': { backgroundColor: '#ecd5d0' } }}>
+            <Card sx={{ minWidth: 345,'&:hover': { backgroundColor: '#ecd5d0' } }}>
               <CardActionArea>
                 <CardContent>
                     <FaChalkboardTeacher fontSize={30}/>
@@ -30,8 +30,8 @@ function Typeactivity() {
             </Card>
           </Link>
         </Grid>
-        <Grid xs={6}>
-          <Card sx={{ maxWidth: 345 ,'&:hover': { backgroundColor: '#ecd5d0' }}}>
+        <Grid>
+          <Card sx={{ minWidth: 345 ,'&:hover': { backgroundColor: '#ecd5d0' }}}>
             <CardActionArea>
               <CardContent>
                 <GiArchiveResearch fontSize={30}/>

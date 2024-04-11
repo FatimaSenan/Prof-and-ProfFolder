@@ -2,13 +2,9 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Sidenav from '../components/Sidenav';
 import Navbar from '../components/Navbar';
-import StepperCustom from '../components/StepperCustom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ChoiceCardsContainer from '../components/Menu/ChoiceCardsContainer';
 import Typography from '@mui/material/Typography';
 
-// Define your theme
-const theme = createTheme();
 
 const nom = "NOM";
 const prenom = "Prènom";

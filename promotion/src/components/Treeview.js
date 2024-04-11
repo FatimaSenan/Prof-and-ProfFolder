@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Label from '@mui/icons-material/Label';
-import FolderRounded from '@mui/icons-material/FolderRounded';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import Collapse from '@mui/material/Collapse';
@@ -17,22 +13,6 @@ import { IoIosAddCircle } from "react-icons/io";
 
 
 
-function DotIcon() {
-  return (
-    <Box
-      sx={{
-        width: 6,
-        height: 6,
-        borderRadius: '70%',
-        bgcolor: 'warning.main',
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        zIndex: 1,
-        mr: 1,
-      }}
-    />
-  );
-}
 
 const StyledTreeItemLabel = styled(Typography)({
   color: '#2C6975',

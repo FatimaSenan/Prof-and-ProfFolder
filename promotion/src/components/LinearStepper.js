@@ -1,64 +1,59 @@
 import React, { useState } from "react";
 import {
   Typography,
-  TextField,
   Button,
   Stepper,
   Step,
   StepLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Form1 from "./Forms/Form1";
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginRight: theme.spacing(1),
-    color: '#ecd5d0', // Change button text color
-    borderColor: '#ecd5d0', // Change button border color
+    color: '#ecd5d0',
+    borderColor: '#ecd5d0',
     '&:hover': {
-      backgroundColor: '#A66253', // Change button background color on hover
-      color: '#fff', // Change button text color on hover
+      backgroundColor: '#A66253',
+      color: '#fff',
+      
+    },
+    marginBottom: theme.spacing(1), // Ajout d'une marge en bas pour la flexibilité
   },
-},
   stepLabel: {
-    color: "0D0D0D", // Modifier la couleur du label
+    color: "#0D0D0D",
   },
-  root:{
-    "& .MuiStepIcon-active": {color:"#A66253"},
-    "& .MuiStepIcon-completed":{color:"#A66253"}
-  }
-  
+  root: {
+    "& .MuiStepIcon-active": { color: "#A66253" },
+    "& .MuiStepIcon-completed": { color: "#A66253" }
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(2), // Ajout de marges en haut pour l'espacement
+  },
 }));
 
-function getSteps() {
+const getSteps = () => {
   return [
     { label: "La production scientifique", points: 16 },
     { label: "L'encadrement scientifique", points: 12 },
     { label: "Les responsabilités scientifiques", points: 3 },
   ];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <h3>"Form 1"</h3>;
-
-    case 1:
-      return <h3>"Form 2"</h3>;
-    
-    case 2:
-      return <h3>"Form 3"</h3>;
-    
-    default:
-      return "unknown step";
-  }
-}
-  
+};
 
 const LinearStepper = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
+  
+
+  
+  
+
+  
+
   const steps = getSteps();
 
   const isStepOptional = (step) => {
@@ -70,29 +65,39 @@ const LinearStepper = () => {
   };
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
-    setSkippedSteps(skippedSteps.filter((skipItem) => skipItem !== activeStep));
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleSkip = () => {
     if (!isStepSkipped(activeStep)) {
       setSkippedSteps([...skippedSteps, activeStep]);
     }
-    setActiveStep(activeStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <Form1/>;
+
+      case 1:
+        return <h3>"Form 2"</h3>;
+
+      case 2:
+        return <h3>"Form 3"</h3>;
+
+      default:
+        return "unknown step";
+    }
   };
 
   return (
     <div>
-      <Stepper
-
-        alternativeLabel
-        activeStep={activeStep}
-        
-      >
+      <Stepper alternativeLabel activeStep={activeStep}>
         {steps.map((step, index) => {
           const labelProps = {};
           const stepProps = {};
@@ -101,7 +106,7 @@ const LinearStepper = () => {
               <Typography
                 variant="caption"
                 align="center"
-                style={{ display: "block", color: "#404040" }} // Modifier la couleur du label
+                style={{ display: "block", color: "#404040" }}
               >
                 Points: {step.points}
               </Typography>
@@ -111,11 +116,10 @@ const LinearStepper = () => {
             stepProps.completed = false;
           }
           return (
-            <Step {...stepProps} key={index}>
+            <Step key={index} {...stepProps}>
               <StepLabel
                 {...labelProps}
-                classes={{ label: classes.stepLabel ,root:classes.root}} // Appliquer une classe personnalisée au label
-                
+                classes={{ label: classes.stepLabel, root: classes.root }}
               >
                 {step.label}
               </StepLabel>
@@ -142,7 +146,7 @@ const LinearStepper = () => {
             <Button
               className={classes.button}
               variant="contained"
-              style={{ backgroundColor: '#A66253', color: '#0d0d0d' }}
+              style={{ backgroundColor: "#A66253", color: "#0d0d0d" }}
               onClick={handleSkip}
             >
               Skip
@@ -151,9 +155,8 @@ const LinearStepper = () => {
           <Button
             className={classes.button}
             variant="contained"
-            style={{ backgroundColor: '#A66253', color: '#0d0d0d' }}
+            style={{ backgroundColor: "#A66253", color: "#0d0d0d" }}
             onClick={handleNext}
-            
           >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}
           </Button>

@@ -1,5 +1,3 @@
-import {useState} from 'react';
-import Accueil from '../pages/Accueil'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -81,7 +79,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Sidenav() {
   const theme = useTheme();
  // const [open, setOpen] = useState(true);
-  const [menudata, setMenudata] = useState("Accueil");
   const navigate = useNavigate();
 
   const open= useAppStore((state)=> state.dopen);

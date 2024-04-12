@@ -31,19 +31,21 @@ function Typeactivity() {
           </Link>
         </Grid>
         <Grid>
-          <Card sx={{ minWidth: 345 ,'&:hover': { backgroundColor: '#ecd5d0' }}}>
-            <CardActionArea>
-              <CardContent>
-                <GiArchiveResearch fontSize={30} color='#A66253'/>
-                <Typography gutterBottom variant="h6" component="div">
-                   Activités de recherche
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  50 points
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+        <Link to="/stepper_recherche" style={{textDecoration:"none"}}>
+            <Card sx={{ minWidth: 345 ,'&:hover': { backgroundColor: '#ecd5d0' }}}>
+              <CardActionArea>
+                <CardContent>
+                  <GiArchiveResearch fontSize={30} color='#A66253'/>
+                  <Typography gutterBottom variant="h6" component="div">
+                    Activités de recherche
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    50 points
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Link>
         </Grid>
       </Grid>
     </Box>

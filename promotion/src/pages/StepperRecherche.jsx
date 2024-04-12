@@ -6,7 +6,7 @@ import LinearStepper from '../components/LinearStepper'
 import { CssBaseline, Container, Paper } from "@material-ui/core";
 
 
-function StepperEnseignement() {
+function StepperRecherche() {
   return (
     <>
     <Navbar/>
@@ -18,7 +18,7 @@ function StepperEnseignement() {
       <CssBaseline />
       <Container component={Box} p={8}>
         <Paper component={Box} p={3}>
-          <LinearStepper type="enseignant"/>
+          <LinearStepper type="recherche"/>
         </Paper>
       </Container>
   
@@ -29,4 +29,4 @@ function StepperEnseignement() {
   )
 }
 
-export default StepperEnseignement;
+export default StepperRecherche;

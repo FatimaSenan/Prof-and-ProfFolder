@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Form1 from "./Forms/Form1";
+import FormGrille from "./Forms/Form1";
+import Form_1 from "./Forms/Form1";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -34,16 +36,25 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2), // Ajout de marges en haut pour l'espacement
   },
 }));
-
-const getSteps = () => {
+// for stepper enseignant
+const getEnseignantSteps = () => {
   return [
-    { label: "La production scientifique", points: 16 },
-    { label: "L'encadrement scientifique", points: 12 },
-    { label: "Les responsabilités scientifiques", points: 3 },
+    { label: "Activités pédagogiques", points: 15 },
+    { label: "Encadrement pédagogique", points: 14 },
+    { label: "Responsabilités pédagogiques", points: 6 },
+  ];
+};
+// For Stepper Recherche
+const getRechercheSteps = () => {
+  return [
+    { label: "Activités scientifiques", points: 16 },
+    { label: "Encadrement scientifique", points: 12 },
+    { label: "Responsabilités scientifiques", points: 3 },
   ];
 };
 
-const LinearStepper = () => {
+
+const LinearStepper = ({type}) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [skippedSteps, setSkippedSteps] = useState([]);
@@ -54,7 +65,7 @@ const LinearStepper = () => {
 
   
 
-  const steps = getSteps();
+  const steps = type ==="enseignant" ? getEnseignantSteps() : getRechercheSteps();
 
   const isStepOptional = (step) => {
     return step === 0 || step === 1 || step === 2;
@@ -82,13 +93,13 @@ const LinearStepper = () => {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <Form1/>;
+        return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type==="enseignant" ? "activitésPédagogiques": "productionScientifique"}/>;
 
       case 1:
-        return <h3>"Form 2"</h3>;
+        return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "encadrementPédagogiques": "encadrementScientifique"}/> ;
 
       case 2:
-        return <h3>"Form 3"</h3>;
+        return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "responsabilitésPédagogiques" : "responsabilitésScientifiques"}/>;
 
       default:
         return "unknown step";
@@ -139,6 +150,7 @@ const LinearStepper = () => {
             className={classes.button}
             disabled={activeStep === 0}
             onClick={handleBack}
+            style={{marginTop: "1rem"}}
           >
             Back
           </Button>
@@ -146,7 +158,7 @@ const LinearStepper = () => {
             <Button
               className={classes.button}
               variant="contained"
-              style={{ backgroundColor: "#A66253", color: "#0d0d0d" }}
+              style={{ backgroundColor: "#A66253", color: "#0d0d0d", marginTop: "1rem" }}
               onClick={handleSkip}
             >
               Skip
@@ -155,7 +167,7 @@ const LinearStepper = () => {
           <Button
             className={classes.button}
             variant="contained"
-            style={{ backgroundColor: "#A66253", color: "#0d0d0d" }}
+            style={{ backgroundColor: "#A66253", color: "#0d0d0d" , marginTop: "1rem"}}
             onClick={handleNext}
           >
             {activeStep === steps.length - 1 ? "Finish" : "Next"}

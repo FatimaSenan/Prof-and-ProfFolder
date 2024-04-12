@@ -1,12 +1,11 @@
 import { useField } from "formik";
 
-const CustomSelect = ({ label,value, ...props }) => {
+const CustomSelect = ({ label,value,htmlFor, ...props }) => {
   const [field, meta] = useField(props);
-  
 
   return (
     <>
-      <label>{label}</label>
+      <label htmlFor={htmlFor}>{label}</label>
       <select
         value={value}
         {...field}

@@ -1,0 +1,45 @@
+
+[
+    {
+        "type": "Encadrement des projets et des mémoires de fin d'études (Tous les documents doivent être visés par le chef de l'établissement)",
+        "activités": [
+            {
+                "activité": "Mémoire de PFE Licence ou un diplôme équivalent",
+                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
+            },
+            {
+                "activité": "Mémoire de PFE DUT ou un diplôme équivalent",
+                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
+            },
+            {
+                "activité": "Mémoire de PFE du Master spécialisé ou TFE Ingénieur ou tout diplôme Bac+5 (sauf le mémoire du master)",
+                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
+            }
+            
+        ]
+    },
+    {
+        "type": "Encadrement de stages ou visites de terrain pour tous les cycles de formation et de recherche. (Copie de l'ordre de mission signé par le chef d'établissement)",
+        "activités": [
+            {
+                "activité": "Rapport de stage de visite ou de terrain",
+                "informations": ["Titre Stage", "Cadre", "Année", "Société"]
+            }
+           
+        ]
+    },
+    {
+        "type": "Encadrement des ressources humaines",
+        "activités": [
+            {
+                "activité": "Formation de formateurs",
+                "informations": ["Titre", "Membres", "Date début", "Date fin"]
+            },
+            {
+                "activité": "Formation du Personnel administratif ou technique",
+                "informations": ["Titre", "Membres", "Date début", "Date fin"]
+            }
+           
+        ]
+    }
+]

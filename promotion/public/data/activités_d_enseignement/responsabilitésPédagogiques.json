@@ -1,0 +1,59 @@
+
+[
+    {
+        "type": " Les responsabilités pédagogiques (Attestation du chef d'établissement)",
+        "activités": [
+            {
+                "activité": "Coordonnateur d'une filière de licence fondamentale (non cumulable avec le chef de département )",
+                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
+            },
+            {
+                "activité": "Coordonnateur d'une filière du Master ou cycle d'ingénieur ou autre cycle bac +5",
+                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
+            },
+            {
+                "activité": "Coordonnateur d'une filière de licence professionnelle ou DUT",
+                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
+            },
+            {
+                "activité": "Coordonnateur d'un module (ou deux au maximum )",
+                "informations": ["Nom Module", "Filière" , "Niveau", "Département", "Établissement", "Années de responsabilité"]
+            },
+            {
+                "activité": "Chef de département",
+                "informations": ["Nom Département", "Établissement", "Années de responsabilité"]
+            }
+            
+        ]
+    },
+    {
+    "type": "Autres responsabilités (Attestation du chef d'établissement)",
+        "activités": [
+            {
+                "activité": "Vice-doyen ( non cumulable avec commission permanente)",
+                "informations": ["Nom de la fonction (Directeur adjoint / vice doyen des affaires pédagogique ou Directeur adjoint / vice doyen des coopérations et de la recherche", "Établissement", "Années de responsabilité"]
+            },
+            {
+                "activité": "Membre élu du conseil d'établissement",
+                "informations": ["Membre de conseil (Établissement et ou Université)", "Période"]
+            },
+            {
+                "activité": "Membre d'une commission permanente de l'établissement",
+                "informations": ["Titre de la commission (Pédagogique / Recherche)", "Type de conseil (Etablissement / Université)", "Période"]
+            },
+            {
+                "activité": "Membre du conseil de coordination",
+                "informations": ["Titre conseil de coordination", "Période"]
+            },
+            {
+                "activité": "Membre d'une commission permanente du conseil de coordination",
+                "informations": ["Titre de la commission du conseil de coordination", "Période"]
+            },
+            {
+                "activité": "Membre d'une commission ad hoc",
+                "informations": ["Titre de la commission (Recrutement, Suivi des marchés, Evaluation institutionnelle, expertise)", "Année"]
+            }
+            
+        ]
+    }
+]

@@ -6,8 +6,10 @@ import Deconnexion from './pages/Deconnexion';
 import Listeactivities from './pages/Listeactivities';
 import Parametres from './pages/Parametres';
 import Profile from './pages/Profile';
-import Stepperenseignement from './pages/Stepperenseignement';
+
 import Menugrille from './pages/Menugrille'
+import StepperEnseignement from './pages/StepperEnseignement';
+import StepperRecherche from './pages/StepperRecherche';
 
 function App() {
   return (
@@ -20,7 +22,8 @@ function App() {
         <Route path='/apropos' exact element={<Apropos/>}></Route>
         <Route path='/deconnexion' exact element={<Deconnexion/>}></Route>
         <Route path='/parametres' exact element={<Parametres/>}></Route>
-        <Route path='/stepper_enseignement' exact element={<Stepperenseignement/>}></Route>
+        <Route path='/stepper_enseignement' exact element={<StepperEnseignement/>}></Route>
+        <Route path='/stepper_recherche' exact element={<StepperRecherche/>}></Route>
         <Route path='/menu_grille' exact element={<Menugrille/>}></Route>
 
 

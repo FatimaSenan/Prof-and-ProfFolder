@@ -1,0 +1,58 @@
+
+[
+    {
+        "type": "Publication d'ouvrages en relation avec le domaine de l'enseignement",
+        "activités": [
+            {"activité": "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)",
+             "informations": ["Titre Ouvrage", "Auteur(s)", "ISBN", "Dépôt légal", "Maison d’édition", "Année de publication"
+             ]
+            },
+            {"activité": "Manuel ( exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)",
+             "informations": ["Module", "Filière(s)/ Niveau(x)","années universitaire"]
+            }
+            
+        ]
+    },
+    {
+        "type": "Tous supports et procédés sélectionnés et traités à des fins d'utilisation didactique (Tous les documents doivent être visés par le chef de l'établissement)",
+        "activités": [
+            {"activité": "Polycopiés pédagogiques",
+             "informations": ["Module", "Filière(s)/ Niveau(x)","années universitaire"]
+            },
+            {"activité": "Petits livres de méthodologie ou de didactique pour la lecture ou l'analyse",
+             "informations": ["Titre livre", "Auteurs", "Année de publication"]
+            },
+            {"activité": "Montages expérimentaux",
+             "informations": ["Module", "Filière(s)", "Nombre de manips"]
+            },
+            {"activité": "Préparation de sorties de terrain",
+             "informations": ["Cadre (Module, stage, projet)", "Date de sortie", "Nom Société"]
+            }
+
+            
+        ]
+    },
+    {
+        "type": "Supports NTIC",
+        "activités": [
+            {"activité": "Supports audiovisuels",
+             "informations": ["Support (titre)", "Type (Vidéo, audio, ..)", "Module", "Année"]
+            },
+            {"activité": "Supports électroniques",
+             "informations": ["Support (titre)", "Type (PDF, PPT, DOC, …)", "Module", "Année"]
+            },
+            {"activité": "Didacticiels",
+             "informations": ["Support (titre)", "Module", "Année"]
+            },
+            {"activité": "Page web à caractère pédagogique",
+             "informations": ["Lien"]
+            },
+            {"activité": "MOOC : Production de contenus en ligne",
+             "informations": ["Titre MOOC", "Date de publication", "Lien"]
+            }
+
+            
+        ]
+    }
+
+]

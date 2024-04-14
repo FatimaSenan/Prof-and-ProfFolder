@@ -50,6 +50,7 @@ const getRechercheSteps = () => {
     { label: "Activités scientifiques", points: 16 },
     { label: "Encadrement scientifique", points: 12 },
     { label: "Responsabilités scientifiques", points: 3 },
+    { label: "Rayonnement- Ouverture- Innovation- Valorisation", points: 4 },
   ];
 };
 
@@ -101,6 +102,8 @@ const LinearStepper = ({type}) => {
       case 2:
         return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "responsabilitésPédagogiques" : "responsabilitésScientifiques"}/>;
 
+      case 3:
+        return <Form_1 activityType="activités_de_recherche" activityName= "rayonnement_ouverture_innovation_valorisation"/>;
       default:
         return "unknown step";
     }

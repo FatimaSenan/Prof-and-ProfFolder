@@ -1,0 +1,63 @@
+
+[
+    {
+        "type": "Articles scientifiques publiés dans des revues indexées internationales, ou des actes de congrès internationaux ou nationaux ou à comité de lecture internationaux ou nationaux",
+        "activités": [
+            {"activité": "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON(Niveau 1: Impact factor<1)",
+             "informations": ["Titre", "Auteurs", "DOI", "lien","Journal", "ISBN", "Année de publication"]
+            },
+            {"activité": "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON(Niveau 2: Impact factor de 1 à <5)",
+            "informations": ["Titre", "Auteurs", "DOI", "lien","Journal", "ISBN", "Année de publication"]
+        },
+            {"activité": "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON(Niveau 3: Impact factor 5 et +)",
+            "informations": ["Titre", "Auteurs", "DOI", "lien","Journal", "ISBN", "Année de publication"]
+        },
+        {"activité": "Publications dans des revues scientifiques internationales à comité de lecture ISSN tel qu'il est défini dans la liste officielle du CNRST)",
+            "informations": ["Titre", "Auteurs", "lien", "Journal", "ISBN","Année de publication"]
+        },
+        {"activité": "Publications dans des revues scientifiques nationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)",
+            "informations": ["Titre","Auteurs","lien","Journal","ISSN","Année de publication"]
+        }
+            
+        ]
+    },
+    {
+        "type": "Ouvrages de recherche",
+        "activités": [
+            {
+                "activité": "Ouvrage spécialisé ISBN et publié par une maison d'édition",
+                "informations": ["Titre","ISBN","auteurs","Dépôt légal","date"]
+            },
+            {
+                "activité": "Ouvrage spécialisé ISBN et publié par l'auteur lui-même",
+                "informations": ["Titre","ISBN","auteurs","Dépôt légal","date"]
+            },
+            {
+                "activité": "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN",
+                "informations": ["Titre","ISBN","auteurs","Dépôt légal","date"]
+            }
+        ]
+    },
+    {
+        "type": "Communications dans des congrès ou des conférences (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)",
+        "activités": [
+            {
+                "activité": "Congrès international ou  conférence internationale",
+                "informations": ["Nom Conférence","Année de conférence","lien","Titre communication","Auteurs","attestation"]
+            },
+            {
+                "activité": "Congrès national ou conférence nationale",
+                "informations": ["Nom Conférence","Année de conférence","lien","Titre communication","Auteurs","attestation"]
+            }
+        ]
+    },
+    {
+        "type": " Communications dans des congrès ou des conférences (non publiés) (Les communications ne peuvent être comptabilisées qu'une seule fois)",
+        "activités": [
+            {
+                "activité": ".",
+                "informations": ["Nom Conférence","Année de conférence","lien","Titre communication","Auteurs","attestation"]
+            }]
+        
+    }
+]

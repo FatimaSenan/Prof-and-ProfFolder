@@ -8,7 +8,7 @@ import Parametres from './pages/Parametres';
 import Profile from './pages/Profile';
 
 import Menugrille from './pages/Menugrille'
-import StepperEnseignement from './pages/StepperEnseignement';
+import Stepperenseignement from './pages/Stepperenseignement';
 import StepperRecherche from './pages/StepperRecherche';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route path='/apropos' exact element={<Apropos/>}></Route>
         <Route path='/deconnexion' exact element={<Deconnexion/>}></Route>
         <Route path='/parametres' exact element={<Parametres/>}></Route>
-        <Route path='/stepper_enseignement' exact element={<StepperEnseignement/>}></Route>
+        <Route path='/stepper_enseignement' exact element={<Stepperenseignement/>}></Route>
         <Route path='/stepper_recherche' exact element={<StepperRecherche/>}></Route>
         <Route path='/menu_grille' exact element={<Menugrille/>}></Route>
 

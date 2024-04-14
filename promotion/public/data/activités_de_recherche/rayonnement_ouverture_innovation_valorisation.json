@@ -1,0 +1,20 @@
+
+[
+    {
+        "type": "Animation des structures d'interaction avec l'environnement socio-économique et organisation des manifestations scientifiques (le nom du candidat organisateur doit figurer sur le dépliant correspondant, à fournir)",
+        "activités": [
+            {"activité": "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre",
+             "informations": ["Nom conférence", "lien", "type (national/international)", "rôle(responsable, membre organisateur)", "date de conférence" 
+            ]
+            }]},
+    {
+        "type": "Expertise et valorisation d'actions au profit des milieux socio-économiques (correctement justifiée par une attestation ou un rapport d'expertise signé et cacheté par le chef d'établissement) ",
+        "activités": [
+            {
+                "activité": "Projet de recherche et de développement avec le secteur privé",
+                "informations": ["Titre Projet", "cadre", "rôle (responsable, membre) "," année"
+            ]
+            }
+        ]
+    }
+]

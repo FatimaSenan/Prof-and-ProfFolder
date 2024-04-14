@@ -1,0 +1,42 @@
+
+[
+    {
+        "type": "Encadrement des thèses de doctorat (Attestation délivrée par le chef d'établissement)",
+        "activités": [
+            {"activité": "Doctorats encadrés soutenus",
+             "informations": ["Date 1 ère Inscription", "sujet","Formation doctorale" , "Laboratoire","Doctorant", " Directeur de thèse", "Date de soutenance"]
+            },
+            {"activité": "Doctorats encadrés en cours de préparation",
+            "informations": ["Date 1 ère Inscription", "sujet","Formation doctorale" , "Laboratoire","Doctorant", " Directeur de thèse"]
+        }
+            
+        ]
+    },
+    {
+        "type": "Encadrement des mémoires de Master (Attestation délivrée par le chef d'établissement)",
+        "activités": [
+            {
+                "activité": "Encadrement des mémoires de Master",
+                "informations": ["Sujet Master", "Étudiant(s)", "Année ","Encadrant" ]
+            }
+        ]
+    },
+    {
+        "type": " Participation comme président ou rapporteur ou membre du jury de thèse de doctorat ou d'habilitation (Attestation délivrée par le chef d'établissement)",
+        "activités": [
+            {
+                "activité": "Président",
+                "informations": ["Sujet de thèse ", "Doctorant", "Date", " Université"]
+            },
+            {
+                "activité": "Rapporteur",
+                "informations": ["Sujet de thèse ", "Doctorant", "Date", " Université"]
+            }
+            ,
+            {
+                "activité": "Membre",
+                "informations": ["Sujet de thèse ", "Doctorant", "Date", " Université"]
+            }
+        ]
+    }
+]

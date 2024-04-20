@@ -7,8 +7,6 @@ import {
   StepLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Form1 from "./Forms/Form1";
-import FormGrille from "./Forms/Form1";
 import Form_1 from "./Forms/Form1";
 
 const useStyles = makeStyles((theme) => ({
@@ -97,7 +95,7 @@ const LinearStepper = ({type}) => {
         return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type==="enseignant" ? "activitésPédagogiques": "productionScientifique"}/>;
 
       case 1:
-        return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "encadrementPédagogiques": "encadrementScientifique"}/> ;
+        return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "encadrementPédagogique": "encadrementScientifique"}/> ;
 
       case 2:
         return <Form_1 activityType={type === "enseignant" ? "activités_d_enseignement" : "activités_de_recherche"} activityName={type === "enseignant" ? "responsabilitésPédagogiques" : "responsabilitésScientifiques"}/>;

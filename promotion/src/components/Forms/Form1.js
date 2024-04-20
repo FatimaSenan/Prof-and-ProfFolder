@@ -4,6 +4,10 @@ import Grid from "@mui/material/Grid";
 //import ResponsabilitésScientifique from "../data/ResponsabilitésScientifiques";
 import { useState , useEffect} from "react";
 import CustomInput from "./CustomInput";
+import Modal from "../Modal/Modal";
+import CustomModal from "../Modal/Modal";
+import { Button } from "@mui/material";
+
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   actions.resetForm();
@@ -13,7 +17,7 @@ const Form_1 = ({activityType, activityName}) => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedActivity, setSelectedActivity] = useState("");
   const [responsabilitésScientifiques, setResponsabilitésScientifiques] = useState([]);
-  
+  const [open, setOpen] = useState(false);
     const fetchData = ()=>{
         fetch(`http://localhost:3000/data/${activityType}/${activityName}.json`)
         .then(res => res.json())
@@ -33,7 +37,11 @@ const Form_1 = ({activityType, activityName}) => {
 
   const handleActivityChange = (event) => {
     setSelectedActivity(event.target.value);
+    setOpen(true);
   };
+  
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const typeActivity = responsabilitésScientifiques.map((item, id) => (
     <option value={item.type} key={id}>
@@ -69,7 +77,7 @@ const Form_1 = ({activityType, activityName}) => {
         </Grid>
       ))
     : null;
-
+    
   return (
     <Formik
       initialValues={{
@@ -108,8 +116,22 @@ const Form_1 = ({activityType, activityName}) => {
               </select>
               <ErrorMessage name="activityName" component="div" className="error" />
             </Grid>
-            <>{inputFields}</>
+            <Grid item xs={12} sm={6} >
+               {/* <Button 
+                onClick={handleOpen}
+                variant="contained"
+                style={{ backgroundColor: "#A66253", color: "#0d0d0d", marginTop: "1rem", cursor: "pointer" }}
+                >
+                +
+                </Button>*/}
+            </Grid>
+            {/*<>{inputFields}</>*/}
           </Grid>
+          <CustomModal  open={open} setOpen={setOpen}>
+            <>
+             {inputFields}
+            </>
+          </CustomModal>
         </Form>
       )}
     </Formik>

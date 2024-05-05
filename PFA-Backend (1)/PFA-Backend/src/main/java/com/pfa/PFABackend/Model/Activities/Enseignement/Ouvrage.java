@@ -1,0 +1,44 @@
+package com.pfa.PFABackend.Model.Activities.Enseignement;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pfa.PFABackend.Model.ActivitySubType2;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@Entity
+public class Ouvrage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+
+    @Column(name = "activity_name")
+    private String activityName;
+
+    @Column(name = "activity_points")
+    private double activityPoints = 3;
+
+    private String auteurs;
+
+    private String isbn;
+
+    @Column(name = "année_publication")
+    private int annéePublication;
+
+    private String informations;
+
+    private byte[] justification;
+
+    @OneToOne
+    @JoinColumn(name="activity_subtype2_id")
+    private ActivitySubType2 activitySubType2;
+
+
+
+
+}

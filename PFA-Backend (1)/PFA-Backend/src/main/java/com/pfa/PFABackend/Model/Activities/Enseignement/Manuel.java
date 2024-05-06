@@ -19,8 +19,8 @@ public class Manuel {
     private String module;
     @Column(name="filière_niveau")
     private String filièreNiveau;
-    @Column(name="année_universiatire")
-    private int annéeUniversitaire;
+    @Column(name="années_universitaires")
+    private int annéesUniversitaires;
 
     private byte[] justification;
 

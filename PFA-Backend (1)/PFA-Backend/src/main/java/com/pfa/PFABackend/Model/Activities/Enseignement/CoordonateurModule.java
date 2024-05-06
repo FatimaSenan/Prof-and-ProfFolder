@@ -16,6 +16,9 @@ public class CoordonateurModule {
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
+    @Column(name = "nom_module")
+    private String nomModule;
+
     private String filière;
 
     private String niveau;

@@ -1,7 +1,11 @@
 package com.pfa.PFABackend.Controller.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.CoordonateurFilière;
+import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Service.Activities.Enseignement.CoordonateurFilièreService;
+import com.pfa.PFABackend.Service.ActivitySubType2Service;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +20,17 @@ public class CoordonateurFilièreController {
     @Autowired
     private CoordonateurFilièreService coordonateurFilièreService;
 
+    @Autowired
+    private ActivitySubType2Service activitySubType2Service; // Inject ActivitySubType2 service
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @PostMapping("/add-coordonateur-filière")
     public String addCoordonateurFilière(@RequestBody CoordonateurFilière coordonateurFilière) {
+        ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(7);
+
+        coordonateurFilière.setActivitySubType2(specificActivitySubType2Instance);
         coordonateurFilièreService.saveCoordonateurFilière(coordonateurFilière);
         return "A new Coordonateur filière is added";
     }

@@ -18,14 +18,10 @@ public class ViceDoyen {
     @Column(name = "activity_points")
     private double activityPoints = 2;
 
-    @Column(name = "nom_departement")
-    private String nomDepartement;
+    @Column(name = "nom_fonction")
+    private String nomFonction;
 
-    private String filière;
 
-    private String niveau;
-
-    private String département;
 
     private String établissement;
 

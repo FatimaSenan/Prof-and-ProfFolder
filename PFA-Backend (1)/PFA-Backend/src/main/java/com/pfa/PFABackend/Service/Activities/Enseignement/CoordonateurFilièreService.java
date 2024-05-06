@@ -10,4 +10,6 @@ public interface CoordonateurFilièreService {
     public void saveCoordonateurFilière(CoordonateurFilière coordonateurFilière);
 
     public Iterable<CoordonateurFilière> getCoordonateurFilières();
+
+
 }

@@ -23,9 +23,18 @@ public class Ouvrage {
     @Column(name = "activity_points")
     private double activityPoints = 3;
 
+    @Column(name = "titre_ouvrage")
+    public String titreOuvrage;
+
     private String auteurs;
 
     private String isbn;
+
+    @Column(name = "depot_legal")
+    private String depotLegal;
+
+    @Column(name = "maison_edition")
+    private String maisonEdition;
 
     @Column(name = "année_publication")
     private int annéePublication;
@@ -36,8 +45,7 @@ public class Ouvrage {
 
     @OneToOne
     @JoinColumn(name="activity_subtype2_id")
-    private ActivitySubType2 activitySubType2;
-
+    private ActivitySubType2 activitySubType2 ;
 
 
 

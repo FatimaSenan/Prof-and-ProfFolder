@@ -19,4 +19,7 @@ public class ChefDépartementServiceImpl implements ChefDépartementService{
     public Iterable<ChefDépartement> getChefDépartements() {
         return chefDépartementRepository.findAll();
     }
+
+
+
 }

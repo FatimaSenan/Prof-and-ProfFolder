@@ -6,4 +6,7 @@ public interface ChefDépartementService {
     public void saveChefDépartement(ChefDépartement chefDépartement);
 
     public Iterable<ChefDépartement> getChefDépartements();
+
+
+
 }

@@ -18,4 +18,9 @@ public class ActivitySubType2ServiceImpl implements ActivitySubType2Service{
     public Iterable<ActivitySubType2> getActivitySubtypes2() {
         return activitySubType2Repository.findAll();
     }
+
+    @Override
+    public ActivitySubType2 findById(int id) {
+        return activitySubType2Repository.findById(id).orElse(null);
+    }
 }

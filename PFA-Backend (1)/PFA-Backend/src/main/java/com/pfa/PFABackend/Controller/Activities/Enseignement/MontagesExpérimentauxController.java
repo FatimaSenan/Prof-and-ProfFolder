@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -23,12 +26,18 @@ public class MontagesExpérimentauxController {
     private EntityManager entityManager;
 
     @PostMapping("/add-montages-expérimentaux")
-    public String addMontagesExpérimentaux(@RequestBody MontagesExpérimentaux montagesExpérimentaux) {
+    public String addMontagesExpérimentaux(@RequestParam("activityName") String activityName, @RequestParam("module") String module, @RequestParam("filière") String filière, @RequestParam("nombreManip") int nombreManip, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(2);
+        try{
+            montagesExpérimentauxService.saveMontagesExpérimentaux(specificActivitySubType2Instance, activityName, module, filière, nombreManip, file);
+            return "A new Montages expérimentaux is added";
 
-        montagesExpérimentaux.setActivitySubType2(specificActivitySubType2Instance);
-        montagesExpérimentauxService.saveMontagesExpérimentaux(montagesExpérimentaux);
-        return "A new Montages expérimentaux is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Montages experimentaux";
+        }
+
+
     }
 
     @GetMapping("/montages-expérimentaux")

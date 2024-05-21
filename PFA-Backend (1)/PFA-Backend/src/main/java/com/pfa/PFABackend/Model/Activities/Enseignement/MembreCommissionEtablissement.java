@@ -18,11 +18,14 @@ public class MembreCommissionEtablissement {
     private double activityPoints = 1;
     @Column(name = "titre_commission")
     private String titreCommission;
-    @Enumerated(value = EnumType.STRING)
-    private TypeCommission typeCommission;
+
+
+    private String typeCommission;
 
     private String période;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

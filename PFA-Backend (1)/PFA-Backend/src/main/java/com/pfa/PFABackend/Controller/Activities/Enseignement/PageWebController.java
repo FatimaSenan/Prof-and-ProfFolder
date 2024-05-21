@@ -10,6 +10,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -23,12 +25,17 @@ public class PageWebController {
     private EntityManager entityManager;
 
     @PostMapping("/add-page-web")
-    public String addPageWeb(@RequestBody PageWeb pageWeb) {
+    public String addPageWeb(@RequestParam("activityName") String activityName, @RequestParam("lien") String lien) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(3);
 
-        pageWeb.setActivitySubType2(specificActivitySubType2Instance);
-        pageWebService.savePageWeb(pageWeb);
-        return "A new Page web is added";
+        try{
+            pageWebService.savePageWeb(specificActivitySubType2Instance, activityName, lien);
+            return "A new Page web is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add page web";
+        }
+
     }
 
     @GetMapping("/pages-webs")

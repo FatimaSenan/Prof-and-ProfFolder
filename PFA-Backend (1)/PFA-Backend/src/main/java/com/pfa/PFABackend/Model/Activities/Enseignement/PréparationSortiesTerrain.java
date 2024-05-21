@@ -18,13 +18,15 @@ public class PréparationSortiesTerrain {
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
-    @Enumerated(value = EnumType.STRING)
-    private Cadre cadre;
+    //@Enumerated(value = EnumType.STRING)
+    private String cadre;
 
     private int date;
     @Column(name = "nom_société")
     private String nomSociété;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

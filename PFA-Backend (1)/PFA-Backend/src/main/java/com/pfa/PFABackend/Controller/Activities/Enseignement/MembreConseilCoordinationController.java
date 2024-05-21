@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -22,12 +25,17 @@ public class MembreConseilCoordinationController {
     @PersistenceContext
     private EntityManager entityManager;
     @PostMapping("/add-membre-conseil-coordination")
-    public String addMembreConseilCoordination(@RequestBody MembreConseilCoordination membreConseilCoordination) {
+    public String addMembreConseilCoordination(@RequestParam("activityName") String activityName, @RequestParam("titreConseil") String titreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
 
-        membreConseilCoordination.setActivitySubType2(specificActivitySubType2Instance);
-        membreConseilCoordinationService.saveMembreConseilCoordination(membreConseilCoordination);
-        return "A new Membre Conseil Coordination is added";
+       try{
+           membreConseilCoordinationService.saveMembreConseilCoordination(specificActivitySubType2Instance, activityName, titreConseil, période, file);
+           return "A new Membre Conseil Coordination is added";
+       } catch(IOException e) {
+           e.printStackTrace();
+           return "Failed to add Membre Conseil Coordination ";
+       }
+
     }
 
     @GetMapping("/membre-conseils-coordinations")

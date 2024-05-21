@@ -20,6 +20,8 @@ public class MembreEluConseil {
 
     private String période;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

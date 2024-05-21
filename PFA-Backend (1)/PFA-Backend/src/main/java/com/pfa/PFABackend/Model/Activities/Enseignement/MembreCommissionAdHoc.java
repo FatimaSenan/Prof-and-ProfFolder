@@ -16,11 +16,13 @@ public class MembreCommissionAdHoc {
     private String activityName;
     @Column(name = "activity_points")
     private double activityPoints = 0.75;
-    @Column(name = "type_commission_ad_hoc")
-    private TypeCommissionAdHoc typeCommissionAdHoc;
+
+    private String typeCommissionAdHoc;
 
     private int année;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

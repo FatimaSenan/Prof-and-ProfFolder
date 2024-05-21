@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +27,18 @@ public class PetitsLivresController {
     private EntityManager entityManager;
 
     @PostMapping("/add-petit-livre")
-    public String addPetitLivre(@RequestBody PetitsLivres petitsLivres) {
+    public String addPetitLivre(@RequestParam("activityName") String activityName, @RequestParam("titreLivre") String titreLivre, @RequestParam("auteurs") String auteurs, @RequestParam("annéePublication") int annéePublication, @RequestParam("file") MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(2);
 
-        petitsLivres.setActivitySubType2(specificActivitySubType2Instance);
-        petitsLivresService.saveMPetitsLivres(petitsLivres);
-        return "A new Petit Livre is added";
+
+        try{
+            petitsLivresService.savePetitsLivres(specificActivitySubType2Instance, activityName, titreLivre, auteurs, annéePublication, file);
+            return "A new Petit Livre is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Petit Livre";
+        }
+
     }
 
     @GetMapping("/petits-livres")

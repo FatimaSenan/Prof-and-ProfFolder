@@ -1,16 +1,28 @@
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.MembreEluConseil;
+import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Repository.Activities.Enseignement.MembreEluConseilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class MembreEluConseilServiceImpl implements MembreEluConseilService{
     @Autowired
     private MembreEluConseilRepository membreEluConseilRepository;
+
+
     @Override
-    public void saveMembreEluConseil(MembreEluConseil membreEluConseil) {
+    public void saveMembreEluConseil(ActivitySubType2 activitySubType2, String activityName, String membreConseil, String période, MultipartFile file) throws IOException {
+        MembreEluConseil membreEluConseil = new MembreEluConseil();
+        membreEluConseil.setActivitySubType2(activitySubType2);
+        membreEluConseil.setActivityName(activityName);
+        membreEluConseil.setMembreConseil(membreConseil);
+        membreEluConseil.setPériode(période);
+        membreEluConseil.setJustification(file.getBytes());
         membreEluConseilRepository.save(membreEluConseil);
     }
 

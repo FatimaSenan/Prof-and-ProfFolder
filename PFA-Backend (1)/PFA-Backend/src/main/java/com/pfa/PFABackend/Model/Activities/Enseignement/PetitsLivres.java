@@ -26,6 +26,10 @@ public class PetitsLivres {
     @Column(name="année_publication")
     private  int annéePublication;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] justification;
+
     @OneToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;

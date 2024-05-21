@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -23,12 +26,17 @@ public class MembreEluConseilController {
     @PersistenceContext
     private EntityManager entityManager;
     @PostMapping("/add-membre-elu-conseil")
-    public String addMembreEluConseil(@RequestBody MembreEluConseil membreEluConseil) {
+    public String addMembreEluConseil(@RequestParam("activityName") String activityName, @RequestParam("membreConseil") String membreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
+        try{
+            membreEluConseilService.saveMembreEluConseil(specificActivitySubType2Instance, activityName, membreConseil, période, file);
+            return "A new Membre Elu Conseil is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Membre Elu Conseil";
+        }
 
-        membreEluConseil.setActivitySubType2(specificActivitySubType2Instance);
-        membreEluConseilService.saveMembreEluConseil(membreEluConseil);
-        return "A new EMembre Elu Conseil is added";
+
     }
 
     @GetMapping("/membre-elu-conseils")

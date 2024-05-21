@@ -24,9 +24,12 @@ public class EncadrementPFE {
     private int année;
 
     private String filière;
-    @Column(name = "type_encadrement")
-    private TypeEncadrement typeEncadrement;
 
+    private String typeEncadrement;
+
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

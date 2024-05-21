@@ -10,6 +10,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,12 +26,17 @@ public class MOOCController {
     private EntityManager entityManager;
 
     @PostMapping("/add-mooc")
-    public String addMooc(@RequestBody MOOC mooc) {
+    public String addMooc(@RequestParam("activityName") String activityName, @RequestParam("titreMooc") String titreMooc, @RequestParam("datePublication") int datePublication, @RequestParam("lien") String lien) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(3);
 
-        mooc.setActivitySubType2(specificActivitySubType2Instance);
-        moocService.saveMOOC(mooc);
-        return "A new MOOC is added";
+        try{
+            moocService.saveMOOC(specificActivitySubType2Instance, activityName, titreMooc, datePublication, lien);
+            return "A new MOOC is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add MOOC";
+        }
+
     }
 
     @GetMapping("/moocs")

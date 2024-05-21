@@ -29,6 +29,8 @@ public class CoordonateurModule {
     @Column(name = "années_responsabilités")
     private String annéesResposabilités;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

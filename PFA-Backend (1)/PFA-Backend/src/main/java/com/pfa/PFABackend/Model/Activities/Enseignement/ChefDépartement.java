@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.File;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,9 +29,12 @@ public class ChefDépartement {
     private String annéesResposabilité;
 
 
-
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
-
+   /* @OneToOne
+    @JoinColumn(name="file_id")
+    private File file;*/
 
 
     @OneToOne

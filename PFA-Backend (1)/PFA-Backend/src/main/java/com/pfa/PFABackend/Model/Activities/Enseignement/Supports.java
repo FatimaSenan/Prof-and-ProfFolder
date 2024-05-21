@@ -27,10 +27,12 @@ public class Supports {
 
     private int année;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "type_support")
-    private TypeSupport typeSupport;
 
+    @Column(name = "type_support")
+    private String typeSupport;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

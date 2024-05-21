@@ -22,6 +22,8 @@ public class Didacticiels {
 
     private int année;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

@@ -20,8 +20,10 @@ public class Manuel {
     @Column(name="filière_niveau")
     private String filièreNiveau;
     @Column(name="années_universitaires")
-    private int annéesUniversitaires;
+    private String annéesUniversitaires;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

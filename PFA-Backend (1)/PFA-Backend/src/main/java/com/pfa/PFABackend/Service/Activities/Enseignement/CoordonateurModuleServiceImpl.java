@@ -1,16 +1,32 @@
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.CoordonateurModule;
+import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Repository.Activities.Enseignement.CoordonateurModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class CoordonateurModuleServiceImpl implements CoordonateurModuleService{
     @Autowired
     private CoordonateurModuleRepository coordonateurModuleRepository;
+
+
     @Override
-    public void saveCoordonateurModule(CoordonateurModule coordonateurModule) {
+    public void saveCoordonateurModule(ActivitySubType2 activitySubType2, String activityName, String nomModule, String filière, String niveau, String departement, String etablissement, String annéesResponsabilités, MultipartFile file) throws IOException {
+        CoordonateurModule coordonateurModule = new CoordonateurModule();
+        coordonateurModule.setActivitySubType2(activitySubType2);
+        coordonateurModule.setActivityName(activityName);
+        coordonateurModule.setNomModule(nomModule);
+        coordonateurModule.setFilière(filière);
+        coordonateurModule.setNiveau(niveau);
+        coordonateurModule.setDepartement(departement);
+        coordonateurModule.setEtablissement(etablissement);
+        coordonateurModule.setAnnéesResposabilités(annéesResponsabilités);
+        coordonateurModule.setJustification(file.getBytes());
         coordonateurModuleRepository.save(coordonateurModule);
     }
 

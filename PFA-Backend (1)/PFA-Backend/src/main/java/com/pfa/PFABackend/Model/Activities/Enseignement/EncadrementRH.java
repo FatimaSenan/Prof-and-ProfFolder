@@ -30,6 +30,8 @@ public class EncadrementRH {
     @Column(name = "type_encadrement")
     private String typeEncadrement;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

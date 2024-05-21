@@ -10,6 +10,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -26,12 +29,17 @@ public class MembreCommissionEtablissementController {
     private EntityManager entityManager;
 
     @PostMapping("/add-membre-commission-etablissement")
-    public String addMembreCommissionEtablissement(@RequestBody MembreCommissionEtablissement membreCommissionEtablissement) {
+    public String addMembreCommissionEtablissement(@RequestParam("activityName") String activityName, @RequestParam("titreCommission") String titreCommission, @RequestParam("typeCommission") String typeCommission, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
 
-        membreCommissionEtablissement.setActivitySubType2(specificActivitySubType2Instance);
-        membreCommissionEtablissementService.saveMembreCommissionEtablissement(membreCommissionEtablissement);
-        return "A new membre commission etablissement  is added";
+      try{
+          membreCommissionEtablissementService.saveMembreCommissionEtablissement(specificActivitySubType2Instance, activityName, titreCommission, typeCommission, période, file);
+          return "A new membre commission etablissement  is added";
+      }catch(IOException e) {
+          e.printStackTrace();
+          return "Failed to add Membre Commission Etablissement";
+      }
+
     }
 
     @GetMapping("/membre-commissions-etablissement")

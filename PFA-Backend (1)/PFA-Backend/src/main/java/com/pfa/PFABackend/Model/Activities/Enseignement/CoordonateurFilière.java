@@ -26,6 +26,8 @@ public class CoordonateurFilière {
     @Column(name = "type_filière")
     private String typeFilière;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

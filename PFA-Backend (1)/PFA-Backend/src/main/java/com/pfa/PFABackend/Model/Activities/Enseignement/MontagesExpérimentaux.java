@@ -23,6 +23,8 @@ public class MontagesExpérimentaux {
     private int nombreManip;
 
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

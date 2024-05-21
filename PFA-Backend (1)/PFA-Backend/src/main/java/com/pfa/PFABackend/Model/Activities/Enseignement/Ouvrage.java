@@ -39,8 +39,9 @@ public class Ouvrage {
     @Column(name = "année_publication")
     private int annéePublication;
 
-    private String informations;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

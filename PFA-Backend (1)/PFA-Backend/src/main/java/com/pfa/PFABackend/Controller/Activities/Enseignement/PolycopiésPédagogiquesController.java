@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -22,12 +25,17 @@ public class PolycopiésPédagogiquesController {
 
 
     @PostMapping("/add-polycopié-pédagogique")
-    public String addPolycopiéPédagogique(@RequestBody PolycopiésPédagogiques polycopiésPédagogiques) {
+    public String addPolycopiéPédagogique(@RequestParam("activityName") String activityName, @RequestParam("module") String module, @RequestParam("filièreNiveau") String filièreNiveau, @RequestParam("annéesUniversitaires") String annéesUniversitaires, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(2);
 
-        polycopiésPédagogiques.setActivitySubType2(specificActivitySubType2Instance);
-        polycopiésPédagogiquesService.savePolycopiésPédagogiques(polycopiésPédagogiques);
-        return "A new Polycopié pédagigique is added";
+        try{
+            polycopiésPédagogiquesService.savePolycopiésPédagogiques(specificActivitySubType2Instance, activityName, module , filièreNiveau, annéesUniversitaires, file);
+            return "A new Polycopié pédagigique is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Polycopié pédagogique";
+        }
+
     }
 
     @GetMapping("/polycopiés-pédagigiques")

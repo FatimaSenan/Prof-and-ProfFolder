@@ -26,6 +26,8 @@ public class RapportStageVisiteTerrain {
 
     private String société;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @OneToOne

@@ -9,6 +9,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +28,17 @@ public class OuvrageController {
     private EntityManager entityManager;
 
     @PostMapping("/add-ouvrage")
-    public String addOuvrage(@RequestBody Ouvrage ouvrage ){
+    public String addOuvrage(@RequestParam("activityName") String activityName, @RequestParam("titreOuvrage") String titreOuvrage, @RequestParam("auteurs") String auteurs, @RequestParam("isbn") String isbn, @RequestParam("depotLegal") String depotLegal, @RequestParam("maisonEdition") String maisonEdition, @RequestParam("annéePublication") int annéePublication, @RequestParam("file") MultipartFile file){
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(1);
 
-        ouvrage.setActivitySubType2(specificActivitySubType2Instance);
-        ouvrageService.saveOuvrage(ouvrage);
-        return "A new Ouvrage is added";
+        try {
+            ouvrageService.saveOuvrage(specificActivitySubType2Instance, activityName,titreOuvrage, auteurs, isbn, depotLegal, maisonEdition, annéePublication, file);
+            return "A new Ouvrage is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Ouvrage";
+        }
+
     }
 
     @GetMapping("/ouvrages")

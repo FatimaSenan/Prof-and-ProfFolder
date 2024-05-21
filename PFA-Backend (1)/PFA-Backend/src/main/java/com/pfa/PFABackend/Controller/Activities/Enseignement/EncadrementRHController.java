@@ -10,6 +10,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -25,12 +28,17 @@ public class EncadrementRHController {
     private EntityManager entityManager;
 
     @PostMapping("/add-encadrement-RH")
-    public String addEncadrementRH(@RequestBody EncadrementRH encadrementRH) {
+    public String addEncadrementRH(@RequestParam("activityName")String activityName, @RequestParam("typeEncadrement") String typeEncadrement, @RequestParam("titre") String titre, @RequestParam("membres") String membres, @RequestParam("dateDébut") int dateDébut, @RequestParam("dateFin") int dateFin, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(6);
 
-        encadrementRH.setActivitySubType2(specificActivitySubType2Instance);
-        encadrementRHService.saveEncadrementRH(encadrementRH);
-        return "A new Encadrement RH is added";
+        try {
+            encadrementRHService.saveEncadrementRH(specificActivitySubType2Instance, activityName, typeEncadrement, titre,membres, dateDébut, dateFin, file);
+            return "A new Encadrement RH is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Encadrement RH";
+        }
+
     }
 
     @GetMapping("/encadrement-RH")

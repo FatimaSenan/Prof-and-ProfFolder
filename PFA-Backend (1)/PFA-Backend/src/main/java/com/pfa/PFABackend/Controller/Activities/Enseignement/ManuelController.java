@@ -9,6 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -24,12 +27,17 @@ public class ManuelController {
     private EntityManager entityManager;
 
     @PostMapping("/add-manuel")
-    public String addManuel(@RequestBody Manuel manuel) {
+    public String addManuel(@RequestParam("activityName") String activityName, @RequestParam("module") String module, @RequestParam("filièreNiveau") String filièreNiveau, @RequestParam("annéesUniversitaires") String annéesUniversitaires, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(1);
 
-        manuel.setActivitySubType2(specificActivitySubType2Instance);
-        manuelService.saveManuel(manuel);
-        return "A new manuel is added";
+        try {
+            manuelService.saveManuel(specificActivitySubType2Instance, activityName, module, filièreNiveau, annéesUniversitaires, file);
+            return "A new manuel is added";
+        }catch(IOException e){
+            e.printStackTrace();
+            return "Failed to add Manuel";
+        }
+
     }
 
     @GetMapping("/manuels")

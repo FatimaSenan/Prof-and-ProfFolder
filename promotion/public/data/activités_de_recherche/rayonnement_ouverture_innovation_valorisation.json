@@ -4,7 +4,19 @@
         "type": "Animation des structures d'interaction avec l'environnement socio-économique et organisation des manifestations scientifiques (le nom du candidat organisateur doit figurer sur le dépliant correspondant, à fournir)",
         "activités": [
             {"activité": "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre",
-             "informations": ["Nom conférence", "lien", "type (national/international)", "rôle(responsable, membre organisateur)", "date de conférence" 
+             "informations": [
+                {"name": "Nom conférence",
+                "itemType": "input"},
+                {"name": "lien",
+                "itemType": "input"},
+                {"name": "type (national/international)",
+                "itemType": "select",
+                "options": [{"value": "National"}, {"value": "International"}]},
+                {"name": "rôle",
+                "itemType": "select",
+                "options": [{"value": "Responsable"}, {"value": "Membre"}, {"value": "Membre organisateur"}]},
+                {"name": "date de conférence",
+                "itemType": "input"} 
             ]
             }]},
     {
@@ -12,7 +24,16 @@
         "activités": [
             {
                 "activité": "Projet de recherche et de développement avec le secteur privé",
-                "informations": ["Titre Projet", "cadre", "rôle (responsable, membre) "," année"
+                "informations": [
+                    {"name": "Titre Projet",
+                    "itemType": "input"},
+                    {"name": "cadre",
+                    "itemType": "input"},
+                    {"name": "rôle",
+                    "itemType": "select",
+                    "options": [{"value": "Responsable"}, {"value": "Membre"}]},
+                    {"name": "année",
+                    "itemType": "input"}
             ]
             }
         ]

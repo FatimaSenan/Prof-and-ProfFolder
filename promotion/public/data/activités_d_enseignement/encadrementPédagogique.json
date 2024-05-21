@@ -4,18 +4,27 @@
         "type": "Encadrement des projets et des mémoires de fin d'études (Tous les documents doivent être visés par le chef de l'établissement)",
         "activités": [
             {
-                "activité": "Mémoire de PFE Licence ou un diplôme équivalent",
-                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
-            },
-            {
-                "activité": "Mémoire de PFE DUT ou un diplôme équivalent",
-                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
-            },
-            {
-                "activité": "Mémoire de PFE du Master spécialisé ou TFE Ingénieur ou tout diplôme Bac+5 (sauf le mémoire du master)",
-                "informations": ["Titre PFE", "Étudiant(s)", "Année Universitaire", "Filière"]
+                "activité": "Mémoire de PFE",
+                "informations": 
+                [
+                    {"name": "Type d'encadrement",
+                    "name_database": "typeEncadrement",
+                    "itemType": "select",
+                    "options": [{"value": "Licence ou un diplôme équivalent"}, {"value": "DUT ou un diplôme équivalent"}, {"value": "Master spécialisé ou TFE Ingénieur ou tout diplôme Bac+5 (sauf le mémoire du master)"}]},
+                    {"name": "Titre PFE",
+                    "name_database": "titrePfe",
+                    "itemType": "input"},
+                    {"name": "Étudiant(s)",
+                    "name_database": "étudiants",
+                    "itemType": "input"},
+                    {"name": "Année Universitaire",
+                    "name_database": "année",
+                    "itemType": "input"},
+                    {"name": "Filière",
+                    "name_database": "filière",
+                    "itemType": "input"}
+                ]
             }
-            
         ]
     },
     {
@@ -23,7 +32,19 @@
         "activités": [
             {
                 "activité": "Rapport de stage de visite ou de terrain",
-                "informations": ["Titre Stage", "Cadre", "Année", "Société"]
+                "informations": [
+                    {"name": "Titre Stage",
+                    "name_database": "titreStage",
+                    "itemType": "input"},
+                    {"name": "Cadre",
+                    "name_database": "cadre",
+                    "itemType": "input"},
+                    {"name": "Année",
+                    "name_database": "année",
+                    "itemType": "input"},
+                    {"name": "Société",
+                    "name_database": "société",
+                    "itemType": "input"}]
             }
            
         ]
@@ -32,12 +53,25 @@
         "type": "Encadrement des ressources humaines",
         "activités": [
             {
-                "activité": "Formation de formateurs",
-                "informations": ["Titre", "Membres", "Date début", "Date fin"]
-            },
-            {
-                "activité": "Formation du Personnel administratif ou technique",
-                "informations": ["Titre", "Membres", "Date début", "Date fin"]
+                "activité": "Formation de formateurs ou du Personnel administratif ou technique",
+                "informations": 
+                [
+                    {"name": "Type encadrement",
+                    "name_database": "typeEncadrement",
+                    "itemType": "select",
+                    "options": [{"value": "formation de formateurs"}, {"value": "Formation du personnel administratif ou technique"}]},
+                    {"name": "Titre",
+                    "name_database": "titre",
+                    "itemType": "input"},
+                     {"name": "Membres",
+                     "name_database": "membres",
+                     "itemType": "input"},
+                      {"name": "Date début",
+                      "name_database": "dateDébut",
+                      "itemType": "input"},
+                       {"name": "Date fin",
+                       "name_database": "dateFin",
+                       "itemType": "input"}]
             }
            
         ]

@@ -4,24 +4,62 @@
         "type": " Les responsabilités pédagogiques (Attestation du chef d'établissement)",
         "activités": [
             {
-                "activité": "Coordonnateur d'une filière de licence fondamentale (non cumulable avec le chef de département )",
-                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
+                "activité": "Coordonnateur d'une filière",
+                "informations": 
+                [
+                    {"name": "Type de filière",
+                    "name_database": "typeFilière",
+                    "itemType": "select",
+                    "options":  [
+                        {"value": "licence fondamentale (non cumulable avec le chef de département )"},
+                         {"value": "Master ou cycle d'ingénieur ou autre cycle bac +5"},
+                         {"value": "licence professionnelle ou DUT"}
+                         ]},
+                {"name": "Nom de Filière",
+                "name_database": "nomFilière",
+                "itemType": "input"},
+                 {"name": "Établissement",
+                 "name_database": "etablissement",
+                 "itemType": "input"},
+                  {"name": "Années de responsabilité",
+                  "name_database": "annéesResponsabilités",
+                  "itemType": "input"}]
             },
-            {
-                "activité": "Coordonnateur d'une filière du Master ou cycle d'ingénieur ou autre cycle bac +5",
-                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
-            },
-            {
-                "activité": "Coordonnateur d'une filière de licence professionnelle ou DUT",
-                "informations": ["Nom Filière", "Établissement", "Années de responsabilité"]
-            },
+            
             {
                 "activité": "Coordonnateur d'un module (ou deux au maximum )",
-                "informations": ["Nom Module", "Filière" , "Niveau", "Département", "Établissement", "Années de responsabilité"]
+                "informations": [
+                    {"name": "Nom Module",
+                    "name_database": "nomModule",
+                    "itemType": "input"},
+                     {"name": "Filière",
+                     "name_database": "filière",
+                     "itemType": "input"} ,
+                      {"name": "Niveau",
+                      "name_database": "niveau",
+                      "itemType": "input"},
+                       {"name": "Département",
+                       "name_database": "departement",
+                       "itemType": "input"},
+                        {"name": "Établissement",
+                        "name_database": "etablissement",
+                        "itemType": "input"},
+                         {"name": "Années de responsabilité",
+                         "name_database": "annéesResponsabilités",
+                         "itemType": "input"}]
             },
             {
                 "activité": "Chef de département",
-                "informations": ["Nom Département", "Établissement", "Années de responsabilité"]
+                "informations": [
+                    {"name": "Nom Département",
+                    "name_database": "département",
+                    "itemType": "input"},
+                     {"name": "Établissement",
+                     "name_database": "établissement",
+                     "itemType": "input"},
+                      {"name": "Années de responsabilité",
+                      "name_database": "annéesResponsabilités",
+                      "itemType": "input"}]
             }
             
         ]
@@ -31,27 +69,92 @@
         "activités": [
             {
                 "activité": "Vice-doyen ( non cumulable avec commission permanente)",
-                "informations": ["Nom de la fonction (Directeur adjoint / vice doyen des affaires pédagogique ou Directeur adjoint / vice doyen des coopérations et de la recherche", "Établissement", "Années de responsabilité"]
+                "informations": [
+                {"name": "Nom de la fonction (Directeur adjoint / vice doyen des affaires pédagogique ou Directeur adjoint / vice doyen des coopérations et de la recherche",
+                "name_database": "nomFonction",
+                "itemType": "select",
+                "options": [
+                    {"value": "Directeur adjoint"},
+                    {"value": "vice doyen des affaires pédagogique"},
+                    {"value": "vice doyen des coopérations et de la recherche"}
+                    ]},
+                    {"name": "Établissement",
+                    "name_database": "établissement",
+                    "itemType": "input"},
+                    {"name": "Années de responsabilité",
+                    "name_database": "annéesResponsabilités",
+                    "itemType": "input"}
+                ]
             },
             {
                 "activité": "Membre élu du conseil d'établissement",
-                "informations": ["Membre de conseil (Établissement et ou Université)", "Période"]
+                "informations": [
+                    {"name": "Membre de conseil (Établissement et ou Université)",
+                    "name_database": "membreConseil",
+                    "itemType": "input"},
+                     {"name": "Période",
+                     "name_database": "période",
+                     "itemType": "input"}
+                    ]
             },
             {
                 "activité": "Membre d'une commission permanente de l'établissement",
-                "informations": ["Titre de la commission (Pédagogique / Recherche)", "Type de conseil (Etablissement / Université)", "Période"]
+                "informations": 
+                [
+                    {"name": "Titre de la commission (Pédagogique / Recherche)",
+                    "name_database": "titreCommission",
+                    "itemType": "select",
+                    "options": 
+                    [{"value": "pédagogique"},
+                     {"value": "recherche"}
+                     ]},
+                    {"name": "Type de conseil (Etablissement / Université)",
+                    "name_database": "typeCommission",
+                    "itemType": "select",
+                    "options": [
+                        {"value": "établissement"},
+                        {"value": "université"}
+                    ]},
+                    {"name": "Période",
+                    "name_database": "période",
+                    "itemType": "input"}]
             },
             {
                 "activité": "Membre du conseil de coordination",
-                "informations": ["Titre conseil de coordination", "Période"]
+                "informations": [
+                    {"name": "Titre conseil de coordination",
+                    "name_database": "titreConseil",
+                    "itemType": "input"},
+                    {"name": "Période",
+                    "name_database": "période",
+                    "itemType": "input"}
+                ]
             },
             {
                 "activité": "Membre d'une commission permanente du conseil de coordination",
-                "informations": ["Titre de la commission du conseil de coordination", "Période"]
+                "informations": [
+                    {"name": "Titre de la commission du conseil de coordination",
+                    "name_database": "titreConseil",
+                    "itemType": "input"},
+                    {"name": "Période",
+                    "name_database": "période",
+                    "itemType": "input"}]
             },
             {
                 "activité": "Membre d'une commission ad hoc",
-                "informations": ["Titre de la commission (Recrutement, Suivi des marchés, Evaluation institutionnelle, expertise)", "Année"]
+                "informations": [
+                    {"name": "Titre de la commission",
+                    "name_database": "typeCommissionAdHoc",
+                    "itemType": "select",
+                    "options": [
+                        {"value": "Recrutement"},
+                        {"value": "Suivi des marchés"},
+                        {"value": "Evaluation institutionnelle"},
+                        {"value": "expertise"}
+                    ]},
+                     {"name": "Année",
+                     "name_database": "année",
+                     "itemType": "input"}]
             }
             
         ]

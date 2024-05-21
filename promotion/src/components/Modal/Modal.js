@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle, Box } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function CustomModal( {children, open, setOpen}) {
+export default function CustomModal( {children, open, setOpen, handleFormSubmit}) {
   
    const useStyles = makeStyles((theme) => ({
     button: {
@@ -50,7 +50,9 @@ export default function CustomModal( {children, open, setOpen}) {
                 // className={classes.button}
                     variant="contained"
                     style={{ backgroundColor: "#A66253", color: "#0d0d0d", marginTop: "1rem", cursor: "pointer" }}
-                    onClick={handleClose}
+                    onClick={() =>{
+                      handleFormSubmit();
+                      handleClose();}}
                     >
                     Sauvegarder
                     </Button>

@@ -4,11 +4,41 @@
         "type": "Publication d'ouvrages en relation avec le domaine de l'enseignement",
         "activités": [
             {"activité": "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)",
-             "informations": ["Titre Ouvrage", "Auteur(s)", "ISBN", "Dépôt légal", "Maison d’édition", "Année de publication"
+             "informations": [
+                {"name": "Titre Ouvrage",
+                "name_database": "titreOuvrage",
+                "itemType": "input"},
+                {"name": "Auteur(s)",
+                "name_database": "auteurs",
+                "itemType": "input"},
+                {"name": "ISBN",
+                "name_database": "isbn",
+                "itemType": "input"},
+                {"name": "Dépôt légal",
+                "name_database": "depotLegal",
+                "itemType": "input"},
+                {"name": "Maison d’édition",
+                "name_database": "maisonEdition",
+                "itemType": "input"},
+                {"name": "Année de publication",
+                "name_database": "annéePublication",
+                "itemType": "input"}
              ]
             },
             {"activité": "Manuel ( exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)",
-             "informations": ["Module", "Filière(s)/ Niveau(x)","années universitaire"]
+             "informations":
+                [
+                    {"name": "Module",
+                    "name_database": "module",
+                    "itemType": "input"
+                    },
+                    {"name": "Filière(s)/ Niveau(x)",
+                    "name_database": "filièreNiveau",
+                    "itemType": "input"} ,
+                    {"name": "années universitaire",
+                    "name_database": "annéesUniversitaires",
+                    "itemType": "input"}
+                ]
             }
             
         ]
@@ -17,16 +47,61 @@
         "type": "Tous supports et procédés sélectionnés et traités à des fins d'utilisation didactique (Tous les documents doivent être visés par le chef de l'établissement)",
         "activités": [
             {"activité": "Polycopiés pédagogiques",
-             "informations": ["Module", "Filière(s)/ Niveau(x)","années universitaire"]
+             "informations": 
+                [{"name": "Module",
+                    "name_database": "module",
+                  "itemType": "input"
+                },
+                 {"name": "Filière(s)/ Niveau(x)",
+                 "name_database": "filièreNiveau",
+                  "itemType": "input"},
+                  {"name": "années universitaire",
+                  "name_database": "annéesUniversitaires",
+                   "itemType": "input"}
+                ]
             },
             {"activité": "Petits livres de méthodologie ou de didactique pour la lecture ou l'analyse",
-             "informations": ["Titre livre", "Auteurs", "Année de publication"]
+             "informations": 
+             [
+                {"name": "Titre livre",
+                "name_database": "titreLivre",
+                "itemType": "input"},
+                 {"name": "Auteurs",
+                 "name_database": "auteurs",
+                 "itemType": "input"},
+                  {"name": "Année de publication",
+                  "name_database": "annéePublication",
+                  "itemType": "input"}
+             ]
             },
             {"activité": "Montages expérimentaux",
-             "informations": ["Module", "Filière(s)", "Nombre de manips"]
+             "informations":
+              [
+                {"name": "Module",
+                "name_database": "module",
+                "itemType": "input"},
+                 {"name": "Filière(s)",
+                 "name_database": "filière",
+                 "itemType": "input"},
+                  {"name": "Nombre de manips",
+                  "name_database": "nombreManip",
+                  "itemType": "input"}
+              ]
             },
             {"activité": "Préparation de sorties de terrain",
-             "informations": ["Cadre (Module, stage, projet)", "Date de sortie", "Nom Société"]
+             "informations": 
+             [
+                {"name": "Cadre (Module, stage, projet)",
+                "name_database": "cadre",
+                "itemType": "select",
+                "options": [{"value": "Module"}, {"value": "Stage"}, {"value": "Projet"}]},
+                 {"name": "Date de sortie",
+                 "name_database": "date",
+                 "itemType": "input"},
+                 {"name": "Nom Société",
+                 "name_database": "nomSociété",
+                 "itemType": "input"}
+             ]
             }
 
             
@@ -35,20 +110,60 @@
     {
         "type": "Supports NTIC",
         "activités": [
-            {"activité": "Supports audiovisuels",
-             "informations": ["Support (titre)", "Type (Vidéo, audio, ..)", "Module", "Année"]
-            },
-            {"activité": "Supports électroniques",
-             "informations": ["Support (titre)", "Type (PDF, PPT, DOC, …)", "Module", "Année"]
-            },
+            {"activité": "Supports",
+             "informations": 
+             [
+                {"name": "Type du support(audiovisuels ou électronique)",
+                "name_database": "typeSupport",
+                "itemType": "select",
+                "options": [{"value": "audiovisuels"}, {"value": "électronique"}]
+                }
+                ,
+                {"name": "Support (titre)",
+                "name_database": "titre",
+                "itemType": "input"},
+                 {"name": "Type",
+                 "name_database": "type",
+                 "itemType": "input"},
+                  {"name": "Module",
+                  "name_database": "module",
+                  "itemType": "input"},
+                   {"name": "Année",
+                   "name_database": "année",
+                   "itemType": "input"}
+             ]},
             {"activité": "Didacticiels",
-             "informations": ["Support (titre)", "Module", "Année"]
+             "informations": 
+             [
+                {"name": "Support (titre)",
+                "name_database": "support",
+                "itemType": "input"},
+                 {"name": "Module",
+                 "name_database": "module",
+                 "itemType": "input"},
+                  {"name": "Année",
+                  "name_database": "année",
+                  "itemType": "input"}
+                ]
             },
             {"activité": "Page web à caractère pédagogique",
-             "informations": ["Lien"]
+             "informations": [
+                {"name": "Lien",
+                "name_database": "link",
+                "itemType": "input"}
+            ]
             },
             {"activité": "MOOC : Production de contenus en ligne",
-             "informations": ["Titre MOOC", "Date de publication", "Lien"]
+             "informations": [
+                {"name": "Titre MOOC",
+                "name_database": "titreMooc",
+                "itemType": "input"},
+                 {"name": "Date de publication",
+                 "name_database": "datePublication",
+                 "itemType": "input"},
+                  {"name": "Lien",
+                  "name_database": "lien",
+                  "itemType": "input"}]
             }
 
             

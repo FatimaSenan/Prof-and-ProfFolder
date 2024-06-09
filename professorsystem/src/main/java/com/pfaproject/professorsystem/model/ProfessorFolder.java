@@ -2,7 +2,6 @@ package com.pfaproject.professorsystem.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 @Entity
 public class ProfessorFolder {
     @Id
@@ -13,29 +12,92 @@ public class ProfessorFolder {
     @JoinColumn(name = "id_prof")
     private Professor professor;
     private String civility;
-    private Date birthDate;
 
-    private int phone;
+    public int getFolder_id() {
+        return folder_id;
+    }
+
+    public void setFolder_id(int folder_id) {
+        this.folder_id = folder_id;
+    }
+
+    private String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    private String drpp;
+    private String cne;
+
+
+    public String getDrpp() {
+        return drpp;
+    }
+
+    public String getCne() {
+        return cne;
+    }
+
+    public void setCne(String cne) {
+        this.cne = cne;
+    }
+
+    public void setDrpp(String drpp) {
+        this.drpp = drpp;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String email;
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    private String prenom;
+    private String birthDate;
+
+    private String phone;
     private String grade;
     private String profile;
     private String speciality;
     private String establishment;
-    private String phd_type;
-    /*@Lob
+    private String phdType;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] cv;
     @Lob
-    private byte[] application_demande;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] applicationDemande;
 
     @Lob
-    private byte[] PHD_diplome;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] phdDiplome;
     @Lob
-    private byte[] habilition_diplome;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] habilitationDiplome;
     @Lob
-    private byte[] arret_nomination;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] arretNomination;
     @Lob
-    private byte[] attestation;*/
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] attestation;
 
-    private String evaluation_status;
+    private String evaluationStatus;
 
 
     public String getCivility() {
@@ -46,19 +108,19 @@ public class ProfessorFolder {
         this.civility = civility;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -94,7 +156,7 @@ public class ProfessorFolder {
         this.establishment = establishment;
     }
 
-    /*public byte[] getCv() {
+   public byte[] getCv() {
         return cv;
     }
 
@@ -102,44 +164,44 @@ public class ProfessorFolder {
         this.cv = cv;
     }
 
-    public byte[] getApplication_demande() {
-        return application_demande;
+    public byte[] getApplicationDemande() {
+        return applicationDemande;
     }
 
-    public void setApplication_demande(byte[] application_demande) {
-        this.application_demande = application_demande;
-    }*/
-
-    public String getPhd_type() {
-        return phd_type;
+    public void setApplicationDemande(byte[] applicationDemande) {
+        this.applicationDemande = applicationDemande;
     }
 
-    public void setPhd_type(String Phd_type) {
-        this.phd_type = Phd_type;
+    public String getPhdType() {
+        return phdType;
     }
 
-    /*public byte[] getPHD_diplome() {
-        return PHD_diplome;
+    public void setPhdType(String PhdType) {
+        this.phdType = PhdType;
     }
 
-    public void setPHD_diplome(byte[] PHD_diplome) {
-        this.PHD_diplome = PHD_diplome;
+    public byte[] getPhdDiplome() {
+        return phdDiplome;
     }
 
-    public byte[] getHabilition_diplome() {
-        return habilition_diplome;
+    public void setPhdDiplome(byte[] phdDiplome) {
+        this.phdDiplome = phdDiplome;
     }
 
-    public void setHabilition_diplome(byte[] habilition_diplome) {
-        this.habilition_diplome = habilition_diplome;
+    public byte[] getHabilitationDiplome() {
+        return habilitationDiplome;
     }
 
-    public byte[] getArret_nomination() {
-        return arret_nomination;
+    public void setHabilitationDiplome(byte[] habilitationDiplome) {
+        this.habilitationDiplome = habilitationDiplome;
     }
 
-    public void setArret_nomination(byte[] arret_nomination) {
-        this.arret_nomination = arret_nomination;
+    public byte[] getArretNomination() {
+        return arretNomination;
+    }
+
+    public void setArretNomination(byte[] arretNomination) {
+        this.arretNomination = arretNomination;
     }
 
     public byte[] getAttestation() {
@@ -148,14 +210,14 @@ public class ProfessorFolder {
 
     public void setAttestation(byte[] attestation) {
         this.attestation = attestation;
-    }*/
-
-    public String getEvaluation_status() {
-        return evaluation_status;
     }
 
-    public void setEvaluation_status(String evaluation_status) {
-        this.evaluation_status = evaluation_status;
+    public String getEvaluationStatus() {
+        return evaluationStatus;
+    }
+
+    public void setEvaluationStatus(String evaluationStatus) {
+        this.evaluationStatus = evaluationStatus;
     }
 
     // Getter pour professor

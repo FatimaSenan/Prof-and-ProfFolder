@@ -22,4 +22,8 @@ public class ProfessorServiceImp implements ProfessorService {
     public List<Professor> getAllProfessors() {
         return professorRepository.findAll();
     }
+    @Override
+    public Professor getProfessorById(int professorId) {
+        return professorRepository.findById(professorId).orElse(null);
+    }
 }

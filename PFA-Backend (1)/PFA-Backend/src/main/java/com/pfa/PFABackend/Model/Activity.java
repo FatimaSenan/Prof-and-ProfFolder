@@ -11,29 +11,27 @@ import java.util.HashSet;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_activity;
+    private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "activity_type_id", nullable = false)
-    private ActivityType activityType;
 
-    @ManyToOne
-    @JoinColumn(name = "activity_subtype1_id", nullable = false)
-    private ActivitySubType1 activitySubType1;
+    @Column(name = "activity_name")
+    private String activityName;
 
-    @ManyToOne
-    @JoinColumn(name = "activity_subtype2_id", nullable = false)
-    private ActivitySubType2 activitySubType2;
+
+
 
    /* @ManyToMany
     @JoinColumn(name= "id_prof", nullable = false)
     private Set<Professor> profs = new HashSet<>();*/
 
 
-    @Column(name="activity_name")
-    private String activityName;
 
-    @Column(name="activity_points")
-    private int activityPoints;
+    @ManyToOne
+    @JoinColumn(name="activity_subtype2_id")
+    private ActivitySubType2 activitySubType2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

@@ -1,0 +1,49 @@
+package com.pfa.PFABackend.Service.Activities.Recherche;
+
+import com.pfa.PFABackend.Model.Activities.Recherche.Brevet;
+import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.User;
+import com.pfa.PFABackend.Repository.Activities.Recherche.BrevetRepository;
+import com.pfa.PFABackend.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+@Service
+public class BrevetServiceImpl implements BrevetService{
+
+    @Autowired
+    private BrevetRepository brevetRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+    @Override
+    public void saveBrevet(ActivitySubType2 activitySubType2, String activityName, String auteur, String titre, String doi, String journalRevue, String isbn, int année, int pages, String indexation, MultipartFile file) throws IOException {
+        Brevet brevet = new Brevet();
+        brevet.setActivitySubType2(activitySubType2);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        brevet.setActivityName(activityName);
+        brevet.setAuteur(auteur);
+        brevet.setTitre(titre);
+        brevet.setDoi(doi);
+        brevet.setJournaleRevue(journalRevue);
+        brevet.setIsbn(isbn);
+        brevet.setAnnée(année);
+        brevet.setPages(pages);
+        brevet.setIndexation(indexation);
+        brevet.setJustification(file.getBytes());
+        brevet.setUser(user);
+        brevetRepository.save(brevet);
+
+    }
+
+    @Override
+    public Iterable<Brevet> getBrevets() {
+        return brevetRepository.findAll();
+    }
+}

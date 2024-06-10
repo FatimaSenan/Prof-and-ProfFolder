@@ -8,6 +8,7 @@ import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class PageWebController {
     private EntityManager entityManager;
 
     @PostMapping("/add-page-web")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addPageWeb(@RequestParam("activityName") String activityName, @RequestParam("lien") String lien) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(3);
 

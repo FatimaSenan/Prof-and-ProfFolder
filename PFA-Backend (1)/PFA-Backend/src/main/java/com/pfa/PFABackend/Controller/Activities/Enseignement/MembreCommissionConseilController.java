@@ -8,6 +8,7 @@ import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ public class MembreCommissionConseilController {
     private EntityManager entityManager;
 
     @PostMapping("/add-membre-commission-conseil")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addMembreCommissionConseil(@RequestParam("ActivityName") String activityName, @RequestParam("titreConseil") String titreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
         try{

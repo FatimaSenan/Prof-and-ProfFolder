@@ -8,6 +8,7 @@ import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class MOOCController {
     private EntityManager entityManager;
 
     @PostMapping("/add-mooc")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addMooc(@RequestParam("activityName") String activityName, @RequestParam("titreMooc") String titreMooc, @RequestParam("datePublication") int datePublication, @RequestParam("lien") String lien) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(3);
 

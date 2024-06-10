@@ -18,8 +18,8 @@ public class ActivitySubType1 {
     @Column(name="subtype_points")
     private int subTypePoints;
 
-    @OneToMany(mappedBy = "activitySubType1")
-    private Set<Activity> activities = new HashSet<>();
+  /* @OneToMany(mappedBy = "activitySubType1")
+    private Set<Activity> activities = new HashSet<>();*/
 
     @ManyToOne
     @JoinColumn(name = "activity_type_id")

@@ -9,6 +9,7 @@ import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class EncadrementRHController {
     private EntityManager entityManager;
 
     @PostMapping("/add-encadrement-RH")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addEncadrementRH(@RequestParam("activityName")String activityName, @RequestParam("typeEncadrement") String typeEncadrement, @RequestParam("titre") String titre, @RequestParam("membres") String membres, @RequestParam("dateDébut") int dateDébut, @RequestParam("dateFin") int dateFin, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(6);
 

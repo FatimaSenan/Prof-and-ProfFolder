@@ -1,6 +1,7 @@
 package com.pfa.PFABackend.Model;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.*;
+import com.pfa.PFABackend.Model.Activities.Recherche.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,68 +31,95 @@ public class ActivitySubType2 {
     @JoinColumn(name = "activity_sub_type1_id")
     private ActivitySubType1 activitySubType1;
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private Ouvrage ouvrage;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<Ouvrage> ouvrages = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private Manuel manuel ;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<Manuel> manuels = new HashSet<>() ;
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private PolycopiésPédagogiques polycopiésPédagogiques;
-    @OneToOne(mappedBy = "activitySubType2")
-    private PetitsLivres petitsLivres;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PolycopiésPédagogiques> polycopiésPédagogiques = new HashSet<>();
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PetitsLivres> petitsLivres = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MontagesExpérimentaux montagesExpérimentaux;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MontagesExpérimentaux> montagesExpérimentaux = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private PréparationSortiesTerrain préparationSortiesTerrains;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PréparationSortiesTerrain> préparationSortiesTerrains = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private Supports supports;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<Supports> supports = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private Didacticiels didacticiels;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<Didacticiels> didacticiels = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private PageWeb pageWeb;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PageWeb> pageWebs = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MOOC moocs;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MOOC> moocs = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private EncadrementPFE encadrementsPFE;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<EncadrementPFE> encadrementsPFE = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private RapportStageVisiteTerrain rapportStageVisiteTerrain;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<RapportStageVisiteTerrain> rapportStageVisiteTerrain = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private EncadrementRH encadrementRH;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<EncadrementRH> encadrementRH = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private CoordonateurFilière coordonateurFilière;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<CoordonateurFilière> coordonateurFilière = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private CoordonateurModule coordonateurModule;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<CoordonateurModule> coordonateurModule = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private ChefDépartement chefDépartement;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<ChefDépartement> chefDépartement = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private ViceDoyen viceDoyens;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<ViceDoyen> viceDoyens = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MembreEluConseil membreEluConseil;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MembreEluConseil> membreEluConseil = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MembreCommissionEtablissement membreCommissionEtablissement;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MembreCommissionEtablissement> membreCommissionEtablissement = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MembreConseilCoordination membreConseilCoordination;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MembreConseilCoordination> membreConseilCoordination = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MembreCommissionConseil membreCommissionConseil;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MembreCommissionConseil> membreCommissionConseil = new HashSet<>();
 
-    @OneToOne(mappedBy = "activitySubType2")
-    private MembreCommissionAdHoc membreCommissionAdHoc;
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<MembreCommissionAdHoc> membreCommissionAdHoc = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<ChapitreOuvrage> chapitreOuvrage = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<CongrèsConférencesPubliées> congrèsConférencesPubliées = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<CongrèsConférencesNonPubliées> congrèsConférencesNonPubliées = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<DoctoratsEncadrés> doctoratsEncadrés = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<EncadrementMémoiresMaster> encadrementMémoiresMaster = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<OuvrageSpecialisé> ouvrageSpecialisé = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<ParticipationthèseDoctorat> participationthèseDoctorat = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PublicationRevuesScientifiques> publicationRevuesScientifiques = new HashSet<>();
+
+    @OneToMany(mappedBy = "activitySubType2")
+    private Set<PublicationsRevuesIndexées> publicationsRevuesIndexées = new HashSet<>();
 }

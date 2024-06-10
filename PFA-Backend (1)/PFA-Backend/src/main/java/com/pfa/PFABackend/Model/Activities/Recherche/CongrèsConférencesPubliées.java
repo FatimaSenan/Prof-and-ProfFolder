@@ -1,6 +1,7 @@
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
 import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -34,7 +35,11 @@ public class CongrèsConférencesPubliées {
 
     private byte[] justification;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

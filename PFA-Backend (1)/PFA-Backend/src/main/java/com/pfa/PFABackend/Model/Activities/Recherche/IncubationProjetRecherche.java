@@ -1,40 +1,39 @@
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
 import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
-public class OuvrageRecherche {
+public class IncubationProjetRecherche {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "activity_name")
     private String activityName;
-
     @Column(name = "activity_points")
-    private double activityPoints;
+    private double activityPoints =2;
 
+    private String projet;
 
-    private String titre;
+    private String cadre;
 
-    private String auteurs;
+    private String role;
 
-    private String isbn;
+    private String années;
 
-    @Column(name = "depot_legal")
-    private String depotLegal;
-
-    private int date;
-
-    private String publicateur;
-
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

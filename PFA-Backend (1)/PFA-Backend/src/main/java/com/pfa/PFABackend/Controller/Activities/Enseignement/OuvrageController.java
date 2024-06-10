@@ -8,6 +8,7 @@ import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +29,7 @@ public class OuvrageController {
     private EntityManager entityManager;
 
     @PostMapping("/add-ouvrage")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addOuvrage(@RequestParam("activityName") String activityName, @RequestParam("titreOuvrage") String titreOuvrage, @RequestParam("auteurs") String auteurs, @RequestParam("isbn") String isbn, @RequestParam("depotLegal") String depotLegal, @RequestParam("maisonEdition") String maisonEdition, @RequestParam("annéePublication") int annéePublication, @RequestParam("file") MultipartFile file){
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(1);
 

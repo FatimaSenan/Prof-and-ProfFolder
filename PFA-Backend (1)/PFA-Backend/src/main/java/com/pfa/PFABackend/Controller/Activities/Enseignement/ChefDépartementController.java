@@ -10,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +33,7 @@ public class ChefDépartementController {
 
 
     @PostMapping("/add-chef-departement")
+    @PreAuthorize("hasRole('PROFESSOR')") // Ensure the user has the correct role
     public String addChefDépartement(@RequestParam("activityName") String activityName, @RequestParam("département") String département,@RequestParam("établissement") String établissement,@RequestParam("annéesResponsabilités") String annéesResponsabilité,@RequestParam("file")MultipartFile file){
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(7);
         try{

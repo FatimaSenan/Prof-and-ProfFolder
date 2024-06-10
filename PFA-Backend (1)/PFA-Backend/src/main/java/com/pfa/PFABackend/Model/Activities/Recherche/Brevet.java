@@ -1,0 +1,48 @@
+package com.pfa.PFABackend.Model.Activities.Recherche;
+
+import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.User;
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Data
+public class Brevet {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "activity_name")
+    private String activityName;
+    @Column(name = "activity_points")
+    private double activityPoints =2;
+
+    private String auteur;
+
+    private String titre;
+
+    private String doi;
+
+    @Column(name = "journal_revue")
+    private String journaleRevue;
+
+    private String isbn;
+
+    private int année;
+
+    private int pages;
+
+    private String indexation;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] justification;
+
+    @ManyToOne
+    @JoinColumn(name="activity_subtype2_id")
+    private ActivitySubType2 activitySubType2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+}

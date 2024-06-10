@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Model.File;
+import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -37,9 +38,13 @@ public class ChefDépartement {
     private File file;*/
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
 

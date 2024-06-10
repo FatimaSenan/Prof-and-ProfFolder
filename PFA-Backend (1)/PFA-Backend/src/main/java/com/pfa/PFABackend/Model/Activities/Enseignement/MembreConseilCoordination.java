@@ -1,6 +1,7 @@
 package com.pfa.PFABackend.Model.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.ActivitySubType2;
+import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,4 +28,8 @@ public class MembreConseilCoordination {
     @OneToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }

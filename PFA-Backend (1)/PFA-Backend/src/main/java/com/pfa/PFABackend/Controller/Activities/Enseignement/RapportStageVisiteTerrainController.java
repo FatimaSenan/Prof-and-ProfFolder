@@ -6,6 +6,7 @@ import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Service.Activities.Enseignement.RapportStageVisiteTerrainService;
 import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ public class RapportStageVisiteTerrainController {
     private ActivitySubType2Service activitySubType2Service; // Inject ActivitySubType2 service
 
     @PostMapping("/add-rapport-stage-visite-terrain")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addRapportVisiteTerrain(@RequestParam("activityName") String activityName, @RequestParam("titreStage") String titreStage, @RequestParam("cadre") String cadre, @RequestParam("année") int année, @RequestParam("société") String société, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(5);
 

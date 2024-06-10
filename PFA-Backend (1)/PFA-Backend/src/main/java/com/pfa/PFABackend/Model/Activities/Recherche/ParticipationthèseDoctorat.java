@@ -22,7 +22,6 @@ public class ParticipationthèseDoctorat {
     private String typeParticipation;
 
 
-    private  String role;
 
     private String sujet;
 

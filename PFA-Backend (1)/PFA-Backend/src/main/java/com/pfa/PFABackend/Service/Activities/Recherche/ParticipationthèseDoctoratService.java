@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface ParticipationthèseDoctoratService {
-    public void saveParticipationthèseDoctorat(ActivitySubType2 activitySubType2, String activityName, String sujetThèse, String role, String doctorant, String date, String université, MultipartFile file) throws IOException;
+    public void saveParticipationthèseDoctorat(ActivitySubType2 activitySubType2, String activityName, String sujetThèse, String doctorant, String date, String université, MultipartFile file) throws IOException;
 
     public Iterable<ParticipationthèseDoctorat> getParticipationthèseDoctorat();
 }

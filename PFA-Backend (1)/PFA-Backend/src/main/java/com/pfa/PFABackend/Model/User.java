@@ -30,6 +30,9 @@ public class User implements UserDetails {
 
     private String role;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ProfessorFolder professorFolder;
+
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChefDépartement> chefDepartementList = new ArrayList<>();*/
 

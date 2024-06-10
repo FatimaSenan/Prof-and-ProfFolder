@@ -25,7 +25,7 @@ public class ParticipationthèseDoctoratController {
     public String addParticipationthèseDoctorat(@RequestParam("activityName") String activityName,@RequestParam("sujetThèse") String sujetThèse,@RequestParam("role") String role,@RequestParam("doctorant") String doctorant,@RequestParam("date") String date,@RequestParam("université") String université,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(15);
-            participationthèseDoctoratService.saveParticipationthèseDoctorat(activitySubType2Instance, activityName, sujetThèse, role, doctorant, date, université, file);
+            participationthèseDoctoratService.saveParticipationthèseDoctorat(activitySubType2Instance, activityName, sujetThèse, doctorant, date, université, file);
             return " A new Participation thèse Doctorat is added";
         }catch(IOException e) {
             e.printStackTrace();

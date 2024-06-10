@@ -20,7 +20,7 @@ public class ParticipationthèseDoctoratServiceImpl implements Participationthè
     @Autowired
     private UserRepository userRepository;
     @Override
-    public void saveParticipationthèseDoctorat(ActivitySubType2 activitySubType2, String activityName, String sujetThèse, String role, String doctorant, String date, String université, MultipartFile file) throws IOException {
+    public void saveParticipationthèseDoctorat(ActivitySubType2 activitySubType2, String activityName, String sujetThèse, String doctorant, String date, String université, MultipartFile file) throws IOException {
         ParticipationthèseDoctorat participationthèseDoctorat = new ParticipationthèseDoctorat();
         participationthèseDoctorat.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -29,7 +29,7 @@ public class ParticipationthèseDoctoratServiceImpl implements Participationthè
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
         participationthèseDoctorat.setActivityName(activityName);
         participationthèseDoctorat.setSujet(sujetThèse);
-        participationthèseDoctorat.setRole(role);
+        //participationthèseDoctorat.setRole(role);
         participationthèseDoctorat.setDoctorant(doctorant);
         participationthèseDoctorat.setDate(date);
         participationthèseDoctorat.setUniversité(université);

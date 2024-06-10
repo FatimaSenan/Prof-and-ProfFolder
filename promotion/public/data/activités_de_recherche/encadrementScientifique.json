@@ -7,22 +7,30 @@
              "informations": 
              [
                 {"name": "Status",
+                "name_database": "status",
                 "itemType": "select",
                 "options": [{"value": "Soutenus"},{"value": "En cours de préparation"}]},
 
                 {"name": "Date 1 ère Inscription",
+                "name_database": "date_inscription",
                 "itemType": "input"},
-                 {"name": "sujet",
+                 {"name": "Sujet",
+                 "name_database": "sujet",
                  "itemType": "input"},
                  {"name": "Formation doctorale",
+                 "name_database": "formation_doctorale",
                  "itemType": "input"},
                   {"name": "Laboratoire",
+                  "name_database": "laboratoire",
                   "itemType": "input"},
                   {"name": "Doctorant",
+                  "name_database": "doctorant",
                   "itemType": "input"},
                   {"name": "Directeur de thèse",
+                  "name_database": "directeur_these",
                   "itemType": "input"},
                   {"name": "Date de soutenance",
+                  "name_database": "date_soutenance",
                   "itemType": "input"}
                 ]
             }
@@ -36,12 +44,16 @@
                 "activité": "Encadrement des mémoires de Master",
                 "informations": [
                     {"name": "Sujet Master",
+                    "name_database": "sujet",
                     "itemType": "input"},
                     {"name": "Étudiant(s)",
+                    "name_database": "étudiants",
                     "itemType": "input"},
                     {"name": "Année",
+                    "name_database": "année",
                     "itemType": "input"},
                     {"name": "Encadrant",
+                    "name_database": "encadrant",
                     "itemType": "input"} ]
             }
         ]
@@ -53,15 +65,20 @@
                 "activité": "Participaction à thèse doctorat",
                 "informations": [
                     {"name": "Type de participation",
+                    "name_database": "type_participation",
                     "itemType": "select",
                     "options":[{"value": "Président"}, {"value": "Rapporteur"}, {"value": "Membre"}]},
                     {"name": "Sujet de thèse ",
+                    "name_database": "sujet",
                     "itemType": "input"},
                     {"name": "Doctorant",
+                    "name_database": "doctorant",
                     "itemType": "input"},
                     {"name": "Date",
+                    "name_database": "date",
                     "itemType": "input"},
                     {"name": "Université",
+                    "name_database": "université",
                     "itemType": "input"}]
             }
         ]

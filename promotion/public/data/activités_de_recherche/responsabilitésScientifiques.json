@@ -6,25 +6,26 @@
             {"activité": "Responsable ou membre d'une structure de recherche accréditée ou d'un pole de compétence(cumulable)",
              "informations": [
                 {"name": "Domaine d'expertise",
+                "name_database": "domaine_expertise",
                 "itemType": "select",
                 "options": [{"value": "Structure de recherche"}, {"value": "Pole de compétences"}]},
                 {"name": "Résponsabilité",
+                "name_database": "résponsabilité",
                 "itemType": "select",
                 "options": [{"value": "Responsable"}, {"value": "Membre"}]},
-                {"name": "Année de début",
-                "itemType": "input"},
-                {"name": "Année de fin",
+                {"name": "Années",
+                "name_database": "années",
                 "itemType": "input"}]
             },
            
             {"activité": "Association pour la connaissance",
              "informations": [
                 {"name": "Résponsabilité",
+                "name_database": "responsabilité",
                 "itemType": "select",
                 "options": [{"value": "Président d’une association"}, {"value": "membre du bureau"}]},
-                {"name": "Année de début",
-                "itemType": "input"},
-                {"name": "Année de fin",
+                {"name": "Années",
+                "name_database": "années",
                 "itemType": "input"}]
             }
             
@@ -37,18 +38,21 @@
                 "activité": "Projets ou contrats de recherche au niveau national ou international ou les deux",
                 "informations": [
                     {"name": "Titre de projet",
+                    "name_database": "titre_projet",
                     "itemType": "input"},
                     {"name": "Responsabilité",
+                    "name_database": "responsabilité",
                     "itemType": "select",
                     "options": [{"value": "Responsable"}, {"value": "Membre"}]},
                     {"name": "Cadre de projet",
+                    "name_database": "cadre_projet",
                     "itemType": "input"},
                     {"name": "Type",
+                    "name_database": "type",
                     "itemType": "select",
                     "options": [{"value": "National"}, {"value": "International"}]},
-                    {"name": "Année de début",
-                    "itemType": "input"},
-                    {"name": "Année de fin",
+                    {"name": "Période",
+                    "name_database": "période",
                     "itemType": "input"}]
             }
         ]
@@ -60,23 +64,30 @@
                 "activité": "Editeur, membre ou référé d'un journal ou revue scientifique",
                 "informations": [
                     {"name": "Journal/Revue",
+                    "name_database": "journal_revue",
                     "itemType": "input"},
                     {"name": "ISBN/ISSN",
+                    "name_database": "isbn_issn",
                     "itemType": "input"},
                     {"name": "Role",
+                    "name_database": "role",
                     "itemType": "select",
                     "options": [{"value": "Editeur"}, {"value": "Membre éditorial"}, {"value": "Référé"}]},
                     {"name": "Année",
+                    "name_database": "année",
                     "itemType": "input"}]
             },
             {
                 "activité": "Expertise non rémunérée de projet de recherche scientifique",
                 "informations": [
                     {"name": "Projet",
+                    "name_database": "projet",
                     "itemType": "input"},
-                    {"name": "Nature",
+                    {"name": "Nature d'éxpertise",
+                    "name_database": "nature_expertise",
                     "itemType": "input"},
                     {"name": "Année",
+                    "name_database": "année",
                     "itemType": "input"}]
             }
         ]

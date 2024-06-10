@@ -6,16 +6,21 @@
             {"activité": "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre",
              "informations": [
                 {"name": "Nom conférence",
+                "name_database": "nom_conference",
                 "itemType": "input"},
-                {"name": "lien",
+                {"name": "Lien",
+                "name_database": "lien",
                 "itemType": "input"},
-                {"name": "type (national/international)",
+                {"name": "Type (national/international)",
+                "name_database": "type",
                 "itemType": "select",
                 "options": [{"value": "National"}, {"value": "International"}]},
-                {"name": "rôle",
+                {"name": "Rôle",
+                "name_database": "role",
                 "itemType": "select",
                 "options": [{"value": "Responsable"}, {"value": "Membre"}, {"value": "Membre organisateur"}]},
-                {"name": "date de conférence",
+                {"name": "Date de conférence",
+                "name_database": "date_conference",
                 "itemType": "input"} 
             ]
             }]},
@@ -26,13 +31,17 @@
                 "activité": "Projet de recherche et de développement avec le secteur privé",
                 "informations": [
                     {"name": "Titre Projet",
+                    "name_database": "titre_projet",
                     "itemType": "input"},
-                    {"name": "cadre",
+                    {"name": "Cadre",
+                    "name_database": "cadre",
                     "itemType": "input"},
-                    {"name": "rôle",
+                    {"name": "Rôle",
+                    "name_database": "role",
                     "itemType": "select",
                     "options": [{"value": "Responsable"}, {"value": "Membre"}]},
-                    {"name": "année",
+                    {"name": "Année",
+                    "name_database": "année",
                     "itemType": "input"}
             ]
             }

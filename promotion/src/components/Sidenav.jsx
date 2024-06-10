@@ -19,6 +19,8 @@ import { IoMdSettings } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../appStore';
+import UserService from './Professor/service/UsersService';
+import React from 'react';
 
 
 
@@ -81,7 +83,26 @@ export default function Sidenav() {
  // const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   const open= useAppStore((state)=> state.dopen);
+
+  const isAuthenticated = UserService.isAuthenticated();
+
+  const handleLogout = () => {
+    const confirmDelete = window.confirm('Are you sure you want to logout this user?');
+    if (confirmDelete) {
+        UserService.logout();
+    }
+};
  
   return (
     <>
@@ -97,7 +118,7 @@ export default function Sidenav() {
         <Divider />
         <List sx={{color:"#0D0D0D"}}>
           
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/')}} >
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/acceuil')}} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -222,7 +243,7 @@ export default function Sidenav() {
                 >
                   <RiLogoutCircleLine color="#0D0D0D" />
                 </ListItemIcon>
-                <ListItemText primary="Déconnexion" sx={{opacity:open ? 1:0}} />
+                {isAuthenticated && <ListItemText primary="Déconnexion" sx={{opacity:open ? 1:0}} onClick={handleLogout}/>}
               </ListItemButton>
             </ListItem>
       </Drawer>

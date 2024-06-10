@@ -17,8 +17,9 @@ export default function ChoiceCardsContainer() {
           m: 1,
         },
       }}>
-        
-        <ChoiceCard title="Dossier Administratif" icon="dossier"/>
+        <Link to="/dossier_administratif" style={{ textDecoration: 'none' }}>
+           <ChoiceCard title="Dossier Administratif" icon="dossier"/>
+        </Link>
         <Link to="/menu_grille" style={{ textDecoration: 'none' }}>
            <ChoiceCard title="Grille d'évaluation" icon="evaluation" />
         </Link>

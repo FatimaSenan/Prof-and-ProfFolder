@@ -7,9 +7,9 @@ export default function ProfileContainer(){
         <div className="profile-container">
            
            <ProfileImageSection/>
-           <PersonalData typeData="Nom et Prénom" profData="NomProf Prénom Prof"/>
-           <PersonalData typeData="Adresse e-mail" profData="adressProf@ump.ac.ma"/>
-           <PersonalData typeData="Date de naissance" profData="JJ/MM/AAAA"/>
+           <PersonalData typeData="Nom" profData="lastname"/>
+           <PersonalData typeData="Prénom" profData="firstname"/>
+           <PersonalData typeData="Email" profData="email"/>
            <PersonalData typeData="Cadre" profData=""/>
            <PersonalData typeData="Grade" profData="gradeProf"/>
         </div>

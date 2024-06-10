@@ -1,0 +1,278 @@
+/* Container for the entire form */
+.professor-form-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for the form grids */
+.grid_container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    margin: auto;
+    border-radius: 9px;
+    padding: 60px 25px 80px; /* Top, left, right, bottom padding */
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Individual grid items */
+.personal-info,
+.professional-info,
+.upload-container {
+    flex: 1; /* Each grid takes equal space */
+    padding: 15px; /* Padding inside each grid */
+    height: 100%;
+     /* Ajout de la bordure inférieure */
+    margin-bottom: 20px !important ;
+}
+/* Styling for all text within grid items */
+.personal-info .text,
+.professional-info .text,
+.upload-container .text {
+    color: #C38370; /* Greenish color */
+    font-size: 20px;
+    font-weight: 200px;
+    position: relative;
+    margin-bottom: 30px;
+    
+}
+.personal-info  .underline,
+.professional-info  .underline,
+.upload-container .underline{
+    width: 50%;
+    height: 4px; /* Ajustez la hauteur selon votre préférence */
+    background: #C38370;
+    border-radius: 2px;
+    position: absolute; /* Positionnement absolu */
+    bottom: -2px; /* Pour placer l'underline juste sous le texte */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Styling for the label container */
+.label-container {
+    margin-bottom: 10px; /* Spacing between label and button */
+  }
+  
+  /* Styling for the label */
+  .label {
+    color: gray;
+    font-size: 20px;
+    font-weight: 500;
+    word-wrap: break-word; /* Prevents wrapping to the next line */
+    margin-bottom: 10px; /* Espace sous le label */
+
+  }
+  .upload-container {
+    display: flex;
+    flex-direction: column; /* Disposition en colonne pour placer les labels au-dessus des boutons */
+    align-items: center; /* Centrage horizontal */
+    
+}
+.upload-button-container {
+    width: 100%; /* Assurez-vous que les boutons occupent toute la largeur du conteneur */
+    text-align: center; /* Centrage horizontal des boutons */
+}
+  /* Style pour le texte "Type du Doctorat" */
+.upload-button-container .label {
+    color: gray; /* Couleur du texte */
+    font-size: 15px; /* Taille de la police */
+    font-weight: 500; /* Poids de la police */
+    max-width: 100%;
+   
+
+   /* Empêcher le texte de passer à la ligne suivante */
+}
+
+
+/* Style pour le texte "Type du Doctorat" */
+.professional-info .label-container .label {
+    color: #C38370; /* Couleur du texte */
+    font-size: 20px; /* Taille de la police */
+    font-weight: 500; /* Poids de la police */
+    white-space: nowrap; /* Empêcher le texte de passer à la ligne suivante */
+}
+
+  
+  /* Styling for the upload button container */
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Styling for the upload button */
+  .upload-button-container .upload-button {
+    background-color: #f2f2f2 !important;
+    border-radius: 20px !important;
+    padding: 10px 20px;
+    font-size: 12px !important;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    color: #C38370;
+    width: 180px !important;
+    margin-bottom: 20px; /* Espacement entre les boutons */
+  }
+  .upload-button-container .upload-button:hover {
+    background-color: #A66253 !important;
+    color: #f2f2f2; /* Nouvelle couleur au survol */
+  }
+ 
+  
+
+
+  
+.personal-info .input-field,
+.professional-info .input-field
+{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    height: 57px;
+    font-size: 20px;
+    background: transparent;
+    background-color: #f2f2f2!important;
+    border-radius: 20px !important;
+    margin-bottom: 20px;
+    border: none !important;
+}
+
+
+/* Style spécifique pour le bouton Select */
+.professional-info .select .MuiSelect-root {
+    margin-top: 20px !important; /* Espace au-dessus du bouton Select */
+    margin-bottom: 20px !important; /* Espace en dessous du bouton Select */
+    width: 100% !important; /* Pour occuper toute la largeur du conteneur parent */
+    padding: 10px 20px !important; /* Ajout de rembourrage */
+    box-sizing: border-box; /* Inclure le padding dans la largeur */
+}
+
+/* Style pour le texte à l'intérieur du bouton Select */
+.professional-info .select .MuiSelect-root .MuiSelect-select.MuiSelect-selectMenu {
+    padding: 10px 20px !important; /* Ajout de rembourrage */
+    box-sizing: border-box; /* Inclure le padding dans la largeur */
+}
+
+/* Style pour l'icône du bouton Select */
+.professional-info .select .MuiSelect-root .MuiSelect-icon {
+    right: 10px !important; /* Ajustement de la position de l'icône */
+}
+
+/* Style pour la bordure du bouton Select */
+.professional-info .select .MuiOutlinedInput-notchedOutline {
+    border-radius: 20px !important; /* Appliquer un border-radius */
+}
+
+/* Style pour la bordure du bouton Select en survol */
+.professional-info .select .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #C38370 !important; /* Changement de couleur de bordure au survol */
+}
+
+    
+
+/* Styling for TextField components */
+.MuiInputBase-root.MuiOutlinedInput-root {
+    border: none !important; /* Remove default border */
+    background-color: #f2f2f2 !important; /* Set background color */
+    border-radius: 20px !important; /* Apply border radius */
+    margin-bottom: 15px; /* Add margin bottom */
+    height: 57px; /* Set height */
+}
+
+/* Styling for TextField hover state */
+.MuiInputBase-root.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #C38370 !important; /* Change border color on hover */
+}
+      /* Styling for the bottom button */
+      .bottom-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+      }
+      
+      .validate-button {
+        background-color: #C38370 !important;
+        border-radius: 20px !important;
+        padding: 10px 20px;
+        font-size: 20px;
+        width: 180px !important;
+        font-weight: 700px !important;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+      }
+  /* Styling for labels and input fields in the first and second grids */
+.personal-info .MuiInputLabel-root,
+.professional-info .MuiInputLabel-root,
+.upload-container .MuiInputLabel-root,
+.personal-info .MuiOutlinedInput-root,
+.professional-info .MuiOutlinedInput-root,
+.upload-container .MuiOutlinedInput-root {
+    color: #C38370 !important; /* Label color */
+    border-color: #C38370 !important; /* Input border color */
+}
+
+/* Styling for labels and input fields in the first and second grids on hover */
+.personal-info .MuiInputLabel-root:hover,
+.professional-info .MuiInputLabel-root:hover,
+.upload-container .MuiInputLabel-root:hover,
+.personal-info .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+.professional-info .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+.upload-container .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    color: #C38370 !important; /* Label color on hover */
+    border-color: #C38370 !important; /* Input border color on hover */
+}
+
+/* Styling for labels and input fields in the first and second grids when focused */
+.personal-info .MuiInputLabel-root.Mui-focused,
+.professional-info .MuiInputLabel-root.Mui-focused,
+.upload-container .MuiInputLabel-root.Mui-focused,
+.personal-info .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.professional-info .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.upload-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    color: #C38370 !important; /* Label color when focused */
+    border-color: #C38370 !important; /* Input border color when focused */
+}
+
+/* Styling for labels and input fields in the first and second grids when data is entered */
+.personal-info .MuiInputLabel-root.MuiInputLabel-shrink,
+.professional-info .MuiInputLabel-root.MuiInputLabel-shrink,
+.upload-container .MuiInputLabel-root.MuiInputLabel-shrink,
+.personal-info .MuiOutlinedInput-root.MuiOutlinedInput-inputAdornedStart,
+.professional-info .MuiOutlinedInput-root.MuiOutlinedInput-inputAdornedStart,
+.upload-container .MuiOutlinedInput-root.MuiOutlinedInput-inputAdornedStart {
+    color: #C38370 !important; /* Label color when data is entered */
+    border-color: #C38370 !important; /* Input border color when data is entered */
+}
+
+  
+      /* Media Queries */
+@media screen and (max-width: 590px){
+    .grid_container {
+        padding: 50px 20px 60px; /* Top, left, right, bottom padding */
+    }
+}
+@media screen and (max-width: 540px){
+    .grid_container {
+        padding: 50px 15px 55px; /* Top, left, right, bottom padding */
+    }
+}
+@media screen and (max-width: 510px){
+    .grid_container {
+        padding: 50px 10px 50px; /* Top, left, right, bottom padding */
+    }
+}
+@media screen and (max-width: 430px){
+    .grid_container {
+        padding: 50px 5px 45px; /* Top, left, right, bottom padding */
+    }
+}
+@media screen and (max-width: 400px){
+    .grid_container {
+        padding: 50px 0 40px; /* Top, left, right, bottom padding */
+    }
+}

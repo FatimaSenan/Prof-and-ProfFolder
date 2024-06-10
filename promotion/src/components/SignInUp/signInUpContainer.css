@@ -58,24 +58,13 @@
     outline: none;
     font-size: 19px;
 }
-.sign-in-up-container .accept-forgot{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding-left: 70px;
-    margin-top: 27px;
-    font-size: 18px;
-}
-.accept-forgot .remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-}
+
+
+
 .sign-in-up-container .submit-container{
     display: flex;
     justify-content: center;
-    margin: 20px auto;
+    margin: 10px auto;
     width: 100%;
     
 }
@@ -103,7 +92,8 @@
     justify-content: space-between;
     padding-left: 70px;
     font-size: 18px;
-    gap: 10px;
+    gap: 2px;
+  
     
     
 }

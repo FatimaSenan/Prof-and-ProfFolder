@@ -1,11 +1,11 @@
 import { Form, Formik, ErrorMessage } from "formik";
-import { advancedSchema } from "../schemas";
+import { advancedSchema } from "../Professor/schemas";
 import Grid from "@mui/material/Grid";
 //import ResponsabilitésScientifique from "../data/ResponsabilitésScientifiques";
 import { useState , useEffect} from "react";
 import CustomInput from "./CustomInput";
-import Modal from "../Modal/Modal";
-import CustomModal from "../Modal/Modal";
+import Modal from "../Professor/Modal/Modal";
+import CustomModal from "../Professor/Modal/Modal";
 import { Button } from "@mui/material";
 import axios from 'axios';
 import getEndpoint from "./GetEndpoint";
@@ -94,14 +94,18 @@ const Form_1 = ({activityType, activityName}) => {
     }
 
     try {
+      for (let [key, value] of dataToSend.entries()) {
+        console.log(`${key}: ${value}`);
+      }
       const response = await axios.post(endpoint, dataToSend, {
          headers: {
-        'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer ' +localStorage.getItem('token'),
+          'Content-Type': 'multipart/form-data'
       },});
 
      
      // console.log("Response: ", response.data);
-      console.log("Data to send", dataToSend)
+      
       setSelectedActivity({});
       setSelectedType({});
 

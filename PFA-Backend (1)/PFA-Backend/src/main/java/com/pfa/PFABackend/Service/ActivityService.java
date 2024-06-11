@@ -2,7 +2,11 @@ package com.pfa.PFABackend.Service;
 
 import com.pfa.PFABackend.Model.Activity;
 
+import java.util.List;
+import java.util.Map;
+
 public interface ActivityService {
-    public void saveActivity(Activity activity);
-    public Iterable<Activity> getActivities();
+   // public void saveActivity(Activity activity);
+    //public Iterable<Activity> getActivities();
+    public Map<String, List<?>> getAllActivitiesForCurrentUser();
 }

@@ -38,6 +38,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/**").permitAll()
                                 .requestMatchers("/commission/**").hasAnyAuthority("COMMISSION")
                         .requestMatchers("admincommission").hasAnyAuthority("ADMIN", "COMMISSION")
+                        //.requestMatchers("/professorcommission/**").hasAnyAuthority("PROFESSOR", "COMMISSION")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

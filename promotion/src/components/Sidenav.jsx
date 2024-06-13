@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -19,14 +20,11 @@ import { IoMdSettings } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../appStore';
-import UserService from './Professor/service/UsersService';
-import React from 'react';
-
-
-
-
-
-
+import { Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { GiArchiveResearch } from "react-icons/gi";
 
 const drawerWidth = 240;
 
@@ -56,10 +54,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -80,45 +76,42 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Sidenav() {
   const theme = useTheme();
- // const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const open = useAppStore((state) => state.dopen);
 
-  const [openDialog, setOpenDialog] = React.useState(false);
+  const [isCollapse, setIsCollapse] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleClickOpenDialog = () => {
+  const handleCollapse = () => {
+    setIsCollapse(!isCollapse);
+  };
+
+  const handleOpenDialog = () => {
     setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
+  const handleDisconnect = () => {
+    setOpenDialog(false);
+    navigate('/deconnexion');
+  };
 
-  const open= useAppStore((state)=> state.dopen);
-
-  const isAuthenticated = UserService.isAuthenticated();
-
-  const handleLogout = () => {
-    const confirmDelete = window.confirm('Are you sure you want to logout this user?');
-    if (confirmDelete) {
-        UserService.logout();
-    }
-};
- 
   return (
     <>
-    <Box sx={{ display: 'flex'} }>
-      <CssBaseline />
-      <Box height={30}/>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-       </DrawerHeader>
-        <Divider />
-        <List sx={{color:"#0D0D0D"}}>
-          
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/acceuil')}} >
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <Box height={30} />
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List sx={{ color: "#0D0D0D" }}>
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate('/acceuil') }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -135,11 +128,11 @@ export default function Sidenav() {
                 >
                   <MdHome color="#0D0D0D" />
                 </ListItemIcon>
-                <ListItemText primary="Accueil" sx={{opacity:open ? 1:0}} />
+                <ListItemText primary="Accueil" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/listeactivities')}} >
+            <ListItem disablePadding sx={{ display: 'block' }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -156,11 +149,58 @@ export default function Sidenav() {
                 >
                   <RxActivityLog color="#0D0D0D" />
                 </ListItemIcon>
-                <ListItemText primary="Liste des Activités" sx={{opacity:open ? 1:0}}/>
+                <ListItemText primary="Liste des Activités" sx={{ opacity: open ? 1 : 0 }} onClick={handleCollapse} />
+                {isCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </ListItemButton>
             </ListItem>
-            
-            <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate('/profile')}}>
+
+            <Collapse in={isCollapse} timeout="auto" unmountOnExit>
+              <List sx={{ pl: 4 }}>
+                <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate('/activite_enseignement') }}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <FaChalkboardTeacher color="#A66253" fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText primary="Enseignement" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate('/activite_recherche') }}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <GiArchiveResearch color="#A66253" fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText primary="Recherche" sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Collapse>
+
+            <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate('/profile') }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -177,79 +217,122 @@ export default function Sidenav() {
                 >
                   <CgProfile color="#0D0D0D" />
                 </ListItemIcon>
-                <ListItemText primary="Profile" sx={{opacity:open ? 1:0}} />
-              </ListItemButton>
-            </ListItem>
-         
-        </List>
-        <Divider />
-
-        <ListItem disablePadding sx={{ display: 'block',color:"#0D0D0D" }} onClick={()=>{navigate('/parametres')}} >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <IoMdSettings color="#0D0D0D" />
-                </ListItemIcon>
-                <ListItemText primary="Paramètres" sx={{opacity:open ? 1:0}} />
-              </ListItemButton>
-            </ListItem>
-        
-        <ListItem disablePadding sx={{ display: 'block',color:"#0D0D0D" }} onClick={()=>{navigate('/apropos')}}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <FaCircleInfo color="#0D0D0D" />
-                </ListItemIcon>
-                <ListItemText primary="A propos" sx={{opacity:open ? 1:0}} />
+                <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding sx={{ display: 'block',color:"#0D0D0D" }} onClick={()=>{navigate('/deconnexion')}}>
-              <ListItemButton
+          </List>
+          <Divider />
+
+          <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }} onClick={() => { navigate('/parametres') }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <RiLogoutCircleLine color="#0D0D0D" />
-                </ListItemIcon>
-                {isAuthenticated && <ListItemText primary="Déconnexion" sx={{opacity:open ? 1:0}} onClick={handleLogout}/>}
-              </ListItemButton>
-            </ListItem>
-      </Drawer>
-      
-    </Box>
+                <IoMdSettings color="#0D0D0D" />
+              </ListItemIcon>
+              <ListItemText primary="Paramètres" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }} onClick={() => { navigate('/apropos') }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <FaCircleInfo color="#0D0D0D" />
+              </ListItemIcon>
+              <ListItemText primary="A propos" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+              onClick={handleOpenDialog}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <RiLogoutCircleLine color="#0D0D0D" />
+              </ListItemIcon>
+              <ListItemText primary="Déconnexion" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <Dialog
+            open={openDialog}
+            onClose={handleCloseDialog}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            sx={{
+              '& .MuiDialog-container .MuiPaper-root': {
+                width: '80%',
+                maxWidth: '400px',
+                height: '40%',
+                maxHeight: '300px',
+              },
+            }}
+          >
+            <DialogTitle id="alert-dialog-title">Confirmer la déconnexion</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Êtes-vous sûr de vouloir vous déconnecter ?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary"sx={{
+                        color: '#0D0D0D', // Change text color
+                        '&:hover': {
+                          backgroundColor: '#ecd5d0', // Change hover background color
+                        },
+                      }}>
+                Annuler
+              </Button>
+              <Button
+                onClick={handleDisconnect}
+                sx={{
+                  color: theme.palette.getContrastText("#A66253"),
+                  backgroundColor: "#A66253",
+                  '&:hover': {
+                    backgroundColor: "#7F3D30",
+                  },
+                }}
+                autoFocus
+              >
+                Déconnecter
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Drawer>
+      </Box>
     </>
-    
   );
 }

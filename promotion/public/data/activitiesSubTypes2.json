@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Publication d'ouvrages en relation avec le domaine de l'enseignement",
+        "activity_subtype_1": "Les activités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Tous supports et procédés sélectionnés et traités à des fins d'utilisation didactique (Tous les documents doivent être visés par le chef de l'établissement)",
+        "activity_subtype_1": "Les activités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Supports NTIC",
+        "activity_subtype_1": "Les activités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Encadrement des projets et des mémoires de fin d'études (Tous les documents doivent être visés par le chef de l'établissement",
+        "activity_subtype_1": "L'encadrement pédagogique",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Encadrement de stages ou visites de terrain pour tous les cycles de formation et de recherche. (Copie de l'ordre de mission signé par le chef d'établissement)",
+        "activity_subtype_1": "L'encadrement pédagogique",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Encadrement des ressources humaines",
+        "activity_subtype_1": "L'encadrement pédagogique",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Les responsabilités pédagogiques (Attestation du chef d'établissement)",
+        "activity_subtype_1": "Les responsabilités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Autres responsabilités(Attestation du chef d'établissement)",
+        "activity_subtype_1": "Les responsabilités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Articles scientifiques publiés dans des revues indexées internationales, ou des actes de congrès internationaux ou nationaux ou à comité de lecture internationaux ou nationaux",
+        "activity_subtype_1": "La production scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Ouvrages de recherche",
+        "activity_subtype_1": "La production scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Communications dans des congrès ou des conférences (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)",
+        "activity_subtype_1": "La production scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Communications dans des congrès ou des conférences (non publiés) (Les communications ne peuvent être comptabilisées qu'une seule fois)",
+        "activity_subtype_1": "La production scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": " Encadrement des thèses de doctorat (Attest,ation délivrée par le chef d'établissement)",
+        "activity_subtype_1": "L'encadrement scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Encadrement des mémoires de Master (Attestation délivrée par le chef d'établissement",
+        "activity_subtype_1": "L'encadrement scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Participation comme président ou rapporteur ou membre du jury de thèse de doctorat ou d'habilitation (Attestation délivrée par le chef d'établissement)",
+        "activity_subtype_1": "L'encadrement scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Responsable ou membre d'une structure de recherche (au moins une année)",
+        "activity_subtype_1": "Les responsabilités scientifiques",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Projets ou contrats de recherche (Attestation délivrée par le chef d'établissement)",
+        "activity_subtype_1": "Les responsabilités scientifiques",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Les activités d'expertises et d'évaluations scientifiques nationales et internationales (correctement justifiée par une attestation ou un rapport signé par le chef d'établissement) ",
+        "activity_subtype_1": "Les responsabilités scientifiques",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Animation des structures d'interaction avec l'environnement socio-économique et organisation des manifestations scientifiques (le nom du candidat organisateur doit figurer sur le dépliant correspondant, à fournir)",
+        "activity_subtype_1": "Rayonnement-Ouverture-Innovation-Valorisation",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": " Expertise et valorisation d'actions au profit des milieux socio-économiques (correctement justifiée par une attestation ou un rapport d'expertise signé et cacheté par le chef d'établissement)",
+        "activity_subtype_1": "Rayonnement-Ouverture-Innovation-Valorisation",
+        "activity_type": "Activités de recherche"
+    }
+]

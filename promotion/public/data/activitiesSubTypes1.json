@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Les activités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    }, 
+    {
+        "name": "L'encadrement pédagogique",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "Les responsabilités pédagogiques",
+        "activity_type": "Activités d/'enseignement"
+    },
+    {
+        "name": "La production scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "L'encadrement scientifique",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Les responsabilités scientifiques",
+        "activity_type": "Activités de recherche"
+    },
+    {
+        "name": "Rayonnement-Ouverture-Innovation-Valorisation",
+        "activity_type": "Activités de recherche"
+    }
+]

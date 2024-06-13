@@ -10,6 +10,8 @@ import { Button } from "@mui/material";
 import axios from 'axios';
 import getEndpoint from "./GetEndpoint";
 import UploadFileButton from "../UploadFileButton";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import IconButton from '@mui/material/IconButton';
 
 const onSubmit = async (values, actions) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -23,7 +25,8 @@ const Form_1 = ({activityType, activityName}) => {
   const [additionalData, setAdditionalData] = useState({});
   const [responsabilitésScientifiques, setResponsabilitésScientifiques] = useState([]);
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("");
     const fetchData = async ()=>{
       try {
         const response = await fetch(`${process.env.PUBLIC_URL}/data/${activityType}/${activityName}.json`);
@@ -53,6 +56,7 @@ const Form_1 = ({activityType, activityName}) => {
     setOpen(true);
   };
   const handleOptionChange = (event, nameDatabase) => {
+    setSelectedOption(event.target.value);
     //setSelectedOption(event.target.value);
     console.log("Event target name:", event.target.name);
     console.log("Event target value:", event.target.value);
@@ -67,10 +71,12 @@ const Form_1 = ({activityType, activityName}) => {
     const selectedFile = e.target.files[0];
   console.log(selectedFile); // Log the selected file
   setFile(selectedFile); // Set the selected file to the state
+  setFileName(selectedFile.name)
   }
   
   const onDeleteFileHandler = () => {
     setFile(null);
+    setFileName("");
   }
   const handleFormSubmit = async (values, actions) => {
    let endpoint = getEndpoint(selectedActivity);
@@ -111,6 +117,7 @@ const Form_1 = ({activityType, activityName}) => {
 
        // Reset additional data state
       setAdditionalData({});
+      setFile({});
     
       // Reset the form
     //  actions.resetForm();
@@ -161,7 +168,7 @@ const Form_1 = ({activityType, activityName}) => {
               <select
                 name={info.name}
                 placeholder="Sélectionnez une option"
-                value={additionalData[info.name] || ""}
+                value={additionalData[info.name_database] || ""}
                 onChange={(event) => handleOptionChange(event, info.name_database)}
               >
                 <option value="">Sélectionnez une activité</option>
@@ -192,7 +199,7 @@ const Form_1 = ({activityType, activityName}) => {
       {({ isSubmitting }) => (
         <Form>
           <Grid container spacing={4}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={11} sm={5}>
               <label>Type Activité: </label>
               <select
                 name="activityType"
@@ -204,6 +211,11 @@ const Form_1 = ({activityType, activityName}) => {
                 {typeActivity}
               </select>
               <ErrorMessage name="activityType" component="div" className="error" />
+
+               <Grid item xs={1} style={{ marginTop: '2.9rem'}}>
+            {/* Icône de plus */}
+            
+          </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <label>Activité: </label>
@@ -218,7 +230,13 @@ const Form_1 = ({activityType, activityName}) => {
               </select>
               <ErrorMessage name="activityName" component="div" className="error" />
             </Grid>
-            <Grid item xs={12} sm={6} >
+            <Grid item xs={1} style={{marginTop: '2.9rem'}} >
+            {selectedActivity && !open && (
+              <IconButton onClick={() => setOpen(true)} style={{color: '#A66253' }}>
+                <AddBoxIcon fontSize="large" />
+              </IconButton >
+            )}
+              
                {/* <Button 
                 onClick={handleOpen}
                 variant="contained"
@@ -232,7 +250,8 @@ const Form_1 = ({activityType, activityName}) => {
           <CustomModal  open={open} setOpen={setOpen} handleFormSubmit={handleFormSubmit}>
             <>
              {inputFields}
-             {selectedActivity != "Page web à caractère pédagogique" && <UploadFileButton onSelectFile={onSelectFileHandler} onDeleteFile={onDeleteFileHandler} />}
+             {selectedActivity != "Page web à caractère pédagogique" && <UploadFileButton onSelectFile={onSelectFileHandler} onDeleteFile={onDeleteFileHandler} fileName={fileName}/>}
+             
             </>
           </CustomModal>
         </Form>

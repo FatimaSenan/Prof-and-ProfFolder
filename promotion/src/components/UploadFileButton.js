@@ -19,9 +19,9 @@ import './uploadFileButton.css'
 
 export default function UploadFileButton(props) {
 
-  const { accept, onSelectFile, onDeleteFile, disabled} = props;
+  const { accept, onSelectFile, onDeleteFile, disabled, fileName} = props;
   const hiddenFileInput = React.useRef(null);
-  const [file, setFile] = React.useState(null);
+  //const [file, setFile] = React.useState(null);
 
   const handleClick = (event) => {
     hiddenFileInput.current.click();
@@ -33,7 +33,7 @@ export default function UploadFileButton(props) {
   };
 
   const onDeleteFileHandler = () => {
-    setFile(null);
+  //  setFile(null);
     hiddenFileInput.current.value = null;
     onDeleteFile();
   };
@@ -59,7 +59,7 @@ export default function UploadFileButton(props) {
             data-testid="file-upload-input"
           />
           <div className="file-name">
-            {file ? <div>{file?.name}</div> : <div>Choose file</div>}
+            {fileName ? <div>{fileName}</div> : <div>Choose file</div>}
           </div>
         </Button>
       </div>

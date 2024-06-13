@@ -17,9 +17,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginContainer from './components/SignInUp/LoginContainer';
 import RegistrationContainer from './components/SignInUp/RegistrationContainer';
 import DossierAdministratif from './pages/DossiersAdministratif';
+import ActiviteEnseignement from './pages/ActiviteEnseignement';
+import ActivitiesInformationTable from './components/Professor/ListeActivities/ActivitiesInformationsTable';
 const Accueil = lazy(() => import("./pages/Accueil"));
 const Profile = lazy(() => import("./pages/Profile"));
-const Listeactivities = lazy(() => import("./pages/Listeactivities"));
+const ActiviteRecherche = lazy(() => import("./pages/ActiviteRecherche"));
 const Apropos = lazy(() => import("./pages/Apropos"));
 const Deconnexion = lazy(() => import("./pages/Deconnexion"));
 const Parametres = lazy(() => import("./pages/Parametres"));
@@ -48,11 +50,21 @@ function App() {
               <Profile />
             </ProtectedRoute>
           } />
-          <Route path='/listeactivities' exact element={
-            <ProtectedRoute>
-              <Listeactivities />
-            </ProtectedRoute>
-          } />
+          <Route path='/activite_enseignement' exact element={
+                <ProtectedRoute>
+                  <ActiviteEnseignement />
+                </ProtectedRoute>
+            } />
+          <Route path='/activite_recherche' exact element={
+                <ProtectedRoute>
+                  <ActiviteRecherche />
+                </ProtectedRoute>
+            } />
+            <Route path='/activite_informations' exact element={
+                <ProtectedRoute>
+                  <ActivitiesInformationTable />
+                </ProtectedRoute>
+            } />
           <Route path='/apropos' exact element={
             <ProtectedRoute>
               <Apropos />

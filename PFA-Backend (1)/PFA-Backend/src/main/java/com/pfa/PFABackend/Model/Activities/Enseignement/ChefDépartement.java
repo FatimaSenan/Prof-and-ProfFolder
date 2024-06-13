@@ -1,5 +1,6 @@
 package com.pfa.PFABackend.Model.Activities.Enseignement;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,10 +41,12 @@ public class ChefDépartement {
 
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
+    @JsonBackReference
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
 

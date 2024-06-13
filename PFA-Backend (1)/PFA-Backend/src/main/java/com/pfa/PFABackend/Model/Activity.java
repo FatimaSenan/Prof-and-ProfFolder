@@ -26,12 +26,12 @@ public class Activity {
 
 
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user;*/
 
 }

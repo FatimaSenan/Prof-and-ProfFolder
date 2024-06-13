@@ -8,5 +8,5 @@ import java.util.Map;
 public interface ActivityService {
    // public void saveActivity(Activity activity);
     //public Iterable<Activity> getActivities();
-    public Map<String, List<?>> getAllActivitiesForCurrentUser();
+    public List<List<?>> getAllActivitiesForCurrentUser();
 }

@@ -1,5 +1,6 @@
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
@@ -36,10 +37,12 @@ public class OuvrageSpecialisé {
 
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
+    @JsonBackReference
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
 }

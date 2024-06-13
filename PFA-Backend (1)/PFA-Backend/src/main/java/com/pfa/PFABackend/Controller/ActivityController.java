@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/professorcommission/activities")
+@RequestMapping("/professor/activities")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
@@ -26,8 +27,8 @@ public class ActivityController {
     public Iterable<Activity> getActivities(){
         return activityService.getActivities();
     }*/
-    @GetMapping("/crrent-user")
-    public Map<String, List<?>> getActivitiesByCurrentUser() {
+    @GetMapping("/current-user")
+    public List<List<?>> getActivitiesByCurrentUser() {
         return activityService.getAllActivitiesForCurrentUser();
     }
 }

@@ -32,6 +32,8 @@ public class ChapitreOuvrage {
     private String date;
 
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @ManyToOne
@@ -41,6 +43,6 @@ public class ChapitreOuvrage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+   // @JsonBackReference
     private User user;
 }

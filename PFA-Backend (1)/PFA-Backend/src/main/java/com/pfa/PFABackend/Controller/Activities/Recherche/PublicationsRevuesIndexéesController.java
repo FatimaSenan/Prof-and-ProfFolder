@@ -6,6 +6,7 @@ import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Service.Activities.Recherche.PublicationsRevuesIndexéesService;
 import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ public class PublicationsRevuesIndexéesController {
     private ActivitySubType2Service activitySubType2Service;
 
     @PostMapping("/add-publications-revues-indexées")
+    @PreAuthorize("hasRole('PROFESSOR')")
     public String addPblicationsRevuesIndexées(@RequestParam("activityName") String activityName,@RequestParam("niveau") String niveau,@RequestParam("titre") String titre,@RequestParam("auteurs") String auteurs,@RequestParam("doi") String doi,@RequestParam("lien") String lien,@RequestParam("journal") String journal,@RequestParam("isbn") String isbn,@RequestParam("annéePublication") int annéePublication,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(9);

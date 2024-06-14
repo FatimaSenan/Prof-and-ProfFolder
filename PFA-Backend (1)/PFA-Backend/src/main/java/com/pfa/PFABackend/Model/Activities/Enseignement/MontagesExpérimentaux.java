@@ -11,10 +11,12 @@ import lombok.Data;
 public class MontagesExpérimentaux {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_montages")
-    private int idMontages;
+    @Column(name="id")
+    private int id;
+
     @Column(name = "activity_name")
     private String activityName;
+
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
@@ -36,6 +38,6 @@ public class MontagesExpérimentaux {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+  //  @JsonBackReference
     private User user;
 }

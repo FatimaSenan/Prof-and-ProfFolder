@@ -11,8 +11,8 @@ import lombok.Data;
 public class PetitsLivres {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_livre")
-    private int idLivre;
+    @Column(name = "id")
+    private int id;
 
     @Column(name="activity_name")
     private String activityName;
@@ -39,6 +39,6 @@ public class PetitsLivres {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+   // @JsonBackReference
     private User user;
 }

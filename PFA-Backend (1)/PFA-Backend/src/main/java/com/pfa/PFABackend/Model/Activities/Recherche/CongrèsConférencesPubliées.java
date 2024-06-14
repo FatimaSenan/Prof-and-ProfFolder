@@ -34,6 +34,8 @@ public class CongrèsConférencesPubliées {
 
     private String auteurs;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @ManyToOne
@@ -43,6 +45,6 @@ public class CongrèsConférencesPubliées {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    //@JsonBackReference
     private User user;
 }

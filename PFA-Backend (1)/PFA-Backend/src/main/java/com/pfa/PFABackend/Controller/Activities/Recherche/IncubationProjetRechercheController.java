@@ -21,7 +21,7 @@ public class IncubationProjetRechercheController {
     @Autowired
     private ActivitySubType2Service activitySubType2Service;
 
-    @PostMapping("/Add-incubation-projet-recherche")
+    @PostMapping("/add-incubation-projet-recherche")
     public String addIncubationProjetRecherche(@RequestParam("activityName") String activityName,@RequestParam("projet") String projet,@RequestParam("cadre") String cadre,@RequestParam("role") String role,@RequestParam("années") String années,@RequestParam("file") MultipartFile file) {
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(20);

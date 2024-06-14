@@ -28,8 +28,9 @@ public class EncadrementMémoiresMaster {
 
     private  String encadrant;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
-
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     @JsonBackReference
@@ -37,6 +38,6 @@ public class EncadrementMémoiresMaster {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+   // @JsonBackReference
     private User user;
 }

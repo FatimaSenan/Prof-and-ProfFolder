@@ -12,8 +12,8 @@ import org.springframework.web.service.annotation.GetExchange;
 public class PolycopiésPédagogiques {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_polycopiés")
-    private int idPolycopiés;
+    @Column(name="id")
+    private int id;
 
     @Column(name="activity_name")
     private String activityName;
@@ -40,7 +40,7 @@ public class PolycopiésPédagogiques {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    //@JsonBackReference
     private User user;
 
 }

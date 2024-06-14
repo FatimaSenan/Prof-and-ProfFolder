@@ -46,7 +46,7 @@ public class ChefDépartement {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+   // @JsonBackReference
     private User user;
 
 

@@ -39,6 +39,8 @@ public class DoctoratsEncadrés {
     @Column(name = "date_soutenance")
     private String dateSoutenance;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @ManyToOne
@@ -48,6 +50,6 @@ public class DoctoratsEncadrés {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+   // @JsonBackReference
     private User user;
 }

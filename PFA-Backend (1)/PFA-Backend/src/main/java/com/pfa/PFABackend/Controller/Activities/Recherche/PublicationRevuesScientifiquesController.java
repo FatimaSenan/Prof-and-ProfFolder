@@ -5,6 +5,7 @@ import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Service.Activities.Recherche.PublicationRevuesScientifiquesService;
 import com.pfa.PFABackend.Service.ActivitySubType2Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +23,8 @@ public class PublicationRevuesScientifiquesController {
     private ActivitySubType2Service activitySubType2Service;
 
     @PostMapping("/add-publication-revues-scientifiques")
-    public String addPublicationRevuesScientifiques(@RequestParam("activityName") String activityName,@RequestParam("type") String type,@RequestParam("titre") String titre,@RequestParam("auteurs") String auteurs,@RequestParam("lien") String lien,@RequestParam("journal") String journal,@RequestParam("isbn") String isbn,@RequestParam("annéePublication") int annéePublication,@RequestParam("file") MultipartFile file){
+    @PreAuthorize("hasRole('PROFESSOR')")
+    public String addPublicationRevuesScientifiques(@RequestParam("activityName") String activityName,@RequestParam("type") String type,@RequestParam("titre") String titre,@RequestParam("auteurs") String auteurs,@RequestParam("lien") String lien,@RequestParam("journal") String journal,@RequestParam("issn") String isbn,@RequestParam("annéePublication") int annéePublication,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(9);
             publicationRevuesScientifiquesService.savePublicationRevuesScientifiques(activitySubType2Instance, activityName, type, titre, auteurs, lien, journal, isbn, annéePublication, file);

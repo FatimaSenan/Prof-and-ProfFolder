@@ -21,8 +21,8 @@ public class ParticipationthèseDoctoratController {
     @Autowired
     private ActivitySubType2Service activitySubType2Service;
 
-    @PostMapping
-    public String addParticipationthèseDoctorat(@RequestParam("activityName") String activityName,@RequestParam("sujetThèse") String sujetThèse,@RequestParam("role") String role,@RequestParam("doctorant") String doctorant,@RequestParam("date") String date,@RequestParam("université") String université,@RequestParam("file") MultipartFile file){
+    @PostMapping("/add-participation-thèse-doctorat")
+    public String addParticipationthèseDoctorat(@RequestParam("activityName") String activityName,@RequestParam("sujet") String sujetThèse,@RequestParam("role") String role,@RequestParam("doctorant") String doctorant,@RequestParam("date") String date,@RequestParam("université") String université,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(15);
             participationthèseDoctoratService.saveParticipationthèseDoctorat(activitySubType2Instance, activityName, sujetThèse, doctorant, date, université, file);

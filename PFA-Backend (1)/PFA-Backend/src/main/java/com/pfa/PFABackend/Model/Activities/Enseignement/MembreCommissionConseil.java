@@ -33,6 +33,6 @@ public class MembreCommissionConseil {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+  //  @JsonBackReference
     private User user;
 }

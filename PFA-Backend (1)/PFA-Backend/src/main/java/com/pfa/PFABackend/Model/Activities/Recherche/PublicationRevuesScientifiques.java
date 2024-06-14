@@ -29,8 +29,8 @@ public class PublicationRevuesScientifiques {
 
     private String journal;
 
-    @Column(name = "isbn_issn")
-    private String isbnIssn;
+    @Column(name = "issn")
+    private String issn;
 
     @Column(name = "année_publication")
     private int annéePublication;
@@ -46,6 +46,6 @@ public class PublicationRevuesScientifiques {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    //@JsonBackReference
     private User user;
 }

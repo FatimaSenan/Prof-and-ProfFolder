@@ -22,7 +22,7 @@ public class ProjetDeRechercheDeveloppementController {
     private ActivitySubType2Service activitySubType2Service;
 
     @PostMapping("/add-projet-de-recherche-developpement")
-    public String addProjetDeRechercheDeveloppement(@RequestParam("activityName") String activityName,@RequestParam("titreProjet") String titreProjet,@RequestParam("cadre") String cadre,@RequestParam("role") String role,@RequestParam("année") int année,@RequestParam("année") MultipartFile file){
+    public String addProjetDeRechercheDeveloppement(@RequestParam("activityName") String activityName,@RequestParam("titreProjet") String titreProjet,@RequestParam("cadre") String cadre,@RequestParam("role") String role,@RequestParam("année") int année,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(20);
             projetDeRechercheDeveloppementService.saveProjetDeRechercheDeveloppement(activitySubType2Instance, activityName, titreProjet, cadre, role, année, file);

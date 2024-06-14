@@ -2,9 +2,13 @@ package com.pfa.PFABackend.Service;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.ChefDépartement;
 import com.pfa.PFABackend.Model.Activities.Enseignement.EncadrementPFE;
+import com.pfa.PFABackend.Model.Activities.Recherche.AssociationConnaissance;
+import com.pfa.PFABackend.Model.Activities.Recherche.Brevet;
+import com.pfa.PFABackend.Model.Activities.Recherche.ChapitreOuvrage;
 import com.pfa.PFABackend.Model.Activity;
 import com.pfa.PFABackend.Model.User;
 import com.pfa.PFABackend.Repository.Activities.Enseignement.*;
+import com.pfa.PFABackend.Repository.Activities.Recherche.*;
 import com.pfa.PFABackend.Repository.ActivityRepository;
 import com.pfa.PFABackend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +97,62 @@ public class ActivityServiceImpl implements ActivityService{
     @Autowired
     private ViceDoyenRepository viceDoyenRepository;
 
+    @Autowired
+    private AssociationConnaissanceRepository associationConnaissanceRepository;
+
+    @Autowired
+    private BrevetRepository brevetRepository;
+
+    @Autowired
+    private ChapitreOuvrageRepository chapitreOuvrageRepository;
+
+    @Autowired
+    private CongrèsConférencesNonPubliéesRepository congrèsConférencesNonPubliéesRepository;
+
+    @Autowired
+    private CongrèsConférencesPubliéesRepository congrèsConférencesPubliéesRepository;
+
+    @Autowired
+    private ContributionOrganisationActivitésRayonnementRepository contributionOrganisationActivitésRayonnementRepository;
+
+    @Autowired
+    private CréationStartUpRepository créationStartUpRepository;
+
+    @Autowired
+    private DoctoratsEncadrésRepository doctoratsEncadrésRepository;
+
+    @Autowired
+    private EditeurMembreRéféréJournalRevueRepository editeurMembreRéféréJournalRevueRepository;
+
+    @Autowired
+    private EncadrementMémoiresMasterRepository encadrementMémoiresMasterRepository;
+
+    @Autowired
+    private ExpertiseNonRémunéréRepository expertiseNonRémunéréRepository;
+
+    @Autowired
+    private IncubationProjetRechercheRepository incubationProjetRechercheRepository;
+
+    @Autowired
+    private OuvrageSpecialiséRepository ouvrageSpecialiséRepository;
+
+    @Autowired
+    private ParticipationthèseDoctoratRepository participationthèseDoctoratRepository;
+
+    @Autowired
+    private ProjetDeRechercheDeveloppementRepository projetDeRechercheDeveloppementRepository;
+
+    @Autowired
+    private ProjetsContratsRechercheRepository projetsContratsRechercheRepository;
+
+    @Autowired
+    private PublicationRevuesScientifiquesRepository publicationRevuesScientifiquesRepository;
+
+    @Autowired
+    private PublicationsRevuesIndexéesRepository publicationsRevuesIndexéesRepository;
+
+    @Autowired
+    private ResponsableMembreStructureRechercheAccréditéePoleCompetenceRepository responsableMembreStructureRechercheAccréditéePoleCompetenceRepository;
 
 
 
@@ -126,11 +186,25 @@ public class ActivityServiceImpl implements ActivityService{
         activities.add((List<?>) rapportStageVisiteTerrainRepository.findByUser(user));
         activities.add((List<?>) supportsRepository.findByUser(user));
         activities.add((List<?>) viceDoyenRepository.findByUser(user));
-       /* Map<String, List<?>> filteredActivities = activities.entrySet().stream()
-                .filter(entry -> entry.getValue() != null && !entry.getValue().isEmpty())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));*/
-        //  System.out.println("Fetched activities: ");
-       // filteredActivities.forEach(a -> System.out.println(a));
+        activities.add((List<?>) associationConnaissanceRepository.findByUser(user));
+        activities.add((List<?>) brevetRepository.findByUser(user));
+        activities.add((List<?>) chapitreOuvrageRepository.findByUser(user));
+        activities.add((List<?>) congrèsConférencesNonPubliéesRepository.findByUser(user));
+        activities.add((List<?>) congrèsConférencesPubliéesRepository.findByUser(user));
+        activities.add((List<?>) contributionOrganisationActivitésRayonnementRepository.findByUser(user));
+        activities.add((List<?>) créationStartUpRepository.findByUser(user));
+        activities.add((List<?>) doctoratsEncadrésRepository.findByUser(user));
+        activities.add((List<?>) editeurMembreRéféréJournalRevueRepository.findByUser(user));
+        activities.add((List<?>) encadrementMémoiresMasterRepository.findByUser(user));
+        activities.add((List<?>) expertiseNonRémunéréRepository.findByUser(user));
+        activities.add((List<?>) incubationProjetRechercheRepository.findByUser(user));
+        activities.add((List<?>) ouvrageSpecialiséRepository.findByUser(user));
+        activities.add((List<?>) participationthèseDoctoratRepository.findByUser(user));
+        activities.add((List<?>) projetsContratsRechercheRepository.findByUser(user));
+        activities.add((List<?>) publicationRevuesScientifiquesRepository.findByUser(user));
+        activities.add((List<?>) publicationsRevuesIndexéesRepository.findByUser(user));
+        activities.add((List<?>) responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findByUser(user));
+
         return activities.stream()
                 .filter(a -> a != null && !a.isEmpty())
                 .collect(Collectors.toList());

@@ -22,7 +22,7 @@ public class EncadrementMémoiresMasterController {
     private ActivitySubType2Service activitySubType2Service;
 
     @PostMapping("/add-encadrement-mémoires-master")
-    public String addEncadrementMémoiresMaster(@RequestParam("activityName") String activityName,@RequestParam("sujetMaster") String sujetMaster,@RequestParam("étudiants") String étudiants,@RequestParam("année") int année,@RequestParam("encadrant") String encadrant,@RequestParam("file") MultipartFile file){
+    public String addEncadrementMémoiresMaster(@RequestParam("activityName") String activityName,@RequestParam("sujet") String sujetMaster,@RequestParam("étudiants") String étudiants,@RequestParam("année") int année,@RequestParam("encadrant") String encadrant,@RequestParam("file") MultipartFile file){
         try{
             ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(14);
             encadrementMémoiresMasterService.saveEncadrementMémoiresMaster(activitySubType2Instance, activityName, sujetMaster, étudiants, année, encadrant, file);
@@ -33,7 +33,7 @@ public class EncadrementMémoiresMasterController {
         }
     }
 
-    @GetMapping("/add-encadrement-mémoires-master")
+    @GetMapping("/encadrement-mémoires-master")
     public Iterable<EncadrementMémoiresMaster> getEncadrementMémoiresMaster(){
         return encadrementMémoiresMasterService.getEncadrementMémoiresMaster();
     }

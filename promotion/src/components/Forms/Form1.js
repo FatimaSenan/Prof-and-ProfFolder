@@ -123,6 +123,7 @@ const Form_1 = ({activityType, activityName}) => {
     //  actions.resetForm();
     } catch (error) {
       console.log("Error: ", error);
+      setAdditionalData({});
     }
   };
 

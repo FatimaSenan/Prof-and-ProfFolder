@@ -68,6 +68,63 @@ const getEndpoint = (selectedActivity) => {
         case "Vice-doyen ( non cumulable avec commission permanente)":
           endpoint = "http://localhost:9005/api/add-vice-doyen";
           break;
+        case "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON":
+          endpoint = "http://localhost:9005/api/add-publications-revues-indexées";
+          break;
+        case "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)":
+          endpoint = "http://localhost:9005/api/add-publication-revues-scientifiques";
+          break;
+        case "Ouvrage spécialisé ISBN":
+          endpoint = "http://localhost:9005/api/add-ouvrage-specialisé";
+          break;
+        case "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN":
+          endpoint = "http://localhost:9005/api/add-chapitre-ouvrage";
+          break;
+        case "Congrès ou conférence":
+          endpoint = "http://localhost:9005/api/add-congrès-conférences-publiées";
+          break;
+        case "Communications dans des congrès ou des conférences (non publiés)":
+          endpoint = "http://localhost:9005/api/add-congrès-conférences-non-publiées";
+          break;
+        case "Doctorats encadrés":
+          endpoint = "http://localhsot:9005/api/add-doctorats-encadrés";
+          break;
+        case "Encadrement des mémoires de Master":
+          endpoint = "http://localhost:9005/api/add-encadrement-mémoires-master";
+        case "Participaction à thèse doctorat ou d'habilitation":
+          endpoint = "http://localhost:9005/api/add-participation-thèse-doctorat";
+          break;
+        case "Responsable ou membre d'une structure de recherche accréditée ou d'un pole de compétence(cumulable)":
+          endpoint = "http://localhost:9005/api/add-responsable-membre-structure-recherche-accréditée-pole-competence";
+          break;
+        case "Association pour la connaissance":
+          endpoint = "http://localhost:9005/api/add-association-connaissance";
+          break;
+        case "Projets ou contrats de recherche au niveau national ou international ou les deux":
+          endpoint = "http://localhost:9005/api/add-projets-contrats-recherche";
+          break;
+        case "Editeur, membre ou référé d'un journal ou revue scientifique":
+          endpoint = "http://localhost:9005/api/add-editeur-membre-référé-journal-revue";
+          break;
+        case "Expertise non rémunérée de projet de recherche scientifique":
+          endpoint = "http://localhost:9005/api/add-expertise-non-rémunéré";
+          break;
+        case "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre)":
+          endpoint = "http://localhost:9005/api/add-contribution-organisation-activités-rayonnement";
+          break;
+        case "Projet de recherche et de développement avec le secteur privé":
+          endpoint = "http://localhost:9005/api/add-projet-de-recherche-developpement";
+          break;
+        case "Brevet":
+          endpoint = "http://localhost:9005/api/add-brevet";
+          break;
+        case "Incubation de projet de recherche et de développement":
+          endpoint = "http://localhost:9005/api/add-incubation-projet-recherche";
+          break;
+        case "Création de start up":
+          endpoint = "http://localhost:9005/api/add-création-startup";
+          break;
+        
     }
     return endpoint;
 }

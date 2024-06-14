@@ -7,11 +7,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { Modal, keyframes } from '@mui/material';
 import PDFModal from './PDFModal';
 import { useLocation } from 'react-router-dom';
+import { Viewer, Worker } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import { pdfjs } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
 export default function ActivitiesInformationTable () {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,53 +43,59 @@ export default function ActivitiesInformationTable () {
   
     const location = useLocation();
     const {activity} = location.state;
+    const [pdfURL, setPdfURL] = useState('');
 
     console.log(activity);
    
-      const rows = [
-        {name: 'info1',data: 'data1' },
-        {name: 'info2',data: 'data2' },
-        {name: 'info3',data: 'data3' },
-        {name: 'info4',data: 'data4' },
-        {name: 'info5',data: '../../../public/dummy.pdf' }
-
-      ];
       
-      const [modalIsOpen, setModalIsOpen] = useState(false);
-      const [pdfUrl, setPdfUrl] = useState('');
+     
 
-      const openModal = (url) => {
-        setPdfUrl(url)
-        setModalIsOpen(true);
-      };
-    
-      const closeModal = () => {
-        setModalIsOpen(false);
-        setPdfUrl('');
-      };
-   
-  
+      
+      const filteredActivity = { ...activity };
+      delete filteredActivity.user
+      delete filteredActivity.id;
+      delete filteredActivity.activityPoints;
+      delete filteredActivity.activityName;
+
+      
+      useEffect(() => {
+        // Convert bytes to Base64 string
+        if (activity.justification && activity.justification.length > 0) {
+          const blob = new Blob([new Uint8Array(activity.justification)],
+        {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        setPdfURL(url);
+        }
+      }, [activity.justification]);
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
          <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
-          <TableRow sx={{backgroundColor: '#D9ABA0'}}>
+          <TableRow sx={{backgroundColor: '#ecd5d0'}}>
               <TableCell align="center" colSpan={2} sx={{fontWeight: 'bold', color: '#404040'}}>
-                 Activity name
+                 <StyledTableCell align="center" colSpan={2} style={{backgroundColor: "transparent", color: "#404040", fontWeight: "bold"}}>
+                 {activity.activityName}
+                 </StyledTableCell>
               </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.entries(activity).map(([key, value]) => (
+          {Object.entries(filteredActivity).map(([key, value]) => (
             <StyledTableRow key={key}>
               <StyledTableCell component="th" scope="row">
                 {key}
               </StyledTableCell>
               <StyledTableCell align="right"> 
               {/* Conditionally render the icon if data is a PDF */}
-                  {/*value.endsWith('.pdf') ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => openModal(value)}/> : value*/}
-                  {value}
+                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = pdfURL;
+                        link.target = '_blank';
+                        link.click();
+                    
+                      }}/>: value }
+                  {/*value*/}
               </StyledTableCell>
              
             </StyledTableRow>
@@ -91,7 +103,11 @@ export default function ActivitiesInformationTable () {
         </TableBody>
       </Table>
     </TableContainer>
-    <PDFModal isOpen={modalIsOpen} closeModal={closeModal} pdfUrl={pdfUrl}/>
+    <div style={{ height: '800px', marginTop: '20px' }}>
+          <Worker workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`}>
+            <Viewer fileUrl={pdfURL} />
+          </Worker>
+        </div>
 
       </Paper>
     );

@@ -12,13 +12,13 @@
                 "options": [{"value": "Soutenus"},{"value": "En cours de préparation"}]},
 
                 {"name": "Date 1 ère Inscription",
-                "name_database": "date_inscription",
+                "name_database": "dateInscription",
                 "itemType": "input"},
                  {"name": "Sujet",
                  "name_database": "sujet",
                  "itemType": "input"},
                  {"name": "Formation doctorale",
-                 "name_database": "formation_doctorale",
+                 "name_database": "formationDoctorale",
                  "itemType": "input"},
                   {"name": "Laboratoire",
                   "name_database": "laboratoire",
@@ -27,10 +27,10 @@
                   "name_database": "doctorant",
                   "itemType": "input"},
                   {"name": "Directeur de thèse",
-                  "name_database": "directeur_these",
+                  "name_database": "directeurThese",
                   "itemType": "input"},
                   {"name": "Date de soutenance",
-                  "name_database": "date_soutenance",
+                  "name_database": "dateSoutenance",
                   "itemType": "input"}
                 ]
             }
@@ -62,10 +62,10 @@
         "type": " Participation comme président ou rapporteur ou membre du jury de thèse de doctorat ou d'habilitation (Attestation délivrée par le chef d'établissement)",
         "activités": [
             {
-                "activité": "Participaction à thèse doctorat",
+                "activité": "Participaction à thèse doctorat ou d'habilitation",
                 "informations": [
                     {"name": "Type de participation",
-                    "name_database": "type_participation",
+                    "name_database": "role",
                     "itemType": "select",
                     "options":[{"value": "Président"}, {"value": "Rapporteur"}, {"value": "Membre"}]},
                     {"name": "Sujet de thèse ",

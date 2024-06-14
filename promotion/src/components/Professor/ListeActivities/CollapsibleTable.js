@@ -23,7 +23,7 @@ function Row({subType, activities}) {
   const [open, setOpen] = React.useState(false);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const navigate = useNavigate();
-  
+  console.log(activities)
   useEffect(()=> {
     const validActivityNames = new Set(subType.activities.map(activity => activity.name));
     const filtered = activities.map(subArray => 
@@ -34,6 +34,8 @@ function Row({subType, activities}) {
 
   const handleActivityClick = (activity) => {
     navigate('/activite_informations', { state: { activity } });
+    console.log(activity);
+  
   };
  
   return (
@@ -60,7 +62,7 @@ function Row({subType, activities}) {
                 {filteredActivities.map((subArray, subArrayIndex) => (
                     <React.Fragment key={subArrayIndex}>
                       {subArray.map((activity, activityIndex) => (
-                        <TableRow key={activityIndex} onClick={() => handleActivityClick(activity)}>
+                        <TableRow key={activityIndex} onClick={() => handleActivityClick(activity)} style={{ cursor: 'pointer' }}>
                           <TableCell component="th" scope="row">{activity.activityName}</TableCell>
                           <TableCell align="right">
                             <IconButton aria-label="delete" color="error">

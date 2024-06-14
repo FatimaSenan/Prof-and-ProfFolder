@@ -3,6 +3,9 @@ import Box from '@mui/material/Box';
 import Sidenav from '../components/Sidenav';
 import Navbar from '../components/Navbar';
 import CollapsibleTable from '../components/Professor/ListeActivities/CollapsibleTable';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { act } from 'react';
 
 function ActiviteRecherche() {
   const types = [
@@ -12,29 +15,27 @@ function ActiviteRecherche() {
         { 
           name: 'Articles scientifiques publiés dans des revues indexées internationales, ou des actes de congrès internationaux ou nationaux ou à comité de lecture internationaux ou nationaux',
           activities: [
-            { name: "Publications dans des revues scientifiques internationales à comité de lecture ISSN tel qu'il est défini dans la liste officielle du CNRST)" },
-            { name: "Publications dans des revues scientifiques nationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)"}
+            { name: "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON" },
+            { name: "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)"}
           ]
         },
         { 
           name: 'Ouvrages de recherche',
           activities: [
             { name: "Ouvrage spécialisé ISBN et publié par une maison d'édition" },
-            { name: "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN " }
+            { name: "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN" }
           ]
         },
         { 
             name: 'Communications dans des congrès ou des conférences (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu\'une seule fois)',
             activities: [
-              { name: "Ouvrage spécialisé ISBN et publié par une maison d'édition" },
-              { name: "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN " }
+              { name: "Congrès ou conférence" }
             ]
         },
         { 
             name: 'Communications dans des congrès ou des conférences (non publiés) (Les communications ne peuvent être comptabilisées qu\'une seule fois)',
             activities: [
-              { name: "Ouvrage spécialisé ISBN et publié par une maison d'édition" },
-              { name: "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN " }
+              { name: "Communications dans des congrès ou des conférences (non publiés)" }
             ]
         }
       ]
@@ -45,22 +46,19 @@ function ActiviteRecherche() {
         { 
           name: 'Encadrement des thèses de doctorat (Attest,ation délivrée par le chef d\'établissement)',
           activities: [
-            { name: 'Activity 1' },
-            { name: 'Activity 2' }
+            { name: 'Doctorats encadrés' }
           ]
         },
         { 
           name: 'Encadrement des mémoires de Master (Attestation délivrée par le chef d\'établissement',
           activities: [
-            { name: 'Activity 3' },
-            { name: 'Activity 4' }
+            { name: 'Encadrement des mémoires de Master' }
           ]
         },
         { 
             name: 'Participation comme président ou rapporteur ou membre du jury de thèse de doctorat ou d\'habilitation (Attestation délivrée par le chef d\'établissement)',
             activities: [
-              { name: 'Activity 3' },
-              { name: 'Activity 4' }
+              { name: 'Participaction à thèse doctorat ou d\'habilitation' }
             ]
           }
       ]
@@ -71,22 +69,21 @@ function ActiviteRecherche() {
           { 
             name: 'Responsable ou membre d\'une structure de recherche (au moins une année)',
             activities: [
-              { name: 'Activity 1' },
-              { name: 'Activity 2' }
+              { name: 'Responsable ou membre d\'une structure de recherche accréditée ou d\'un pole de compétence(cumulable)' },
+              { name: 'Association pour la connaissance' }
             ]
           },
           { 
             name: 'Projets ou contrats de recherche (Attestation délivrée par le chef d\'établissement)',
             activities: [
-              { name: 'Activity 3' },
-              { name: 'Activity 4' }
+              { name: 'Projets ou contrats de recherche au niveau national ou international ou les deux' }
             ]
           },
           { 
               name: 'Les activités d\'expertises et d\'évaluations scientifiques nationales et internationales (correctement justifiée par une attestation ou un rapport signé par le chef d\'établissement) ',
               activities: [
-                { name: 'Activity 3' },
-                { name: 'Activity 4' }
+                { name: 'Editeur, membre ou référé d\'un journal ou revue scientifique' },
+                { name: 'Expertise non rémunérée de projet de recherche scientifique' }
               ]
             }
         ]
@@ -97,29 +94,43 @@ function ActiviteRecherche() {
           { 
             name: 'Animation des structures d\'interaction avec l\'environnement socio-économique et organisation des manifestations scientifiques (le nom du candidat organisateur doit figurer sur le dépliant correspondant, à fournir)',
             activities: [
-              { name: 'Activity 1' },
-              { name: 'Activity 2' }
-            ]
+              { name: 'Contribution à l\'organisation d\'activités de rayonnement de l\'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre)' }            ]
           },
           { 
             name: 'Expertise et valorisation d\'actions au profit des milieux socio-économiques (correctement justifiée par une attestation ou un rapport d\'expertise signé et cacheté par le chef d\'établissement)',
             activities: [
-              { name: 'Activity 3' },
-              { name: 'Activity 4' }
+              { name: 'Projet de recherche et de développement avec le secteur privé' },
+              { name: 'Brevet' },
+              {name: 'Incubation de projet de recherche et de développement'},
+              {name: 'Création de start up'}
             ]
-          },
-          { 
-              name: 'Les activités d\'expertises et d\'évaluations scientifiques nationales et internationales (correctement justifiée par une attestation ou un rapport signé par le chef d\'établissement) ',
-              activities: [
-                { name: 'Activity 3' },
-                { name: 'Activity 4' }
-              ]
-            }
+          }
         ]
       }
   ];
+  const [activities, setActivities] = useState([]);
+ 
 
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:9005/professor/activities/current-user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+     
+       const extractedData = response.data; 
+       setActivities(extractedData);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(activities);
   return (
     <>
     <Navbar/>
@@ -129,7 +140,7 @@ function ActiviteRecherche() {
       
   
     <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
-        <CollapsibleTable types={types} activityType="Activités de recherche"/>
+        <CollapsibleTable types={types} activityType="Activités de recherche" activities={activities}/>
         
       </Box>
   

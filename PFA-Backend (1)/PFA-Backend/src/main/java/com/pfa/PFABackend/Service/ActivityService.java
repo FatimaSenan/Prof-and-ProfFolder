@@ -9,4 +9,6 @@ public interface ActivityService {
    // public void saveActivity(Activity activity);
     //public Iterable<Activity> getActivities();
     public List<List<?>> getAllActivitiesForCurrentUser();
+
+    public String deleteSelectedActivityForCurrentUser(String activityName, int activityId);
 }

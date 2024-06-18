@@ -15,6 +15,9 @@ import { useLocation } from 'react-router-dom';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { pdfjs } from 'react-pdf';
+import Navbar from '../../Navbar';
+import Sidenav from '../../Sidenav';
+import Box from '@mui/material/Box';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -61,13 +64,23 @@ export default function ActivitiesInformationTable () {
       useEffect(() => {
         // Convert bytes to Base64 string
         if (activity.justification && activity.justification.length > 0) {
-          const blob = new Blob([new Uint8Array(activity.justification)],
-        {type: 'application/pdf'});
+          const blob = new Blob([activity.justification],
+            { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         setPdfURL(url);
         }
       }, [activity.justification]);
+
+      const handlePdfIconClick = (justification) =>{
+        window.open(pdfURL, '_blank');
+      }
     return (
+      <>
+      <Navbar/>
+      <Box height={30}/>
+      <Box sx={{display: 'flex'}}>
+        <Sidenav/>
+        <Box component="main" sx={{flexGrow: 1, p:6}}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
          <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -88,13 +101,7 @@ export default function ActivitiesInformationTable () {
               </StyledTableCell>
               <StyledTableCell align="right"> 
               {/* Conditionally render the icon if data is a PDF */}
-                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = pdfURL;
-                        link.target = '_blank';
-                        link.click();
-                    
-                      }}/>: value }
+                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handlePdfIconClick(filteredActivity.justification)}/>: value }
                   {/*value*/}
               </StyledTableCell>
              
@@ -103,12 +110,12 @@ export default function ActivitiesInformationTable () {
         </TableBody>
       </Table>
     </TableContainer>
-    <div style={{ height: '800px', marginTop: '20px' }}>
-          <Worker workerUrl={`https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`}>
-            <Viewer fileUrl={pdfURL} />
-          </Worker>
-        </div>
+   
 
       </Paper>
+        </Box>
+      </Box>
+      </>
+        
     );
 }

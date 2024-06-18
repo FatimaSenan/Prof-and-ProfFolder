@@ -16,6 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Row({subType, activities}) {
@@ -37,6 +38,27 @@ function Row({subType, activities}) {
     console.log(activity);
   
   };
+
+  const handleDelete = async (activityName, activityId) => {
+    try{
+      const response = await axios.delete('http://localhost:9005/professor/activities/delete-activity', {
+        params: { activityName, id: activityId },
+        headers: {
+          'Authorization': 'Bearer ' +localStorage.getItem('token')
+        }
+      });
+      if(response.status === 200) {
+        alert("activité supprimé avec succès!");
+        
+      }else {
+        alert("Failed to delete activity");
+      }
+    } catch (error) {
+      console.error("There was an error deleting the activity!", error);
+      alert("An error occurred while deleting the activity");
+    }
+    }
+  
  
   return (
     <React.Fragment>
@@ -62,10 +84,10 @@ function Row({subType, activities}) {
                 {filteredActivities.map((subArray, subArrayIndex) => (
                     <React.Fragment key={subArrayIndex}>
                       {subArray.map((activity, activityIndex) => (
-                        <TableRow key={activityIndex} onClick={() => handleActivityClick(activity)} style={{ cursor: 'pointer' }}>
-                          <TableCell component="th" scope="row">{activity.activityName}</TableCell>
+                        <TableRow key={activityIndex}  style={{ cursor: 'pointer' }}>
+                          <TableCell component="th" scope="row" onClick={() => handleActivityClick(activity)}>{activity.activityName}</TableCell>
                           <TableCell align="right">
-                            <IconButton aria-label="delete" color="error">
+                            <IconButton aria-label="delete" color="error" onClick={() => handleDelete(activity.activityName, activity.id)}>
                               <DeleteIcon />
                             </IconButton>
                           </TableCell>

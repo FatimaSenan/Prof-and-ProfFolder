@@ -172,7 +172,7 @@ const Form_1 = ({activityType, activityName}) => {
                 value={additionalData[info.name_database] || ""}
                 onChange={(event) => handleOptionChange(event, info.name_database)}
               >
-                <option value="">Sélectionnez une activité</option>
+                <option value="">Sélectionnez une option</option>
                   { info.options.map((option, optionIndex) => (
                     <option value={option.value} key={optionIndex}>
                       {option.value}

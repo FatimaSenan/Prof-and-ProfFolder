@@ -113,7 +113,7 @@
         "type": "Communications dans des congrès ou des conférences (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)",
         "activités": [
             {
-                "activité": "Congrès ou conférence",
+                "activité": "Congrès ou conférence (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)",
                 "informations": [
                     {"name": "Type de congrès",
                     "name_database": "type",

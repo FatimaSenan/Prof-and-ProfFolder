@@ -101,11 +101,9 @@ function ActiviteEnseignement() {
             'Authorization': `Bearer ${token}`
           }
         });
-      // console.log(response.data); // Log the response data
-       const extractedData = response.data; // or response.data.someKey if the data is nested
-     //console.log(extractedData);
-    //console.log(extractedData.length)
-       // Update the state with the extracted data
+      
+       const extractedData = response.data; 
+     
        setActivities(extractedData);
       } catch (error) {
         console.error('Error:', error);
@@ -113,9 +111,7 @@ function ActiviteEnseignement() {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures useEffect runs only once
-//console.log(activities);
-//console.log(activities.length)
+  }, []); 
 
 
 

@@ -52,4 +52,16 @@ public class DoctoratsEncadrés {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Soutenus".equals(status)) {
+            this.setActivityPoints(3);
+        } else if("En cours de préparation".equals(status)) {
+            this.setActivityPoints(1.5);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

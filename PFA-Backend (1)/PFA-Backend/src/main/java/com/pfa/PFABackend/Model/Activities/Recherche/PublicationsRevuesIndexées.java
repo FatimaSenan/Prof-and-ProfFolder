@@ -49,4 +49,19 @@ public class PublicationsRevuesIndexées {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Niveau 1: Impact factor<1)".equals(niveau)) {
+            this.setActivityPoints(3);
+        } else if("Niveau 2: Impact factor de 1 à <5".equals(niveau)) {
+            this.setActivityPoints(5);
+        } else if("Niveau 3: Impact factor 6 et +".equals(niveau)){
+            activityPoints = 8;
+
+        }else{
+            activityPoints = 0;
+        }
+    }
 }

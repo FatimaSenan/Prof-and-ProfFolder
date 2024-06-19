@@ -45,4 +45,18 @@ public class ParticipationthèseDoctorat {
     @JoinColumn(name = "user_id", nullable = false)
     //@JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Président".equals(typeParticipation)) {
+            this.setActivityPoints(0.5);
+        } else if("Rapporteur".equals(typeParticipation)) {
+            this.setActivityPoints(1);
+        } else if("Membre".equals(typeParticipation)){
+            activityPoints = 0.5;
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

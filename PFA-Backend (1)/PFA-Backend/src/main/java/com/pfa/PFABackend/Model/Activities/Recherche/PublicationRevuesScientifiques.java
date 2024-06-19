@@ -48,4 +48,16 @@ public class PublicationRevuesScientifiques {
     @JoinColumn(name = "user_id", nullable = false)
     //@JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Nationale)".equals(type)) {
+            this.setActivityPoints(1);
+        } else if("Internationale".equals(type)) {
+            this.setActivityPoints(2);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

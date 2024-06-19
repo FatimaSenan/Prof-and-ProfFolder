@@ -48,4 +48,16 @@ public class ProjetsContratsRecherche {
     @JoinColumn(name = "user_id", nullable = false)
     //JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Responsable".equals(responsabilite)) {
+            this.setActivityPoints(2);
+        } else if("Membre".equals(responsabilite)) {
+            this.setActivityPoints(1);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

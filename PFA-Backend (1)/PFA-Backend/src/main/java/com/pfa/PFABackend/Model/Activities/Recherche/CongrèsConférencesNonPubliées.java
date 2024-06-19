@@ -17,7 +17,7 @@ public class CongrèsConférencesNonPubliées {
     private String activityName;
 
     @Column(name = "activity_points")
-    private double activityPoints;
+    private double activityPoints = 1;
 
     @Column(name = "nom_conference")
     private String nomConference;
@@ -45,4 +45,5 @@ public class CongrèsConférencesNonPubliées {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
 }

@@ -41,4 +41,15 @@ public class ResponsableMembreStructureRecherchePole {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Responsable".equals(résponsabilité)) {
+            this.setActivityPoints(1.5);
+        } else if("Membre".equals(résponsabilité)) {
+            this.setActivityPoints(1);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

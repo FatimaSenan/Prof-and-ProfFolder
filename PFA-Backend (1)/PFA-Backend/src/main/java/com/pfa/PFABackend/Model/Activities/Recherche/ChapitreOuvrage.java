@@ -17,7 +17,7 @@ public class ChapitreOuvrage {
     private String activityName;
 
     @Column(name = "activity_points")
-    private double activityPoints;
+    private double activityPoints = 3;
 
 
     private String titre;

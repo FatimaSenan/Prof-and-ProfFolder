@@ -47,4 +47,16 @@ public class OuvrageSpecialisé {
    // @JsonBackReference
     private User user;
 
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Maison d'édition)".equals(publicateur)) {
+            this.setActivityPoints(4);
+        } else if("L'auteur lui meme".equals(publicateur)) {
+            this.setActivityPoints(2);
+        } else{
+            activityPoints = 0;
+        }
+    }
+
 }

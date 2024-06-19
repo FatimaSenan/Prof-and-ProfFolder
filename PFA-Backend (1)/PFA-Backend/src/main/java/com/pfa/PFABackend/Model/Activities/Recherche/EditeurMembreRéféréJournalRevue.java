@@ -41,4 +41,16 @@ public class EditeurMembreRéféréJournalRevue {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Editeur".equals(role)) {
+            this.setActivityPoints(1);
+        } else if("Membre éditorial".equals(role) || "Référé".equals(role)) {
+            this.setActivityPoints(0.5);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

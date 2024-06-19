@@ -35,4 +35,16 @@ public class AssociationConnaissance {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Président d’une association".equals(responsabilité)) {
+            this.setActivityPoints(1.5);
+        } else if("Membre du bureau".equals(responsabilité)) {
+            this.setActivityPoints(1);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

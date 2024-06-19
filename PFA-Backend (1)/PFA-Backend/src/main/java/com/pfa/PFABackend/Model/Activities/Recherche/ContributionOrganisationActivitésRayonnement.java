@@ -43,4 +43,18 @@ public class ContributionOrganisationActivitésRayonnement {
     @JoinColumn(name = "user_id", nullable = false)
    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if(("Responsable".equals(role) && "International".equals(type) )|| ("Prix de distinction".equals(role))) {
+            this.setActivityPoints(1.5);
+        } else if("Membre".equals(role) || "Membre organisateur".equals(role)) {
+            this.setActivityPoints(0.5);
+        }else if("Responsable".equals(role) && "Nationam".equals(type)) {
+            this.setActivityPoints(1);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

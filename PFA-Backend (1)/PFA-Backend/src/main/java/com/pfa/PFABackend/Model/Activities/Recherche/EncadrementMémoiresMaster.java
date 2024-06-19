@@ -17,7 +17,7 @@ public class EncadrementMémoiresMaster {
     private String activityName;
 
     @Column(name = "activity_points")
-    private double activityPoints;
+    private double activityPoints = 1;
 
 
     private String sujet;

@@ -16,7 +16,7 @@ public class ExpertiseNonRémunéré {
     @Column(name = "activity_name")
     private String activityName;
     @Column(name = "activity_points")
-    private double activityPoints =2;
+    private double activityPoints = 0.5;
 
     private String projet;
 

@@ -11,4 +11,6 @@ public interface ActivityService {
     public List<List<?>> getAllActivitiesForCurrentUser();
 
     public String deleteSelectedActivityForCurrentUser(String activityName, int activityId);
+
+    public byte[] getJustificationPdf(String activityName, int activityId);
 }

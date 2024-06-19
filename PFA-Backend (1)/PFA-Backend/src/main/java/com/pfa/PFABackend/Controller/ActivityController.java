@@ -5,6 +5,9 @@ import com.pfa.PFABackend.Model.ActivitySubType1;
 import com.pfa.PFABackend.Service.ActivityService;
 import com.pfa.PFABackend.Service.ActivitySubType1Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +37,14 @@ public class ActivityController {
         }catch (Exception e) {
             return ResponseEntity.status(500).body("An error occurred while deleting the activity");
         }
+    }
+
+    @GetMapping("/justification")
+    public ResponseEntity<byte[]> getPdfJustification(@RequestParam(name = "activityName") String activityName, @RequestParam(name = "id") int id){
+        byte[] pdfBytes = activityService.getJustificationPdf(activityName, id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "justification.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 }

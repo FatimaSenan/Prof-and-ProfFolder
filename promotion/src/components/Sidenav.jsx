@@ -150,7 +150,7 @@ export default function Sidenav() {
                   <RxActivityLog color="#0D0D0D" />
                 </ListItemIcon>
                 <ListItemText primary="Liste des Activités" sx={{ opacity: open ? 1 : 0 }} onClick={handleCollapse} />
-                {isCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                {isCollapse ? <ExpandLessIcon onClick={handleCollapse}/> : <ExpandMoreIcon onClick={handleCollapse}/>}
               </ListItemButton>
             </ListItem>
 

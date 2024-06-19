@@ -17,13 +17,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 
 function Row({subType, activities}) {
   
   const [open, setOpen] = React.useState(false);
+  const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(null);
   const [filteredActivities, setFilteredActivities] = useState([]);
   const navigate = useNavigate();
+  const theme = useTheme();
   console.log(activities)
   useEffect(()=> {
     const validActivityNames = new Set(subType.activities.map(activity => activity.name));
@@ -38,17 +43,28 @@ function Row({subType, activities}) {
     console.log(activity);
   
   };
+  const handleDeleteClick = (activity) => {
+    setSelectedActivity(activity);
+    setOpenConfirmationDialog(true);
+  };
+  
 
-  const handleDelete = async (activityName, activityId) => {
+  const handleDeleteConfirm = async () => {
     try{
       const response = await axios.delete('http://localhost:9005/professor/activities/delete-activity', {
-        params: { activityName, id: activityId },
+        params: { activityName: selectedActivity.activityName, id: selectedActivity.id },
         headers: {
           'Authorization': 'Bearer ' +localStorage.getItem('token')
         }
       });
       if(response.status === 200) {
         alert("activité supprimé avec succès!");
+        setFilteredActivities((prevActivities) =>
+          prevActivities.map((subArray) =>
+            subArray.filter(activity => activity.id !== selectedActivity.id)
+          )
+        );
+        
         
       }else {
         alert("Failed to delete activity");
@@ -57,9 +73,13 @@ function Row({subType, activities}) {
       console.error("There was an error deleting the activity!", error);
       alert("An error occurred while deleting the activity");
     }
-    }
+    setOpenConfirmationDialog(false);
+    };
   
- 
+    const handleDeleteCancel = () => {
+      setOpenConfirmationDialog(false);
+    };
+    console.log(filteredActivities);
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -87,7 +107,7 @@ function Row({subType, activities}) {
                         <TableRow key={activityIndex}  style={{ cursor: 'pointer' }}>
                           <TableCell component="th" scope="row" onClick={() => handleActivityClick(activity)}>{activity.activityName}</TableCell>
                           <TableCell align="right">
-                            <IconButton aria-label="delete" color="error" onClick={() => handleDelete(activity.activityName, activity.id)}>
+                            <IconButton aria-label="delete" color="error" onClick={() => handleDeleteClick(activity)}>
                               <DeleteIcon />
                             </IconButton>
                           </TableCell>
@@ -101,6 +121,50 @@ function Row({subType, activities}) {
           </Collapse>
         </TableCell>
       </TableRow>
+      <Dialog
+            open={openConfirmationDialog}
+            onClose={handleDeleteCancel}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            sx={{
+              '& .MuiDialog-container .MuiPaper-root': {
+                width: '80%',
+                maxWidth: '400px',
+                height: '40%',
+                maxHeight: '300px',
+              },
+            }}
+          >
+            <DialogTitle id="alert-dialog-title">Confirmer la suppression</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Êtes-vous sûr de vouloir supprimer cette activité ?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDeleteCancel} color="primary"sx={{
+                        color: '#0D0D0D', // Change text color
+                        '&:hover': {
+                          backgroundColor: '#ecd5d0', // Change hover background color
+                        },
+                      }}>
+                Annuler
+              </Button>
+              <Button
+                onClick={handleDeleteConfirm}
+                sx={{
+                  color: theme.palette.getContrastText("#A66253"),
+                  backgroundColor: "#A66253",
+                  '&:hover': {
+                    backgroundColor: "#7F3D30",
+                  },
+                }}
+                autoFocus
+              >
+                Supprimer
+              </Button>
+            </DialogActions>
+          </Dialog>
     </React.Fragment>
   );
 }

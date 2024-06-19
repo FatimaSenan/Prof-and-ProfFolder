@@ -1,16 +1,21 @@
 package com.pfa.PFABackend.Service;
 
 import com.pfa.PFABackend.Model.User;
-import com.pfa.PFABackend.Repository.Activities.Enseignement.ChefDépartementRepository;
 import com.pfa.PFABackend.Repository.UserRepository;
 import com.pfa.PFABackend.dto.ReqRes;
+import com.pfa.PFABackend.dto.UserProfileDTO;
 import io.jsonwebtoken.Jwts;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,21 +27,19 @@ public class UserManagementService {
     @Autowired
     private UserRepository userRepository;
 
-
-
-
     @Autowired
     private JWTUtils jwtUtils;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     public ReqRes register(ReqRes registrationRequest) {
         ReqRes response = new ReqRes();
 
-        try{
-
+        try {
             User user = new User();
             user.setFirstname(registrationRequest.getFirstname());
             user.setLastname(registrationRequest.getLastname());
@@ -44,12 +47,12 @@ public class UserManagementService {
             user.setRole(registrationRequest.getRole());
             user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             User userResult = userRepository.save(user);
-            if(userResult.getId()>0) {
+            if (userResult.getId() > 0) {
                 response.setUser(userResult);
-                response.setMessage("User saved successflly");
+                response.setMessage("User saved successfully");
                 response.setStatusCode(200);
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage(e.getMessage());
         }
@@ -58,7 +61,7 @@ public class UserManagementService {
 
     public ReqRes login(ReqRes loginRequest) {
         ReqRes response = new ReqRes();
-        try{
+        try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
                     loginRequest.getPassword()));
             var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
@@ -70,39 +73,37 @@ public class UserManagementService {
             response.setRefreshToken(refreshToken);
             response.setExpirationTime("24Hrs");
             response.setMessage("Successfully logged in");
-        }catch(Exception e){
+        } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage(e.getMessage());
         }
         return response;
     }
-    public ReqRes refreshToken(ReqRes refreshTokenReqiest){
+
+    public ReqRes refreshToken(ReqRes refreshTokenRequest) {
         ReqRes response = new ReqRes();
-        try{
-            String ourEmail = jwtUtils.extractUsername(refreshTokenReqiest.getToken());
-            User users = userRepository.findByEmail(ourEmail).orElseThrow();
-            if (jwtUtils.isTokenValid(refreshTokenReqiest.getToken(), users)) {
-                var jwt = jwtUtils.generateToken(users);
+        try {
+            String ourEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
+            User user = userRepository.findByEmail(ourEmail).orElseThrow();
+            if (jwtUtils.isTokenValid(refreshTokenRequest.getToken(), user)) {
+                var jwt = jwtUtils.generateToken(user);
                 response.setStatusCode(200);
                 response.setToken(jwt);
-                response.setRefreshToken(refreshTokenReqiest.getToken());
+                response.setRefreshToken(refreshTokenRequest.getToken());
                 response.setExpirationTime("24Hr");
                 response.setMessage("Successfully Refreshed Token");
             }
             response.setStatusCode(200);
             return response;
-
-        }catch (Exception e){
+        } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage(e.getMessage());
             return response;
         }
     }
 
-
     public ReqRes getAllUsers() {
         ReqRes reqRes = new ReqRes();
-
         try {
             List<User> result = userRepository.findAll();
             if (!result.isEmpty()) {
@@ -113,22 +114,6 @@ public class UserManagementService {
                 reqRes.setStatusCode(404);
                 reqRes.setMessage("No users found");
             }
-            return reqRes;
-        } catch (Exception e) {
-            reqRes.setStatusCode(500);
-            reqRes.setMessage("Error occurred: " + e.getMessage());
-            return reqRes;
-        }
-    }
-
-
-    public ReqRes getUsersById(Integer id) {
-        ReqRes reqRes = new ReqRes();
-        try {
-            User usersById = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User Not found"));
-            reqRes.setUser(usersById);
-            reqRes.setStatusCode(200);
-            reqRes.setMessage("Users with id '" + id + "' found successfully");
         } catch (Exception e) {
             reqRes.setStatusCode(500);
             reqRes.setMessage("Error occurred: " + e.getMessage());
@@ -136,6 +121,19 @@ public class UserManagementService {
         return reqRes;
     }
 
+    public ReqRes getUsersById(Integer id) {
+        ReqRes reqRes = new ReqRes();
+        try {
+            User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User Not found"));
+            reqRes.setUser(user);
+            reqRes.setStatusCode(200);
+            reqRes.setMessage("User with id '" + id + "' found successfully");
+        } catch (Exception e) {
+            reqRes.setStatusCode(500);
+            reqRes.setMessage("Error occurred: " + e.getMessage());
+        }
+        return reqRes;
+    }
 
     public ReqRes deleteUser(Integer userId) {
         ReqRes reqRes = new ReqRes();
@@ -163,8 +161,6 @@ public class UserManagementService {
             if (userOptional.isPresent()) {
                 User existingUser = userOptional.get();
                 existingUser.setEmail(updatedUser.getEmail());
-
-
                 existingUser.setRole(updatedUser.getRole());
 
                 // Check if password is present in the request
@@ -188,8 +184,7 @@ public class UserManagementService {
         return reqRes;
     }
 
-
-    public ReqRes getMyInfo(String email){
+    public ReqRes getMyInfo(String email) {
         ReqRes reqRes = new ReqRes();
         try {
             Optional<User> userOptional = userRepository.findByEmail(email);
@@ -201,16 +196,78 @@ public class UserManagementService {
                 reqRes.setStatusCode(404);
                 reqRes.setMessage("User not found for update");
             }
-
-        }catch (Exception e){
+        } catch (Exception e) {
             reqRes.setStatusCode(500);
             reqRes.setMessage("Error occurred while getting user info: " + e.getMessage());
         }
         return reqRes;
-
     }
 
+    // Méthode pour sauvegarder l'image de profil
+    @Transactional
+    public void saveProfileImage(MultipartFile file, String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            try {
+                user.setImage(file.getBytes());
+                userRepository.save(user);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to store profile image: " + e.getMessage());
+            }
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
 
+    // Méthode pour supprimer l'image de profil
+    @Transactional
+    public void deleteProfileImage(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setImage(null);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
 
+    // Méthode pour récupérer l'image de profil
+    public byte[] getProfileImage(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            byte[] image = user.getImage();
+            if (image != null) {
+                return image;
+            }
+        }
+        // Si l'utilisateur n'a pas d'image, renvoyer une image par défaut
+        try {
+            InputStream defaultImageStream = new ClassPathResource("static/default-profile.jpg").getInputStream();
+            return defaultImageStream.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load default profile image", e);
+        }
+    }
+    public UserProfileDTO getProfile(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserProfileDTO userProfileDTO = new UserProfileDTO();
+            userProfileDTO.setFirstname(user.getFirstname());
+            userProfileDTO.setLastname(user.getLastname());
+            userProfileDTO.setEmail(user.getEmail());
+
+            if (user.getProfessorFolder() != null) {
+                userProfileDTO.setBirthDate(user.getProfessorFolder().getBirthDate());
+                userProfileDTO.setGrade(user.getProfessorFolder().getGrade());
+            }
+
+            return userProfileDTO;
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
 }
-

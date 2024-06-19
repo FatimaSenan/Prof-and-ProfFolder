@@ -1,5 +1,6 @@
 package com.pfa.PFABackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pfa.PFABackend.Model.Activities.Enseignement.*;
 import com.pfa.PFABackend.Model.Activities.Recherche.*;
 import jakarta.persistence.*;
@@ -25,13 +26,23 @@ public class User implements UserDetails {
     private String lastname;
 
     private String email;
-
+    @JsonIgnore
     private String password;
 
     private String role;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ProfessorFolder professorFolder;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Annexe3> annexe3List = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Annexe2 annexe2;
 
    /* @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChefDépartement> chefDepartementList = new ArrayList<>();*/
@@ -185,5 +196,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Annexe2 getAnnexe2() {
+        return annexe2;
+    }
+
+    public void setAnnexe2(Annexe2 annexe2) {
+        this.annexe2 = annexe2;
     }
 }

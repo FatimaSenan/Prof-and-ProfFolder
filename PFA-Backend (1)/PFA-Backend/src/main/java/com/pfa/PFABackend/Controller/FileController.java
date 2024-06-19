@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@CrossOrigin("http://localhost:9005")
+@CrossOrigin("http://localhost:8080")
 @RequestMapping("/api")
 public class FileController {
     @Autowired

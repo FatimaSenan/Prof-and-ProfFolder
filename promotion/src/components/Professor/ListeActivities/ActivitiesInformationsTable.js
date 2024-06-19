@@ -18,6 +18,7 @@ import { pdfjs } from 'react-pdf';
 import Navbar from '../../Navbar';
 import Sidenav from '../../Sidenav';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -61,19 +62,21 @@ export default function ActivitiesInformationTable () {
       delete filteredActivity.activityName;
 
       
-      useEffect(() => {
-        // Convert bytes to Base64 string
-        if (activity.justification && activity.justification.length > 0) {
-          const blob = new Blob([activity.justification],
-            { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-        setPdfURL(url);
+      const handleViewPdf = async (activityName, id) => {
+        try {
+          const response = await axios.get('http://localhost:9005/professor/activities/justification', {
+            responseType: 'blob',
+            params: { activityName: activityName, id: id },
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            },
+          });
+          const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+          window.open(fileURL);
+        } catch (error) {
+          console.error('Error fetching PDF: ', error);
         }
-      }, [activity.justification]);
-
-      const handlePdfIconClick = (justification) =>{
-        window.open(pdfURL, '_blank');
-      }
+      };
     return (
       <>
       <Navbar/>
@@ -101,7 +104,7 @@ export default function ActivitiesInformationTable () {
               </StyledTableCell>
               <StyledTableCell align="right"> 
               {/* Conditionally render the icon if data is a PDF */}
-                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handlePdfIconClick(filteredActivity.justification)}/>: value }
+                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handleViewPdf(activity.activityName, activity.id)}/>: value }
                   {/*value*/}
               </StyledTableCell>
              

@@ -23,7 +23,7 @@
                 {"name": "Résponsabilité",
                 "name_database": "responsabilité",
                 "itemType": "select",
-                "options": [{"value": "Président d’une association"}, {"value": "membre du bureau"}]},
+                "options": [{"value": "Président d’une association"}, {"value": "Membre du bureau"}]},
                 {"name": "Années",
                 "name_database": "années",
                 "itemType": "input"}]

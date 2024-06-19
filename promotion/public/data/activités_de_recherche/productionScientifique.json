@@ -69,7 +69,7 @@
                     {"name": "Publicateur",
                     "name_database": "publicateur",
                     "itemType": "select",
-                    "options": [{"value": "maison d'édition"}, {"value": "l'auteur lui meme"}]},
+                    "options": [{"value": "Maison d'édition"}, {"value": "L'auteur lui meme"}]},
                     {"name": "Titre",
                     "name_database": "titre",
                     "itemType": "input"},

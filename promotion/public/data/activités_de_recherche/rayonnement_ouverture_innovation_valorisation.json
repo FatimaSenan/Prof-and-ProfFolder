@@ -18,7 +18,7 @@
                 {"name": "Rôle",
                 "name_database": "role",
                 "itemType": "select",
-                "options": [{"value": "Responsable"}, {"value": "Membre"}, {"value": "Membre organisateur"}]},
+                "options": [{"value": "Responsable"}, {"value": "Membre"}, {"value": "Membre organisateur"}, {"value": "Prix de distinction"}]},
                 {"name": "Date de conférence",
                 "name_database": "date",
                 "itemType": "input"} 

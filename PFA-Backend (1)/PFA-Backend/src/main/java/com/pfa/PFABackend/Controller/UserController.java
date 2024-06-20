@@ -1,6 +1,7 @@
 package com.pfa.PFABackend.Controller;
 
 import com.pfa.PFABackend.Service.UserManagementService;
+import com.pfa.PFABackend.dto.ProfessorDTO;
 import com.pfa.PFABackend.dto.ReqRes;
 import com.pfa.PFABackend.dto.UserProfileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -85,4 +87,12 @@ public class UserController {
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
     }
+
+    @GetMapping("/api/get-professors")
+    public ResponseEntity<List<ProfessorDTO>> getAllProfessors() {
+        ResponseEntity<List<ProfessorDTO>> response = userManagementService.getAllProfessors();
+        return response;
+    }
+
+
 }

@@ -1,13 +1,16 @@
 package com.pfa.PFABackend.Service;
 
+import com.pfa.PFABackend.Model.ProfessorFolder;
 import com.pfa.PFABackend.Model.User;
 import com.pfa.PFABackend.Repository.UserRepository;
+import com.pfa.PFABackend.dto.ProfessorDTO;
 import com.pfa.PFABackend.dto.ReqRes;
 import com.pfa.PFABackend.dto.UserProfileDTO;
 import io.jsonwebtoken.Jwts;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserManagementService {
@@ -270,4 +270,27 @@ public class UserManagementService {
             throw new RuntimeException("User not found with email: " + email);
         }
     }
+
+    public ResponseEntity<List<ProfessorDTO>> getAllProfessors() {
+        List<User> users = userRepository.findByRole("PROFESSOR");
+        List<ProfessorDTO> professors = new ArrayList<>();
+
+        for (User user : users) {
+            ProfessorFolder folder = user.getProfessorFolder();
+            ProfessorDTO professorDTO = new ProfessorDTO();
+            professorDTO.setFirstname(user.getFirstname());
+            professorDTO.setLastname(user.getLastname());
+            professorDTO.setEmail(user.getEmail());
+            professorDTO.setPhone(folder != null ? folder.getPhone() : null);
+            professorDTO.setProfile(folder != null ? folder.getProfile() : null);
+            professorDTO.setEstablishment(folder != null ? folder.getEstablishment() : null);
+            professorDTO.setEvaluationStatus(folder != null && folder.getEvaluationStatus() != null ? folder.getEvaluationStatus() : "Not Evaluated");
+            professors.add(professorDTO);
+        }
+
+        return ResponseEntity.ok(professors);
+    }
+
+
+
 }

@@ -1,15 +1,15 @@
 import { Form, Formik, ErrorMessage } from "formik";
-import { advancedSchema } from "../Professor/schemas";
+import { advancedSchema } from "../schemas";
 import Grid from "@mui/material/Grid";
 //import ResponsabilitésScientifique from "../data/ResponsabilitésScientifiques";
 import { useState , useEffect} from "react";
 import CustomInput from "./CustomInput";
-import Modal from "../Professor/Modal/Modal";
-import CustomModal from "../Professor/Modal/Modal";
+import Modal from "../Modal/Modal";
+import CustomModal from "../Modal/Modal";
 import { Button } from "@mui/material";
 import axios from 'axios';
 import getEndpoint from "./GetEndpoint";
-import UploadFileButton from "../UploadFileButton";
+import UploadFileButton from "../../UploadFileButton";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import IconButton from '@mui/material/IconButton';
 
@@ -82,11 +82,7 @@ const Form_1 = ({activityType, activityName}) => {
    let endpoint = getEndpoint(selectedActivity);
 
   
-       /* const dataToSend = {
-      //activityType: selectedType,
-      activityName: selectedActivity,
-      ...additionalData, // Include additional dynamic data
-    };*/
+       
     const dataToSend = new FormData();
     dataToSend.append("activityName", selectedActivity);
 
@@ -110,12 +106,12 @@ const Form_1 = ({activityType, activityName}) => {
       },});
 
      
-     // console.log("Response: ", response.data);
+     
       
-      setSelectedActivity({});
-      setSelectedType({});
+     // setSelectedActivity({});
+      //setSelectedType({});
 
-       // Reset additional data state
+       
       setAdditionalData({});
       setFile({});
     

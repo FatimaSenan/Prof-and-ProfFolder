@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Navbar from '../components/Navbar';
 import Sidenav from '../components/Sidenav';
 import TreeView from '../components/Treeview';
-import ChoiceCardsContainer from '../components/Menu/ChoiceCardsContainer';
+import ChoiceCardsContainer from '../components/Professor/Menu/ChoiceCardsContainer';
 import UserService from '../components/Professor/service/UsersService';
 import { useState } from 'react';
 

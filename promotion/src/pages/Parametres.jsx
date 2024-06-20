@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Sidenav from '../components/Sidenav';
 import Navbar from '../components/Navbar';
 import SignInUp from '../components/SignInUp/SignInUp';
-import Form1 from '../components/Forms/Form1'
+import Form1 from '../components/Professor/Forms/Form1'
 function Parametres() {
   return (
     <>

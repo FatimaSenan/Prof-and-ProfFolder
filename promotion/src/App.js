@@ -10,9 +10,7 @@ import { Suspense, lazy } from 'react';
 import LoadingComponent from './LoadingComponent';
 import SignInUp from './components/SignInUp/SignInUp';
 import UserService from '../src/components/Professor/service/UsersService';
-//import Menugrille from './pages/Menugrille'
-//import Stepperenseignement from './pages/Stepperenseignement';
-//import StepperRecherche from './pages/StepperRecherche';
+
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginContainer from './components/SignInUp/LoginContainer';
 import RegistrationContainer from './components/SignInUp/RegistrationContainer';
@@ -28,6 +26,8 @@ const Parametres = lazy(() => import("./pages/Parametres"));
 const Stepperenseignement = lazy(() => import("./pages/Stepperenseignement"));
 const StepperRecherche = lazy(() => import("./pages/StepperRecherche"));
 const Menugrille = lazy(() => import("./pages/Menugrille"));
+const Annexe2 = lazy(()=> import("./components/Professor/Annexe2/Annexe2"))
+const TeachingTable = lazy(() => import("./components/Professor/TeachingTable"))
 
 function App() {
   return (
@@ -99,6 +99,16 @@ function App() {
             <ProtectedRoute>
             <DossierAdministratif/>
             </ProtectedRoute>}/>
+            <Route path='/teaching_table' exact element={
+                <ProtectedRoute role="PROFESSOR">
+                  <TeachingTable />
+                </ProtectedRoute>
+              } />
+              <Route path='/annexe2' exact element={
+                <ProtectedRoute role="PROFESSOR">
+                  <Annexe2/>
+                </ProtectedRoute>
+              } />
             </>
           )}
           {/*<Route path="*" element={<Navigate to="/login" />} />*/}

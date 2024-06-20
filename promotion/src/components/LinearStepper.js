@@ -7,7 +7,7 @@ import {
   StepLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Form_1 from "./Forms/Form1";
+import Form_1 from "./Professor/Forms/Form1";
 
 const useStyles = makeStyles((theme) => ({
   button: {

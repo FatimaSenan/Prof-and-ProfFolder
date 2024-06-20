@@ -140,7 +140,11 @@ function App() {
                 <ProfessorsTable />
               </ProtectedRoute>
               }/>
-             
+               <Route path='/deconnexion' exact element={
+            <ProtectedRoute>
+              <Deconnexion />
+            </ProtectedRoute>
+          } />
           
           </>
 

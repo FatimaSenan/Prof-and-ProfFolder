@@ -4,13 +4,19 @@ import com.pfa.PFABackend.Model.User;
 import com.pfa.PFABackend.Repository.Activities.Enseignement.ChefDépartementRepository;
 import com.pfa.PFABackend.Repository.UserRepository;
 import com.pfa.PFABackend.dto.ReqRes;
+import com.pfa.PFABackend.dto.UserProfileDTO;
 import io.jsonwebtoken.Jwts;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,6 +214,74 @@ public class UserManagementService {
         }
         return reqRes;
 
+    }
+
+    // Méthode pour sauvegarder l'image de profil
+    @Transactional
+    public void saveProfileImage(MultipartFile file, String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            try {
+                user.setImage(file.getBytes());
+                userRepository.save(user);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to store profile image: " + e.getMessage());
+            }
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
+    // Méthode pour supprimer l'image de profil
+    @Transactional
+    public void deleteProfileImage(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setImage(null);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
+    // Méthode pour récupérer l'image de profil
+    public byte[] getProfileImage(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            byte[] image = user.getImage();
+            if (image != null) {
+                return image;
+            }
+        }
+        // Si l'utilisateur n'a pas d'image, renvoyer une image par défaut
+        try {
+            InputStream defaultImageStream = new ClassPathResource("static/default-profile.jpg").getInputStream();
+            return defaultImageStream.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load default profile image", e);
+        }
+    }
+    public UserProfileDTO getProfile(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            UserProfileDTO userProfileDTO = new UserProfileDTO();
+            userProfileDTO.setFirstname(user.getFirstname());
+            userProfileDTO.setLastname(user.getLastname());
+            userProfileDTO.setEmail(user.getEmail());
+
+            if (user.getProfessorFolder() != null) {
+                userProfileDTO.setBirthDate(user.getProfessorFolder().getBirthDate());
+                userProfileDTO.setGrade(user.getProfessorFolder().getGrade());
+            }
+
+            return userProfileDTO;
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
     }
 
 

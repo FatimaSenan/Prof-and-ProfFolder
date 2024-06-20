@@ -32,8 +32,18 @@ public class User implements UserDetails {
 
     private String role;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ProfessorFolder professorFolder;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Annexe3> annexe3List = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Annexe2 annexe2;
 
    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
    @JsonIgnore

@@ -3,8 +3,8 @@ import { Button, Grid, Typography, TextField, Snackbar } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import axios from 'axios';
 import MuiAlert from '@mui/material/Alert'; 
-import Navbar from '../Navbar';
-import Sidenav from '../Sidenav';
+import Navbar from './Navbar';
+import Sidenav from './Sidenav';
 
 const TeachingTable = () => {
   const [file, setFile] = useState(null);

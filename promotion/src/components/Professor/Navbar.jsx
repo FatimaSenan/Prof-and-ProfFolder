@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useAppStore } from '../appStore';
+import { useAppStore } from '../../appStore';
 
 const AppBar = styled(MuiAppBar, {
     
@@ -165,7 +165,7 @@ export default function Navbar() {
           >
             <img src='./icons/logo_test_1.jpg' height={50} alt='logo' />
           </Typography>
-          <Search>
+          {/*<Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -173,7 +173,7 @@ export default function Navbar() {
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search>*/}
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             

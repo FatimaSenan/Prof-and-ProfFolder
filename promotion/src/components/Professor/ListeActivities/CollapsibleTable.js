@@ -67,11 +67,11 @@ function Row({subType, activities}) {
         
         
       }else {
-        alert("Failed to delete activity");
+        alert("Échec de la suppression de l'activité");
       }
     } catch (error) {
       console.error("There was an error deleting the activity!", error);
-      alert("An error occurred while deleting the activity");
+      alert("Une erreur est survenue lors de la suppression de l'activité");
     }
     setOpenConfirmationDialog(false);
     };

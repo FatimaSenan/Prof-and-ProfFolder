@@ -19,13 +19,12 @@ import { RxActivityLog } from "react-icons/rx";
 import { IoMdSettings } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
-import { useAppStore } from '../appStore';
+import { useAppStore } from '../../appStore';
 import { Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { GiArchiveResearch } from "react-icons/gi";
-import UserService from './Professor/service/UsersService';
 
 const drawerWidth = 240;
 

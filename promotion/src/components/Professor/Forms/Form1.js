@@ -57,7 +57,7 @@ const Form_1 = ({activityType, activityName}) => {
   };
   const handleOptionChange = (event, nameDatabase) => {
     setSelectedOption(event.target.value);
-    //setSelectedOption(event.target.value);
+    
     console.log("Event target name:", event.target.name);
     console.log("Event target value:", event.target.value);
     setAdditionalData((prev) => ({
@@ -115,8 +115,7 @@ const Form_1 = ({activityType, activityName}) => {
       setAdditionalData({});
       setFile({});
     
-      // Reset the form
-    //  actions.resetForm();
+      
     } catch (error) {
       console.log("Error: ", error);
       setAdditionalData({});
@@ -210,7 +209,7 @@ const Form_1 = ({activityType, activityName}) => {
               <ErrorMessage name="activityType" component="div" className="error" />
 
                <Grid item xs={1} style={{ marginTop: '2.9rem'}}>
-            {/* Icône de plus */}
+            
             
           </Grid>
             </Grid>
@@ -234,15 +233,9 @@ const Form_1 = ({activityType, activityName}) => {
               </IconButton >
             )}
               
-               {/* <Button 
-                onClick={handleOpen}
-                variant="contained"
-                style={{ backgroundColor: "#A66253", color: "#0d0d0d", marginTop: "1rem", cursor: "pointer" }}
-                >
-                +
-                </Button>*/}
+               
             </Grid>
-            {/*<>{inputFields}</>*/}
+            
           </Grid>
           <CustomModal  open={open} setOpen={setOpen} handleFormSubmit={handleFormSubmit}>
             <>

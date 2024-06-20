@@ -7,20 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import { Modal, keyframes } from '@mui/material';
-import PDFModal from './PDFModal';
+
 import { useLocation } from 'react-router-dom';
-import { Viewer, Worker } from '@react-pdf-viewer/core';
+
 import '@react-pdf-viewer/core/lib/styles/index.css';
-import { pdfjs } from 'react-pdf';
-import Navbar from '../../Navbar';
-import Sidenav from '../../Sidenav';
+
+import Navbar from '../Navbar';
+import Sidenav from '../Sidenav';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
 
 export default function ActivitiesInformationTable () {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({

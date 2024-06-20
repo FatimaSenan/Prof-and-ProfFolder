@@ -8,8 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import '../DossierAdministratif/ProfessorForm.css';
-import Navbar from '../../Navbar';
-import Sidenav from '../../Sidenav';
+import Navbar from '../Navbar';
+import Sidenav from '../Sidenav';
 import { Typography } from '@mui/material';
 import axios from 'axios';
 

@@ -21,18 +21,6 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
   }));
 
 
-/*const card = (
-  <React.Fragment>
-    <CardContent sx={{display: 'flex', justifyContent: 'spaceBetween', flexDirection: 'column', alignItems: 'center', marginBottom: '16px'}}>
-        <AssignmentIndIcon sx={{fontSize: 36, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>
-      <Typography sx={{ fontSize: 14 , fontWeight: 'bold'}} color="#A66253" gutterBottom>
-        Dossier Administratif
-      </Typography>
-      
-    </CardContent>
-    
-  </React.Fragment>
-);*/
 
 export default function ChoiceCard({title, icon}) {
     const [iconDossier, setIconDossier] = useState(false);

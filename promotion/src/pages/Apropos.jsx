@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Sidenav from '../components/Sidenav';
-import Navbar from '../components/Navbar';
+import Sidenav from '../components/Professor/Sidenav';
+import Navbar from '../components/Professor/Navbar';
 import { CssBaseline, Container, Paper } from "@material-ui/core";
 
 

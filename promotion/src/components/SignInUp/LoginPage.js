@@ -18,7 +18,15 @@ export default function LoginPage(){
             if (userData.token) {
                 localStorage.setItem('token', userData.token)
                 localStorage.setItem('role', userData.role)
-                navigate('/acceuil')
+                if (userData.role === 'PROFESSOR') {
+                    navigate('/acceuil');
+                } else if (userData.role === 'COMMISSION') {
+                    navigate('/professors_table'); 
+                } else if (userData.role === 'ADMIN') {
+                    navigate('/administration'); // Adapt as needed
+                } else {
+                    setError("Role not recognized"); // Handle unrecognized roles
+                }
             }else{
                 setError(userData.message)
             }
@@ -42,7 +50,7 @@ export default function LoginPage(){
                         Se Connecter
                     </div>
                     <div className="underline"></div>
-                        {error && <p className="error-message">{error}</p>}
+                        {error && <p style={{color: 'red'}} className="error-message">{error}</p>}
                 </div>
                 <div className="inputs">
                     <div className="input">
@@ -55,6 +63,7 @@ export default function LoginPage(){
                     </div>
                     <div className="submit-container">
                     <button type="submit" className="submit" >Se Connecter</button>
+                    {error && <p style={{color: 'red'}} className="error-message">{error}</p>}
                 </div>
                 <div className='register-link'>
                     <p>

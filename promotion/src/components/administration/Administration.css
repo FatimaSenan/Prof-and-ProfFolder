@@ -1,0 +1,30 @@
+
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .custom-table-container {
+      /* Styles pour la container à cette résolution */
+      overflow-x: auto; /* Ajoutez un défilement horizontal si nécessaire */
+    }
+  
+    .custom-table-header {
+      /* Styles pour l'en-tête à cette résolution */
+      display: block; /* Affichage en bloc pour les cellules d'en-tête */
+      text-align: center; /* Centrer le texte dans les cellules d'en-tête */
+    }
+  
+    .custom-table-cell {
+      /* Styles pour les cellules à cette résolution */
+      display: block; /* Affichage en bloc pour les cellules */
+      text-align: center; /* Centrer le texte dans les cellules */
+      border: none; /* Supprimer les bordures par défaut */
+      border-bottom: 1px solid #F2F2F2; /* Ajouter une bordure en bas pour chaque cellule */
+      padding: 8px; /* Ajouter un espace intérieur aux cellules */
+      width: 100%; /* Définir la largeur à 100% pour occuper toute la largeur de la table */
+    }
+  }
+  
+  
+  
+  
+  

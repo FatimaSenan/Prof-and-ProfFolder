@@ -38,12 +38,12 @@ export default function RegistrationPage() {
                 password: '',
                 role: ''
             });
-           // alert('Le comptea été crée avec succès!');
+           
            setAlert({
             show: true,
             message: 'Le compte a été créé avec succès!'
         });
-           // navigate('/login');
+           
         } catch (error) {
             console.error('Error registering user:', error);
             setAlert({

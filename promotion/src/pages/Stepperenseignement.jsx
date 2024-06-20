@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Sidenav from '../components/Sidenav';
-import Navbar from '../components/Navbar';
+import Sidenav from '../components/Professor/Sidenav';
+import Navbar from '../components/Professor/Navbar';
 import LinearStepper from '../components/LinearStepper'
 import { CssBaseline, Container, Paper } from "@material-ui/core";
 
@@ -12,10 +12,12 @@ function StepperEnseignement() {
     <Navbar/>
     <Box height={30}/>
     <Box sx={{display:'flex'}}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+
     <Sidenav/>
       
   
-      <CssBaseline />
+      
       <Container component={Box} p={8}>
         <Paper component={Box} p={3}>
           <LinearStepper type="enseignant"/>
@@ -23,6 +25,7 @@ function StepperEnseignement() {
       </Container>
   
         
+      </Box>
       </Box>
    
     </>

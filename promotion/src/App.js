@@ -17,6 +17,7 @@ import RegistrationContainer from './components/SignInUp/RegistrationContainer';
 import DossierAdministratif from './pages/DossiersAdministratif';
 import ActiviteEnseignement from './pages/ActiviteEnseignement';
 import ActivitiesInformationTable from './components/Professor/ListeActivities/ActivitiesInformationsTable';
+
 const Accueil = lazy(() => import("./pages/Accueil"));
 const Profile = lazy(() => import("./pages/Profile"));
 const ActiviteRecherche = lazy(() => import("./pages/ActiviteRecherche"));
@@ -28,6 +29,8 @@ const StepperRecherche = lazy(() => import("./pages/StepperRecherche"));
 const Menugrille = lazy(() => import("./pages/Menugrille"));
 const Annexe2 = lazy(()=> import("./components/Professor/Annexe2/Annexe2"))
 const TeachingTable = lazy(() => import("./components/Professor/TeachingTable"))
+const Administration = lazy(() => import("./components/administration/Administration"))
+const ProfessorsTable = lazy(() => import("./pages/commission/ProfessorsTable"))
 
 function App() {
   return (
@@ -112,7 +115,38 @@ function App() {
             </>
           )}
           {/*<Route path="*" element={<Navigate to="/login" />} />*/}
+          {UserService.isAdmin() && (
+            <>
+            <Route path='/administration' exact element={
+              <ProtectedRoute role="ADMIN">
+                <Administration />
+              </ProtectedRoute>
+              }/>
+              <Route path='/deconnexion' exact element={
+            <ProtectedRoute>
+              <Deconnexion />
+            </ProtectedRoute>
+          } />
+          </>
 
+              
+          
+          )}
+
+        {UserService.isCommission() && (
+            <>
+            <Route path='/professors_table' exact element={
+              <ProtectedRoute role="COMMISSION">
+                <ProfessorsTable />
+              </ProtectedRoute>
+              }/>
+             
+          
+          </>
+
+              
+          
+          )}
         </Routes>
       </Suspense>
     </BrowserRouter>

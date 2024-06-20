@@ -72,21 +72,21 @@ class UserService {
         const token = localStorage.getItem('token')
         return !!token
     }
-
-    static isAdmin(){
-        const role = localStorage.getItem('role')
-        return role === 'ADMIN'
+    static getRole() {
+        return localStorage.getItem('role');
     }
 
-    static isProf(){
-        const role = localStorage.getItem('role')
-        return role === 'PROFESSOR'
-    }
-    static isCommission(){
-        const role = localStorage.getItem('role')
-        return role === 'COMMISSION'
+    static isAdmin() {
+        return UserService.getRole() === 'ADMIN';
     }
 
+    static isProf() {
+        return UserService.getRole() === 'PROFESSOR';
+    }
+
+    static isCommission() {
+        return UserService.getRole() === 'COMMISSION';
+    }
     static adminOnly(){
         return this.isAuthenticated() && this.isAdmin();
     }

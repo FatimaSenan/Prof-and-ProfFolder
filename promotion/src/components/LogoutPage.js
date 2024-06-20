@@ -2,11 +2,13 @@ import React from 'react';
 import { Box, Grid, Typography, Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import UserService from './Professor/service/UsersService';
 
 const LogoutPage = () => {
   const navigate = useNavigate();
 
   const handleSignIn = () => {
+    UserService.logout();
     navigate('/login'); // Naviguer vers la page de connexion
   };
 

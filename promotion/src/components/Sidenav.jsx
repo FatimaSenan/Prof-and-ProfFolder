@@ -25,6 +25,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { GiArchiveResearch } from "react-icons/gi";
+import UserService from './Professor/service/UsersService';
 
 const drawerWidth = 240;
 
@@ -94,8 +95,11 @@ export default function Sidenav() {
     setOpenDialog(false);
   };
   const handleDisconnect = () => {
+    
     setOpenDialog(false);
+    
     navigate('/deconnexion');
+  //  UserService.logout();
   };
 
   return (
@@ -327,7 +331,7 @@ export default function Sidenav() {
                 }}
                 autoFocus
               >
-                Déconnecter
+                se Déconnecter
               </Button>
             </DialogActions>
           </Dialog>

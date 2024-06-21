@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './Administration.css'; 
 import NavbarAdministration from './NavbarAdministration';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,6 +48,24 @@ const rows = [
 ];
 
 export default function Administration() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:9005/admincommission/get-professors',
+        {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              },
+        }
+    ) 
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.error("Erreur lors de la récupération des données des professeurs :", error);
+        });
+}, []);
+
   return (
     <>
     <NavbarAdministration/>
@@ -58,10 +78,10 @@ export default function Administration() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <StyledTableRow key={row.name}>
+          {data.map((row, index) => (
+            <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {`${row.firstname} ${row.lastname}`}
               </StyledTableCell>
               <StyledTableCell align="right">{row.points}</StyledTableCell>
             </StyledTableRow>

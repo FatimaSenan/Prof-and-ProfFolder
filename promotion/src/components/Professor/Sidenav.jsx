@@ -227,48 +227,7 @@ export default function Sidenav() {
           </List>
           <Divider />
 
-          <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }} onClick={() => { navigate('/parametres') }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <IoMdSettings color="#0D0D0D" />
-              </ListItemIcon>
-              <ListItemText primary="Paramètres" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }} onClick={() => { navigate('/apropos') }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <FaCircleInfo color="#0D0D0D" />
-              </ListItemIcon>
-              <ListItemText primary="A propos" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-
+          
           <ListItem disablePadding sx={{ display: 'block', color: "#0D0D0D" }}>
             <ListItemButton
               sx={{

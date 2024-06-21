@@ -149,7 +149,7 @@
             {"activité": "Page web à caractère pédagogique",
              "informations": [
                 {"name": "Lien",
-                "name_database": "link",
+                "name_database": "lien",
                 "itemType": "input"}
             ]
             },

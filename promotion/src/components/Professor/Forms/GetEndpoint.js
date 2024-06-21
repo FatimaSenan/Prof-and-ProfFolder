@@ -17,7 +17,7 @@ const getEndpoint = (selectedActivity) => {
         case "Mémoire de PFE":
           endpoint = "http://localhost:9005/api/add-encadrement-pfe";
           break;
-        case "Encadrement des ressources humaines":
+        case "Formation de formateurs ou du Personnel administratif ou technique":
           endpoint = "http://localhost:9005/api/add-encadrement-RH";
           break;
         case "Manuel ( exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
@@ -91,6 +91,7 @@ const getEndpoint = (selectedActivity) => {
           break;
         case "Encadrement des mémoires de Master":
           endpoint = "http://localhost:9005/api/add-encadrement-mémoires-master";
+          break;
         case "Participaction à thèse doctorat ou d'habilitation":
           endpoint = "http://localhost:9005/api/add-participation-thèse-doctorat";
           break;

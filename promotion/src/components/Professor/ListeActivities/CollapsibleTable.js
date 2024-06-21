@@ -29,7 +29,7 @@ function Row({subType, activities}) {
   const [filteredActivities, setFilteredActivities] = useState([]);
   const navigate = useNavigate();
   const theme = useTheme();
-  console.log(activities)
+  //console.log(activities)
   useEffect(()=> {
     const validActivityNames = new Set(subType.activities.map(activity => activity.name));
     const filtered = activities.map(subArray => 
@@ -46,7 +46,10 @@ function Row({subType, activities}) {
   const handleDeleteClick = (activity) => {
     setSelectedActivity(activity);
     setOpenConfirmationDialog(true);
+    console.log("Selected activity: ",selectedActivity);
   };
+  console.log("filtered Activities : ",typeof filteredActivities);
+  //console.log('Is filteredActivities an array?', filteredActivities[1][0].activityName); 
   
 
   const handleDeleteConfirm = async () => {
@@ -59,11 +62,12 @@ function Row({subType, activities}) {
       });
       if(response.status === 200) {
         alert("activité supprimé avec succès!");
-        setFilteredActivities((prevActivities) =>
-          prevActivities.map((subArray) =>
-            subArray.filter(activity => activity.id !== selectedActivity.id)
-          )
+      
+        //console.log(filteredActivities);
+        const updatedFilteredActivities = filteredActivities.map(subArray =>
+          subArray.filter(activity => activity.activityName !== selectedActivity.activityName)
         );
+        setFilteredActivities(updatedFilteredActivities);
         
         
       }else {
@@ -79,7 +83,7 @@ function Row({subType, activities}) {
     const handleDeleteCancel = () => {
       setOpenConfirmationDialog(false);
     };
-    console.log(filteredActivities);
+    //console.log(filteredActivities);
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>

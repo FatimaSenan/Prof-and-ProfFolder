@@ -17,6 +17,9 @@ import RegistrationContainer from './components/SignInUp/RegistrationContainer';
 import DossierAdministratif from './pages/DossiersAdministratif';
 import ActiviteEnseignement from './pages/ActiviteEnseignement';
 import ActivitiesInformationTable from './components/Professor/ListeActivities/ActivitiesInformationsTable';
+import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
+//import SelectedUserActivities from './components/commission/SelectedUserActivities';
+//import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
 
 const Accueil = lazy(() => import("./pages/Accueil"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -138,6 +141,11 @@ function App() {
             <Route path='/professors_table' exact element={
               <ProtectedRoute role="COMMISSION">
                 <ProfessorsTable />
+              </ProtectedRoute>
+              }/>
+              <Route path='/selected-user-activities' exact element={
+              <ProtectedRoute role="COMMISSION">
+                <ActivitiesTableForSelectedUser/>
               </ProtectedRoute>
               }/>
                <Route path='/deconnexion' exact element={

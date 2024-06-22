@@ -74,7 +74,7 @@ const getEndpoint = (selectedActivity) => {
         case "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)":
           endpoint = "http://localhost:9005/api/add-publication-revues-scientifiques";
           break;
-        case "Ouvrage spécialisé ISBN":
+        case "Ouvrage spécialisé ISBN et publié par une maison d'édition":
           endpoint = "http://localhost:9005/api/add-ouvrage-specialisé";
           break;
         case "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN":

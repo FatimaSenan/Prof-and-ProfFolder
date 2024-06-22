@@ -82,10 +82,11 @@ function ProfessorsList() {
         setPage(0);
     };
 
-    const handleRowClick = (profName) => {
-        navigate(`/prof/${profName}`); // Naviguer vers le profil du professeur lorsque la ligne est cliquée
+    const handleRowClick = (row) => {
+        console.log(row);
+        navigate('/selected-user-activities', {state: {prof: row}}); 
     };
-    console.log(data);
+   // console.log(data);
 
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
@@ -99,7 +100,7 @@ function ProfessorsList() {
                 </TableHead>
                 <TableBody>
                     {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-                        <TableRow key={index} onClick={() => handleRowClick(row.firstname)}>
+                        <TableRow key={index} onClick={() => handleRowClick(row)}>
                             <TableCell>
                                 <Grid container alignItems="center">
                                     <Grid item lg={2}>

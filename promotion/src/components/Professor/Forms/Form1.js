@@ -64,7 +64,7 @@ const Form_1 = ({activityType, activityName}) => {
       ...prev,
       [nameDatabase]: event.target.value,
     }));
-   
+   console.log(additionalData)
   };
   
   const onSelectFileHandler = (e) => {
@@ -108,12 +108,13 @@ const Form_1 = ({activityType, activityName}) => {
      
      
       
-     // setSelectedActivity({});
-      //setSelectedType({});
-
-       
-      setAdditionalData({});
-      setFile({});
+    const updatedAdditionalData = {};
+    Object.keys(additionalData).forEach(key => {
+      updatedAdditionalData[key] = ''; // 
+    });      
+    setAdditionalData(updatedAdditionalData);
+      setFile(null);
+      setFileName("");
     
       
     } catch (error) {
@@ -121,6 +122,7 @@ const Form_1 = ({activityType, activityName}) => {
       setAdditionalData({});
     }
   };
+  
 
 
 

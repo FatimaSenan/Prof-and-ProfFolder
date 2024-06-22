@@ -65,7 +65,7 @@ function Row({subType, activities}) {
       
         //console.log(filteredActivities);
         const updatedFilteredActivities = filteredActivities.map(subArray =>
-          subArray.filter(activity => activity.activityName !== selectedActivity.activityName)
+          subArray.filter(activity => activity.activityName !== selectedActivity.activityName && activity.id !== selectedActivity.id)
         );
         setFilteredActivities(updatedFilteredActivities);
         

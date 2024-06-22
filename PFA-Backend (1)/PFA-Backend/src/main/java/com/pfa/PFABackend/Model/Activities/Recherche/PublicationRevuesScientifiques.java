@@ -1,5 +1,7 @@
+
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
@@ -18,6 +20,9 @@ public class PublicationRevuesScientifiques {
     @Column(name = "activity_points")
     private double activityPoints;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String type;
 
     private String titre;
@@ -28,8 +33,8 @@ public class PublicationRevuesScientifiques {
 
     private String journal;
 
-    @Column(name = "isbn_issn")
-    private String isbnIssn;
+    @Column(name = "issn")
+    private String issn;
 
     @Column(name = "année_publication")
     private int annéePublication;
@@ -40,9 +45,23 @@ public class PublicationRevuesScientifiques {
 
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
+    @JsonBackReference
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    //@JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Nationale)".equals(type)) {
+            this.setActivityPoints(1);
+        } else if("Internationale".equals(type)) {
+            this.setActivityPoints(2);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

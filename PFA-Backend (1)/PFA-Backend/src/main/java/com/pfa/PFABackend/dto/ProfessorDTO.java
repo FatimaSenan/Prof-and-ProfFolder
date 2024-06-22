@@ -1,7 +1,17 @@
 package com.pfa.PFABackend.dto;
 
 public class ProfessorDTO {
+    private int id;
     private String firstname;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String lastname;
     private String email;
     private String phone;

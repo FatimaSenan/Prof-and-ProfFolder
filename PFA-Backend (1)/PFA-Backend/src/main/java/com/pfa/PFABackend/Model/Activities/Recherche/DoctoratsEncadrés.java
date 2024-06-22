@@ -1,5 +1,7 @@
+
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
@@ -17,6 +19,9 @@ public class DoctoratsEncadrés {
 
     @Column(name = "activity_points")
     private double activityPoints;
+
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
 
     private String status;
 
@@ -38,13 +43,29 @@ public class DoctoratsEncadrés {
     @Column(name = "date_soutenance")
     private String dateSoutenance;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
+    @JsonBackReference
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    // @JsonBackReference
     private User user;
+
+    @PrePersist
+    @PreUpdate
+    public void updateActivityPoints() {
+        if("Soutenus".equals(status)) {
+            this.setActivityPoints(3);
+        } else if("En cours de préparation".equals(status)) {
+            this.setActivityPoints(1.5);
+        } else{
+            activityPoints = 0;
+        }
+    }
 }

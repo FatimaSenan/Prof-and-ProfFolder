@@ -88,7 +88,7 @@ public class UserController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
     }
 
-    @GetMapping("/api/get-professors")
+    @GetMapping("/admincommission/get-professors")
     public ResponseEntity<List<ProfessorDTO>> getAllProfessors() {
         ResponseEntity<List<ProfessorDTO>> response = userManagementService.getAllProfessors();
         return response;

@@ -278,13 +278,14 @@ public class UserManagementService {
         for (User user : users) {
             ProfessorFolder folder = user.getProfessorFolder();
             ProfessorDTO professorDTO = new ProfessorDTO();
+            professorDTO.setId(user.getId());
             professorDTO.setFirstname(user.getFirstname());
             professorDTO.setLastname(user.getLastname());
             professorDTO.setEmail(user.getEmail());
             professorDTO.setPhone(folder != null ? folder.getPhone() : null);
             professorDTO.setProfile(folder != null ? folder.getProfile() : null);
             professorDTO.setEstablishment(folder != null ? folder.getEstablishment() : null);
-            professorDTO.setEvaluationStatus(folder != null && folder.getEvaluationStatus() != null ? folder.getEvaluationStatus() : "Not Evaluated");
+            professorDTO.setEvaluationStatus(folder != null && folder.getEvaluationStatus() != null ? folder.getEvaluationStatus() : "non évalué");
             professors.add(professorDTO);
         }
 

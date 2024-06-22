@@ -22,9 +22,9 @@ public class PublicationRevuesScientifiquesServiceImpl implements  PublicationRe
     private UserRepository userRepository;
 
     @Override
-    public void savePublicationRevuesScientifiques(ActivitySubType2 activitySubType2, String activityName, String type, String titre, String auteurs, String lien, String journal, String isbn, int annéePublication, MultipartFile file) throws IOException {
-    PublicationRevuesScientifiques publicationRevuesScientifiques = new PublicationRevuesScientifiques();
-    publicationRevuesScientifiques.setActivitySubType2(activitySubType2);
+    public void savePublicationRevuesScientifiques(ActivitySubType2 activitySubType2, String activityName, String type, String titre, String auteurs, String lien, String journal, String issn, int annéePublication, MultipartFile file) throws IOException {
+        PublicationRevuesScientifiques publicationRevuesScientifiques = new PublicationRevuesScientifiques();
+        publicationRevuesScientifiques.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
 
@@ -34,7 +34,7 @@ public class PublicationRevuesScientifiquesServiceImpl implements  PublicationRe
         publicationRevuesScientifiques.setAuteurs(auteurs);
         publicationRevuesScientifiques.setLien(lien);
         publicationRevuesScientifiques.setJournal(journal);
-        publicationRevuesScientifiques.setIsbnIssn(isbn);
+        publicationRevuesScientifiques.setIssn(issn);
         publicationRevuesScientifiques.setAnnéePublication(annéePublication);
         publicationRevuesScientifiques.setJustification(file.getBytes());
         publicationRevuesScientifiques.setUser(user);

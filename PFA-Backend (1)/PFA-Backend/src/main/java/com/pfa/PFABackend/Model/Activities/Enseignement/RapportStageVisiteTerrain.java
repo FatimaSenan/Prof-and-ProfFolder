@@ -1,5 +1,7 @@
+
 package com.pfa.PFABackend.Model.Activities.Enseignement;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.pfa.PFABackend.Model.ActivitySubType2;
 import com.pfa.PFABackend.Model.User;
 import jakarta.persistence.*;
@@ -18,6 +20,9 @@ public class RapportStageVisiteTerrain {
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "titre_stage")
     private String titreStage;
 
@@ -31,11 +36,13 @@ public class RapportStageVisiteTerrain {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
+    @JsonBackReference
     private ActivitySubType2 activitySubType2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    // @JsonBackReference
     private User user;
 }

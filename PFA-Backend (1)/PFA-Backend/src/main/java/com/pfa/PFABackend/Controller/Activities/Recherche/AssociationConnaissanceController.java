@@ -22,7 +22,7 @@ public class AssociationConnaissanceController {
 
     @PostMapping("/add-association-connaissance")
     public String addAssociationConnaissance(@RequestParam("activityName") String activityName,@RequestParam("responsabilité") String responsabilité,@RequestParam("années") String années, @RequestParam("file")MultipartFile file){
-        ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(9);
+        ActivitySubType2 activitySubType2Instance = activitySubType2Service.findById(16);
         try{
             associationConnaissanceService.saveAssociationConnaissance(activitySubType2Instance, activityName, responsabilité, années, file);
             return "A new Association connaissance is added";

@@ -207,6 +207,57 @@ public class ActivityServiceImpl implements ActivityService{
                 .filter(a -> a != null && !a.isEmpty())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<List<?>> getAllActivitiesForSelectedUser(String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));;
+        List<List<?>> activities = new ArrayList<>();
+        activities.add((List<?>) chefDépartementRepository.findByUser(user));
+        activities.add((List<?>) coordonateurFilièreRepository.findByUser(user));
+        activities.add((List<?>) coordonateurModuleRepository.findByUser(user));
+        activities.add((List<?>) didacticielsRepository.findByUser(user));
+        activities.add((List<?>) encadrementPFERepository.findByUser(user));
+        activities.add((List<?>) encadrementRHRepository.findByUser(user));
+        activities.add((List<?>) manuelRepository.findByUser(user));
+        activities.add((List<?>) membreCommissionAdHocRepository.findByUser(user));
+        activities.add((List<?>) membreCommissionConseilRepository.findByUser(user));
+        activities.add((List<?>) membreCommisionEtablissementRepository.findByUser(user));
+        activities.add((List<?>) membreConseilCoordinationRepository.findByUser(user));
+        activities.add((List<?>) membreEluConseilRepository.findByUser(user));
+        activities.add((List<?>) montagesExpérimentauxRepository.findByUser(user));
+        activities.add((List<?>) moocRepository.findByUser(user));
+        activities.add((List<?>) ouvrageRepository.findByUser(user));
+        activities.add((List<?>) pageWebRepository.findByUser(user));
+        activities.add((List<?>) petitsLivresRepository.findByUser(user));
+        activities.add((List<?>) polycopiésPédagogiquesRepository.findByUser(user));
+        activities.add((List<?>) préparationSortiesTerrainRepository.findByUser(user));
+        activities.add((List<?>) rapportStageVisiteTerrainRepository.findByUser(user));
+        activities.add((List<?>) supportsRepository.findByUser(user));
+        activities.add((List<?>) viceDoyenRepository.findByUser(user));
+        activities.add((List<?>) associationConnaissanceRepository.findByUser(user));
+        activities.add((List<?>) brevetRepository.findByUser(user));
+        activities.add((List<?>) chapitreOuvrageRepository.findByUser(user));
+        activities.add((List<?>) congrèsConférencesNonPubliéesRepository.findByUser(user));
+        activities.add((List<?>) congrèsConférencesPubliéesRepository.findByUser(user));
+        activities.add((List<?>) contributionOrganisationActivitésRayonnementRepository.findByUser(user));
+        activities.add((List<?>) créationStartUpRepository.findByUser(user));
+        activities.add((List<?>) doctoratsEncadrésRepository.findByUser(user));
+        activities.add((List<?>) editeurMembreRéféréJournalRevueRepository.findByUser(user));
+        activities.add((List<?>) encadrementMémoiresMasterRepository.findByUser(user));
+        activities.add((List<?>) expertiseNonRémunéréRepository.findByUser(user));
+        activities.add((List<?>) incubationProjetRechercheRepository.findByUser(user));
+        activities.add((List<?>) ouvrageSpecialiséRepository.findByUser(user));
+        activities.add((List<?>) participationthèseDoctoratRepository.findByUser(user));
+        activities.add((List<?>) projetsContratsRechercheRepository.findByUser(user));
+        activities.add((List<?>) publicationRevuesScientifiquesRepository.findByUser(user));
+        activities.add((List<?>) publicationsRevuesIndexéesRepository.findByUser(user));
+        activities.add((List<?>) responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findByUser(user));
+
+        return activities.stream()
+                .filter(a -> a != null && !a.isEmpty())
+                .collect(Collectors.toList());
+    }
+
     public String deleteSelectedActivityForCurrentUser(String activityName, int activityId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();

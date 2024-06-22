@@ -36,6 +36,7 @@ public class CoordonateurModuleServiceImpl implements CoordonateurModuleService{
         coordonateurModule.setEtablissement(etablissement);
         coordonateurModule.setAnnéesResposabilités(annéesResponsabilités);
         coordonateurModule.setJustification(file.getBytes());
+        coordonateurModule.setUser(user);
         coordonateurModuleRepository.save(coordonateurModule);
     }
 

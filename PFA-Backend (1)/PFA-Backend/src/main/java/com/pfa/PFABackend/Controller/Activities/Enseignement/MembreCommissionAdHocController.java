@@ -29,7 +29,7 @@ public class MembreCommissionAdHocController {
 
     @PostMapping("/add-membre-commission-adhoc")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public String addMembreCommissionAdHoc(@RequestParam("ActivityName") String activityName, @RequestParam("typeCommissionAdHoc") String typeCommissionAdHoc, @RequestParam("année") int année, MultipartFile file) {
+    public String addMembreCommissionAdHoc(@RequestParam("activityName") String activityName, @RequestParam("typeCommissionAdHoc") String typeCommissionAdHoc, @RequestParam("année") int année, MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
 
         try{

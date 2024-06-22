@@ -24,7 +24,7 @@ public class PréparationSortiesTerrainController {
 
     @PostMapping("/add-préparation-sorties-terrain")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public String addPréparationSortiesTerrain(@RequestParam("activityName") String activityName, @RequestParam("cadre") String cadre, @RequestParam("date") int date, @RequestParam("nomSociété") String nomSociété, @RequestParam("file")MultipartFile file) {
+    public String addPréparationSortiesTerrain(@RequestParam("activityName") String activityName, @RequestParam("cadre") String cadre, @RequestParam("date") String date, @RequestParam("nomSociété") String nomSociété, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(2);
 
         try{

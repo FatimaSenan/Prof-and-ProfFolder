@@ -29,7 +29,7 @@ public class MembreCommissionConseilController {
 
     @PostMapping("/add-membre-commission-conseil")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public String addMembreCommissionConseil(@RequestParam("ActivityName") String activityName, @RequestParam("titreConseil") String titreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
+    public String addMembreCommissionConseil(@RequestParam("activityName") String activityName, @RequestParam("titreConseil") String titreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
         try{
             membreCommissionConseilService.saveMembreCommissionConseil(specificActivitySubType2Instance, activityName, titreConseil, période, file);

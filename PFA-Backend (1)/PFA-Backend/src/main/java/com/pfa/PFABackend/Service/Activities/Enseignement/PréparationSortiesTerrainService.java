@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface PréparationSortiesTerrainService {
-    public void savePréparationSortiesTerrains(ActivitySubType2 activitySubType2, String activityName, String cadre, int date, String nomSociété, MultipartFile file) throws IOException;
+    public void savePréparationSortiesTerrains(ActivitySubType2 activitySubType2, String activityName, String cadre, String date, String nomSociété, MultipartFile file) throws IOException;
 
     public Iterable<PréparationSortiesTerrain> getPréparationsSortiesTerrain();
 }

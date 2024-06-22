@@ -21,7 +21,7 @@ public class PréparationSortiesTerrainServiceImpl implements PréparationSortie
     private UserRepository userRepository;
 
     @Override
-    public void savePréparationSortiesTerrains(ActivitySubType2 activitySubType2, String activityName, String cadre, int date, String nomSociété, MultipartFile file) throws IOException {
+    public void savePréparationSortiesTerrains(ActivitySubType2 activitySubType2, String activityName, String cadre, String date, String nomSociété, MultipartFile file) throws IOException {
         PréparationSortiesTerrain préparationSortiesTerrain = new PréparationSortiesTerrain();
         préparationSortiesTerrain.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

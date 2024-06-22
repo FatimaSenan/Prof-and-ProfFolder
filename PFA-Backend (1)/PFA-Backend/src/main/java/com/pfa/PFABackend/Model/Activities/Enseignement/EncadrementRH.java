@@ -23,11 +23,11 @@ public class EncadrementRH {
 
     private String membres;
 
-    private String durée;
+
     @Column(name = "date_debut")
-    private int dateDébut;
+    private String dateDébut;
     @Column(name = "date_fin")
-    private int dateFin;
+    private String dateFin;
 
     @Column(name = "type_encadrement")
     private String typeEncadrement;

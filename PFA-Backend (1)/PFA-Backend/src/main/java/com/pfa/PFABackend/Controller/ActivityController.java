@@ -15,19 +15,22 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/professor/activities")
+//@RequestMapping("/professor/activities")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
 
-    @GetMapping("/current-user")
+    @GetMapping("/professor/activities/current-user")
     public List<List<?>> getActivitiesByCurrentUser() {
         return activityService.getAllActivitiesForCurrentUser();
     }
 
-    @DeleteMapping("/delete-activity")
+    @GetMapping("/commission/activities/selected-user")
+    public List<List<?>> getActivitiesBySelectedUser(@RequestParam("email") String userEmail) {return activityService.getAllActivitiesForSelectedUser(userEmail);}
+
+    @DeleteMapping("/professor/activities/delete-activity")
     public ResponseEntity<?> deleteSelectedActivity(@RequestParam(name = "activityName") String activityName, @RequestParam(name ="id") int activityId){
         try{
             activityService.deleteSelectedActivityForCurrentUser(activityName, activityId);

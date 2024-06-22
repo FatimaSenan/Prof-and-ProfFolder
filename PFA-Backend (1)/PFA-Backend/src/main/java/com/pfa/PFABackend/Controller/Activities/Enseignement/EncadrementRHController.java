@@ -30,7 +30,7 @@ public class EncadrementRHController {
 
     @PostMapping("/add-encadrement-RH")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public String addEncadrementRH(@RequestParam("activityName")String activityName, @RequestParam("typeEncadrement") String typeEncadrement, @RequestParam("titre") String titre, @RequestParam("membres") String membres, @RequestParam("dateDébut") int dateDébut, @RequestParam("dateFin") int dateFin, @RequestParam("file")MultipartFile file) {
+    public String addEncadrementRH(@RequestParam("activityName")String activityName, @RequestParam("typeEncadrement") String typeEncadrement, @RequestParam("titre") String titre, @RequestParam("membres") String membres, @RequestParam("dateDébut") String dateDébut, @RequestParam("dateFin") String dateFin, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(6);
 
         try {

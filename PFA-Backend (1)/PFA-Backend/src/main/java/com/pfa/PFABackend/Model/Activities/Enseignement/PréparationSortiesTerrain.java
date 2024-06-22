@@ -23,7 +23,7 @@ public class PréparationSortiesTerrain {
     //@Enumerated(value = EnumType.STRING)
     private String cadre;
 
-    private int date;
+    private String date;
     @Column(name = "nom_société")
     private String nomSociété;
 

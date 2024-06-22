@@ -20,7 +20,7 @@ public class MOOC {
     @Column(name="titre_mooc")
     private String titreMooc;
     @Column(name = "date_publication")
-    private int datePublication;
+    private String datePublication;
 
     private String lien;
 

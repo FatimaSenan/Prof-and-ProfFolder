@@ -34,6 +34,7 @@ public class EncadrementPFEServiceImpl implements EncadrementPFEService{
         encadrementPFE.setTitrePFE(titrePfe);
         encadrementPFE.setÉtudiants(étudiants);
         encadrementPFE.setAnnée(année);
+        encadrementPFE.setUser(user);
         encadrementPFE.setJustification(file.getBytes());
         encadrementPFERepository.save(encadrementPFE);
     }

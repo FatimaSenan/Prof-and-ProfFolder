@@ -15,19 +15,22 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/professor/activities")
+//@RequestMapping("/professor/activities")
 @CrossOrigin(origins = "http://localhost:3000")
 public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
 
-    @GetMapping("/current-user")
+    @GetMapping("/professor/activities/current-user")
     public List<List<?>> getActivitiesByCurrentUser() {
         return activityService.getAllActivitiesForCurrentUser();
     }
 
-    @DeleteMapping("/delete-activity")
+    @GetMapping("/commission/activities/selected-user")
+    public List<List<?>> getActivitiesBySelectedUser(@RequestParam("email") String userEmail) {return activityService.getAllActivitiesForSelectedUser(userEmail);}
+
+    @DeleteMapping("/professor/activities/delete-activity")
     public ResponseEntity<?> deleteSelectedActivity(@RequestParam(name = "activityName") String activityName, @RequestParam(name ="id") int activityId){
         try{
             activityService.deleteSelectedActivityForCurrentUser(activityName, activityId);
@@ -46,5 +49,18 @@ public class ActivityController {
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachement", "justification.pdf");
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @PostMapping("/commission/activities/validate")
+    public ResponseEntity<?> validateActivity(@RequestParam(name = "activityName") String activityName,
+                                              @RequestParam(name = "id") int activityId) {
+        try {
+            activityService.validateActivity(activityName, activityId);
+            return ResponseEntity.ok().body("Activity validated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while validating the activity");
+        }
     }
 }

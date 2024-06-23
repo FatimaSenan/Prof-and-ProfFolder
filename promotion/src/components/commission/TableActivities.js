@@ -14,14 +14,16 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import VisibilityIcon from '@mui/icons-material/Visibility'; 
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 // Composant réutilisable pour rendre les lignes des activités
-function ActivityRow({subType, activities}) {
+function ActivityRow({subType, activities, selectedUser}) {
  
   const [open, setOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [filteredActivities, setFilteredActivities] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(()=> {
     const validActivityNames = new Set(subType.activities.map(activity => activity.name));
@@ -30,6 +32,12 @@ function ActivityRow({subType, activities}) {
     );
     setFilteredActivities(filtered);
   },[activities, subType])
+  console.log("filterd activities", filteredActivities);
+  const onViewActionClick = (activity)=>{
+    navigate('/commission/activite_informations', {state: {activity, selectedUser}});
+    //console.log(activity)
+
+  }
   return (
     <React.Fragment>
     <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -65,7 +73,7 @@ function ActivityRow({subType, activities}) {
                           <TableCell component="th" scope="row" /*onClick={() => handleActivityClick(activity)}*/>{activity.activityName}</TableCell>
                           <TableCell align="right">
                             <IconButton aria-label="view" sx={{color:"#A66253"}}>
-                              <VisibilityIcon />
+                              <VisibilityIcon onClick={()=> onViewActionClick(activity)}/>
                             </IconButton>
                           </TableCell>
                         </TableRow>
@@ -88,7 +96,7 @@ ActivityRow.propTypes = {
 };
 
 // Composant TableActivities
-export default function TableActivities({types, activityType, activities}) {
+export default function TableActivities({types, activityType, activities, selectedUser}) {
   
   
 
@@ -110,7 +118,7 @@ export default function TableActivities({types, activityType, activities}) {
                 <TableCell colSpan={2} align="left"  style={{ fontSize: '18px', padding: '20px' }}>{type.name} </TableCell>
               </TableRow>
               {type.subTypes.map((subType, index) => (
-                <ActivityRow key={index} subType={subType} activities={activities} />
+                <ActivityRow key={index} subType={subType} activities={activities} selectedUser={selectedUser}/>
               ))}
             </React.Fragment>
           ))}

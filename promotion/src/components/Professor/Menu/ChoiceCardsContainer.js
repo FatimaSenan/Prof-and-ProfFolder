@@ -23,8 +23,8 @@ export default function ChoiceCardsContainer() {
         <Link to="/menu_grille" style={{ textDecoration: 'none' }}>
            <ChoiceCard title="Grille d'évaluation" icon="evaluation" />
         </Link>
-        <Link to="/annexe2" style={{ textDecoration: 'none' }}><ChoiceCard title="Formulaire d'inscription" icon="inscription"/></Link>
-        <Link to="/teaching_table" style={{ textDecoration: 'none' }}>
+        <Link to="/annexe_2" style={{ textDecoration: 'none' }}><ChoiceCard title="Formulaire d'inscription" icon="inscription"/></Link>
+        <Link to="/annexe_3" style={{ textDecoration: 'none' }}>
         <ChoiceCard title="Tableau detaillé par l'enseignement aux differents niveaux" icon="tableau"/>
         </Link>
     </Box>

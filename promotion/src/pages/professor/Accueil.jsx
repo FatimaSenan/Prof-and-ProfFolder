@@ -1,10 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Navbar from '../components/Professor/Navbar';
-import Sidenav from '../components/Professor/Sidenav';
-import TreeView from '../components/Treeview';
-import ChoiceCardsContainer from '../components/Professor/Menu/ChoiceCardsContainer';
+import Navbar from '../../components/Professor/Navbar';
+import Sidenav from '../../components/Professor/Sidenav';
+import TreeView from '../../components/Treeview';
+import ChoiceCardsContainer from '../../components/Professor/Menu/ChoiceCardsContainer';
 
 import { useState , useEffect} from 'react';
 import axios from 'axios';

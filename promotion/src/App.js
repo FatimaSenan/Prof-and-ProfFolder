@@ -1,39 +1,34 @@
 import './App.css';
 import {Routes,Route,BrowserRouter, Navigate} from "react-router-dom";
-//import Accueil from './pages/Accueil';
-//import Apropos from './pages/Apropos';
-//import Deconnexion from './pages/Deconnexion';
-//import Listeactivities from './pages/Listeactivities';
-//import Parametres from './pages/Parametres';
-//import Profile from './pages/Profile';
+
 import { Suspense, lazy } from 'react';
 import LoadingComponent from './LoadingComponent';
-import SignInUp from './components/SignInUp/SignInUp';
 import UserService from '../src/components/Professor/service/UsersService';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginContainer from './components/SignInUp/LoginContainer';
 import RegistrationContainer from './components/SignInUp/RegistrationContainer';
-import DossierAdministratif from './pages/DossiersAdministratif';
-import ActiviteEnseignement from './pages/ActiviteEnseignement';
-import ActivitiesInformationTable from './components/Professor/ListeActivities/ActivitiesInformationsTable';
-import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
-//import SelectedUserActivities from './components/commission/SelectedUserActivities';
-//import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
+import DossierAdministratif from './pages/professor/DossiersAdministratif';
+import ActiviteEnseignement from './pages/professor/ActiviteEnseignement';
 
-const Accueil = lazy(() => import("./pages/Accueil"));
-const Profile = lazy(() => import("./pages/Profile"));
-const ActiviteRecherche = lazy(() => import("./pages/ActiviteRecherche"));
-const Apropos = lazy(() => import("./pages/Apropos"));
+import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
+import ProfessorsList from './components/commission/ProfessorsList';
+import ProfessorsListAdministration from './pages/administration/ProfessorsListAdministration';
+
+
+const Accueil = lazy(() => import("./pages/professor/Accueil"));
+const Profile = lazy(() => import("./pages/professor/Profile"));
+const ActiviteRecherche = lazy(() => import("./pages/professor/ActiviteRecherche"));
 const Deconnexion = lazy(() => import("./pages/Deconnexion"));
-const Parametres = lazy(() => import("./pages/Parametres"));
-const Stepperenseignement = lazy(() => import("./pages/Stepperenseignement"));
-const StepperRecherche = lazy(() => import("./pages/StepperRecherche"));
-const Menugrille = lazy(() => import("./pages/Menugrille"));
+
+const Stepperenseignement = lazy(() => import("./pages/professor/Stepperenseignement"));
+const StepperRecherche = lazy(() => import("./pages/professor/StepperRecherche"));
+const Menugrille = lazy(() => import("./pages/professor/Menugrille"));
 const Annexe2 = lazy(()=> import("./components/Professor/Annexe2/Annexe2"))
 const TeachingTable = lazy(() => import("./components/Professor/TeachingTable"))
 const Administration = lazy(() => import("./components/administration/Administration"))
 const ProfessorsTable = lazy(() => import("./pages/commission/ProfessorsTable"))
+const ActivitiesInformationTable = lazy(() => import("./components/Professor/ListeActivities/ActivitiesInformationsTable"))
 
 function App() {
   return (
@@ -68,24 +63,16 @@ function App() {
             } />
             <Route path='/activite_informations' exact element={
                 <ProtectedRoute>
-                  <ActivitiesInformationTable />
+                  <ActivitiesInformationTable userRole="PROFESSOR"/>
                 </ProtectedRoute>
             } />
-          <Route path='/apropos' exact element={
-            <ProtectedRoute>
-              <Apropos />
-            </ProtectedRoute>
-          } />
+          
           <Route path='/deconnexion' exact element={
             <ProtectedRoute>
               <Deconnexion />
             </ProtectedRoute>
           } />
-          <Route path='/parametres' exact element={
-            <ProtectedRoute>
-              <Parametres />
-            </ProtectedRoute>
-          } />
+          
           <Route path='/stepper_enseignement' exact element={
             <ProtectedRoute>
               <Stepperenseignement />
@@ -105,12 +92,12 @@ function App() {
             <ProtectedRoute>
             <DossierAdministratif/>
             </ProtectedRoute>}/>
-            <Route path='/teaching_table' exact element={
+            <Route path='/annexe_3' exact element={
                 <ProtectedRoute role="PROFESSOR">
                   <TeachingTable />
                 </ProtectedRoute>
               } />
-              <Route path='/annexe2' exact element={
+              <Route path='/annexe_2' exact element={
                 <ProtectedRoute role="PROFESSOR">
                   <Annexe2/>
                 </ProtectedRoute>
@@ -122,7 +109,7 @@ function App() {
             <>
             <Route path='/administration' exact element={
               <ProtectedRoute role="ADMIN">
-                <Administration />
+                <ProfessorsListAdministration />
               </ProtectedRoute>
               }/>
               <Route path='/deconnexion' exact element={
@@ -148,6 +135,11 @@ function App() {
                 <ActivitiesTableForSelectedUser/>
               </ProtectedRoute>
               }/>
+              <Route path='/commission/activite_informations' exact element={
+                <ProtectedRoute>
+                  <ActivitiesInformationTable  userRole="COMMISSION" />
+                </ProtectedRoute>
+              } />
                <Route path='/deconnexion' exact element={
             <ProtectedRoute>
               <Deconnexion />

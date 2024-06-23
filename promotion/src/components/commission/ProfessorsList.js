@@ -122,9 +122,9 @@ function ProfessorsList() {
                                     className={classes.status}
                                     style={{
                                         backgroundColor:
-                                            (row.evaluationStatus === 'Evaluated' && 'green') ||
-                                            (row.evaluationStatus === 'Pending' && 'blue') ||
-                                            (row.evaluationStatus === 'Not Evaluated' && 'orange')
+                                            (row.evaluationStatus === 'Evalué' && 'green') ||
+                                            (row.evaluationStatus === 'En cours' && 'blue') ||
+                                            (row.evaluationStatus === 'Not Evalué' && 'orange')
                                     }}
                                 >{row.evaluationStatus}</Typography>
                             </TableCell>

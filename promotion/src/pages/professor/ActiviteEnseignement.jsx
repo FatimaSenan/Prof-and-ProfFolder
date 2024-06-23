@@ -1,12 +1,12 @@
 import React from 'react'
 import Box from '@mui/material/Box';
-import Sidenav from '../components/Professor/Sidenav';
-import Navbar from '../components/Professor/Navbar';
-import CollapsibleTable from '../components/Professor/ListeActivities/CollapsibleTable';
-import ActivityService from '../components/Professor/service/ActivityService';
+import Sidenav from '../../components/Professor/Sidenav';
+import Navbar from '../../components/Professor/Navbar';
+import CollapsibleTable from '../../components/Professor/ListeActivities/CollapsibleTable';
+import ActivityService from '../../components/Professor/service/ActivityService';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { enseignementTypes } from '../Activities/activitésEnseignementTypes';
+import { enseignementTypes } from '../../Activities/activitésEnseignementTypes';
 
 function ActiviteEnseignement() {
   

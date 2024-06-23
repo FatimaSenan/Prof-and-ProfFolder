@@ -67,8 +67,8 @@ export default function Administration() {
 }, []);
 
   return (
-    <>
-    <NavbarAdministration/>
+    
+    
     <TableContainer component={Paper} className="custom-table-container" style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table" style={{marginLeft: '50px', marginRight: '50px'}}>
         <TableHead>
@@ -89,6 +89,5 @@ export default function Administration() {
         </TableBody>
       </Table>
     </TableContainer>
-    </>
-  );
+      );
 }

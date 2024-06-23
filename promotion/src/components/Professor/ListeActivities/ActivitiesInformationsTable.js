@@ -12,16 +12,19 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 import { useLocation } from 'react-router-dom';
 
-import '@react-pdf-viewer/core/lib/styles/index.css';
+import {useTheme} from '@mui/material/styles';
 
+import '@react-pdf-viewer/core/lib/styles/index.css';
 import Navbar from '../Navbar';
 import Sidenav from '../Sidenav';
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import NavbarAdministration from '../../administration/NavbarAdministration';
 
 
 
-export default function ActivitiesInformationTable () {
+export default function ActivitiesInformationTable ({ userRole}) {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -45,8 +48,9 @@ export default function ActivitiesInformationTable () {
   }));
   
     const location = useLocation();
-    const {activity} = location.state;
+    const {activity, selectedUser} = location.state;
     const [pdfURL, setPdfURL] = useState('');
+    const theme = useTheme();
 
     console.log(activity);
    
@@ -59,29 +63,64 @@ export default function ActivitiesInformationTable () {
       delete filteredActivity.id;
       delete filteredActivity.activityPoints;
       delete filteredActivity.activityName;
+      delete filteredActivity.pointsAttribués;
 
       
       const handleViewPdf = async (activityName, id) => {
         try {
-          const response = await axios.get('http://localhost:9005/professor/activities/justification', {
-            responseType: 'blob',
-            params: { activityName: activityName, id: id },
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          let response;
+          if(userRole === "PROFESSOR"){
+            response = await axios.get('http://localhost:9005/professor/activities/justification', {
+              responseType: 'blob',
+              params: { activityName: activityName, id: id },
+              headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
             },
-          });
+          });}else if(userRole === "COMMISSION"){
+            response = await axios.get('http://localhost:9005/commission/activities/justification', {
+              responseType: 'blob',
+              params: { activityName: activityName, id: id, userEmail: selectedUser.email },
+              headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              },
+            });
+
+          }
           const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
           window.open(fileURL);
         } catch (error) {
           console.error('Error fetching PDF: ', error);
         }
       };
+
+      const handleValidate = async () => {
+        try {
+          const response = await axios.patch('http://localhost:9005/commission/activities/validate',{}, {
+            params: {
+             activityName: activity.activityName,
+             id: activity.id
+          },
+           
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json', 
+            },
+          
+        });
+          console.log('Activité validée !');
+        } catch (error) {
+          console.error('Erreur lors de la validation de l\'activité : ', error);
+        }
+      };
+      const handleCancel = () => {
+        console.log('Annulation de la validation de l\'activité');
+      };
     return (
       <>
-      <Navbar/>
+      {userRole=== "PROFESSOR" ? <Navbar/> : <NavbarAdministration/>}
       <Box height={30}/>
       <Box sx={{display: 'flex'}}>
-        <Sidenav/>
+      {userRole=== "PROFESSOR" && <Sidenav />}
         <Box component="main" sx={{flexGrow: 1, p:6}}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
          <TableContainer component={Paper}>
@@ -115,6 +154,30 @@ export default function ActivitiesInformationTable () {
    
 
       </Paper>
+
+      {userRole === 'COMMISSION' && (
+            <Box sx={{ mt: 2, textAlign: 'right' }}>
+              <Button  color="primary" onClick={handleCancel} sx={{
+                        color: '#0D0D0D', // Change text color
+                        '&:hover': {
+                          backgroundColor: '#ecd5d0', // Change hover background color
+                        },
+                      }}>
+                Annuler
+              </Button>
+              <Box sx={{ display: 'inline-block', width: 10 }} />
+              <Button variant="contained" onClick={handleValidate} sx={{
+                  color: theme.palette.getContrastText("#A66253"),
+                  backgroundColor: "#A66253",
+                  '&:hover': {
+                    backgroundColor: "#7F3D30",
+                  },
+                }}
+                >
+                Valider
+              </Button>
+            </Box>
+          )}
         </Box>
       </Box>
       </>

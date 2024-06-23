@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import {
   Typography,
-  Button,
   Stepper,
   Step,
   StepLabel,
 } from "@material-ui/core";
+import Button from '@mui/material/Button';
 import { makeStyles } from "@material-ui/core/styles";
-import Form_1 from "./Professor/Forms/Form1";
+import Form_1 from "./Form1";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -171,7 +171,7 @@ const LinearStepper = ({type}) => {
             style={{ backgroundColor: "#A66253", color: "#0d0d0d" , marginTop: "1rem"}}
             onClick={handleNext}
           >
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
+            {activeStep === steps.length - 1 ? "Terminer" : "Suivant"}
           </Button>
         </>
       )}

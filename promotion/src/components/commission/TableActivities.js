@@ -34,7 +34,7 @@ function ActivityRow({subType, activities, selectedUser}) {
   },[activities, subType])
   console.log("filterd activities", filteredActivities);
   const onViewActionClick = (activity)=>{
-    navigate('/commission/activite_informations', {state: {activity, selectedUser}});
+    navigate('/activite_informations', {state: {activity, selectedUser}});
     //console.log(activity)
 
   }
@@ -75,6 +75,9 @@ function ActivityRow({subType, activities, selectedUser}) {
                             <IconButton aria-label="view" sx={{color:"#A66253"}}>
                               <VisibilityIcon onClick={()=> onViewActionClick(activity)}/>
                             </IconButton>
+                          </TableCell>
+                          <TableCell align="right" >
+                            {activity.pointsAttribués}
                           </TableCell>
                         </TableRow>
                       ))}

@@ -46,11 +46,12 @@ console.log(activities);
       
       <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
         {/* Tableau pour les activités de recherche */}
-        <TableActivities types={rechercheTypes} activityType="Activités de recherche" activities={activities} selectedUser={prof}/>
+        <TableActivities types={enseignementTypes} activityType="Activités d'enseignement" activities={activities} selectedUser={prof}/>
         {/* Ajoute un espace vertical entre les deux tableaux */}
         <Box height={30}/> 
         {/* Tableau pour les activités d'enseignement */}
-        <TableActivities types={enseignementTypes} activityType="Activités d'enseignement" activities={activities} selectedUser={prof}/>
+        <TableActivities types={rechercheTypes} activityType="Activités de recherche" activities={activities} selectedUser={prof}/>
+        
       </Box>
     </Box>
   </>

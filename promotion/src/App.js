@@ -135,7 +135,7 @@ function App() {
                 <ActivitiesTableForSelectedUser/>
               </ProtectedRoute>
               }/>
-              <Route path='/commission/activite_informations' exact element={
+              <Route path='/activite_informations' exact element={
                 <ProtectedRoute>
                   <ActivitiesInformationTable  userRole="COMMISSION" />
                 </ProtectedRoute>

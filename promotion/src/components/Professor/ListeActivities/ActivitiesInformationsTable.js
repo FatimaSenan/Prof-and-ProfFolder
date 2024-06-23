@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import { useState} from 'react';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {useTheme} from '@mui/material/styles';
 
@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import NavbarAdministration from '../../administration/NavbarAdministration';
+import Alert from '@mui/material/Alert';
 
 
 
@@ -51,6 +52,9 @@ export default function ActivitiesInformationTable ({ userRole}) {
     const {activity, selectedUser} = location.state;
     const [pdfURL, setPdfURL] = useState('');
     const theme = useTheme();
+    const navigate = useNavigate();
+
+    const [alert, setAlert] = useState({open: false, severity: '', message: ''});
 
     console.log(activity);
    
@@ -108,54 +112,69 @@ export default function ActivitiesInformationTable ({ userRole}) {
           
         });
           console.log('Activité validée !');
+          setAlert({open: true, severity: 'success', message: 'Cette activité a été évaluée avec succès!'});
         } catch (error) {
           console.error('Erreur lors de la validation de l\'activité : ', error);
+          setAlert({open: true, severity: 'error', message: 'Une erreur est survenue . Veuillez réessayer plus tard'});
         }
       };
       const handleCancel = () => {
         console.log('Annulation de la validation de l\'activité');
+        navigate('/selected-user-activities', {state: {prof: selectedUser}});
       };
+     const  handleContinueClick = () => {
+        setAlert({open: true, severity: 'success', message: 'Cette activité a été évaluée avec succès!'});
+        navigate('/selected-user-activities', {state: {prof: selectedUser}});
+      }
     return (
       <>
+      
       {userRole=== "PROFESSOR" ? <Navbar/> : <NavbarAdministration/>}
       <Box height={30}/>
       <Box sx={{display: 'flex'}}>
       {userRole=== "PROFESSOR" && <Sidenav />}
-        <Box component="main" sx={{flexGrow: 1, p:6}}>
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-         <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow sx={{backgroundColor: '#ecd5d0'}}>
-              <TableCell align="center" colSpan={2} sx={{fontWeight: 'bold', color: '#404040'}}>
-                 <StyledTableCell align="center" colSpan={2} style={{backgroundColor: "transparent", color: "#404040", fontWeight: "bold"}}>
-                 {activity.activityName}
-                 </StyledTableCell>
-              </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.entries(filteredActivity).map(([key, value]) => (
-            <StyledTableRow key={key}>
-              <StyledTableCell component="th" scope="row">
-                {key}
-              </StyledTableCell>
-              <StyledTableCell align="right"> 
-              {/* Conditionally render the icon if data is a PDF */}
-                  {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handleViewPdf(activity.activityName, activity.id)}/>: value }
-                  {/*value*/}
-              </StyledTableCell>
-             
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-   
+        
+        {alert.open ? (<Box component="main" sx={{flexGrow: 1, p:6}} >
+          <Alert variant="outlined" severity={alert.severity} action={
+          <Button color="inherit" size="small" onClick={() => handleContinueClick()}>
+            Continuer
+          </Button>}>
+        {alert.message}</Alert>
+        </Box>) : (<Box component="main" sx={{flexGrow: 1, p:6}}>
+          <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        
+        <TableContainer component={Paper}>
+     <Table sx={{ minWidth: 700 }} aria-label="customized table">
+       <TableHead>
+         <TableRow sx={{backgroundColor: '#ecd5d0'}}>
+             <TableCell align="center" colSpan={2} sx={{fontWeight: 'bold', color: '#404040'}}>
+                <StyledTableCell align="center" colSpan={2} style={{backgroundColor: "transparent", color: "#404040", fontWeight: "bold"}}>
+                {activity.activityName}
+                </StyledTableCell>
+             </TableCell>
+         </TableRow>
+       </TableHead>
+       <TableBody>
+         {Object.entries(filteredActivity).map(([key, value]) => (
+           <StyledTableRow key={key}>
+             <StyledTableCell component="th" scope="row">
+               {key}
+             </StyledTableCell>
+             <StyledTableCell align="right"> 
+             {/* Conditionally render the icon if data is a PDF */}
+                 {key==="justification" ? <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handleViewPdf(activity.activityName, activity.id)}/>: value }
+                 {/*value*/}
+             </StyledTableCell>
+            
+           </StyledTableRow>
+         ))}
+       </TableBody>
+     </Table>
+   </TableContainer>
+  
 
-      </Paper>
-
-      {userRole === 'COMMISSION' && (
+     </Paper>
+     {userRole === 'COMMISSION' && (
             <Box sx={{ mt: 2, textAlign: 'right' }}>
               <Button  color="primary" onClick={handleCancel} sx={{
                         color: '#0D0D0D', // Change text color
@@ -178,7 +197,11 @@ export default function ActivitiesInformationTable ({ userRole}) {
               </Button>
             </Box>
           )}
+          
         </Box>
+)}
+        
+      
       </Box>
       </>
         

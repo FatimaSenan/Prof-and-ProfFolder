@@ -18,6 +18,9 @@ public class CréationStartUp {
     @Column(name = "activity_points")
     private double activityPoints =2;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String projet;
 
     private String cadre;
@@ -37,6 +40,6 @@ public class CréationStartUp {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-   // @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

@@ -20,6 +20,9 @@ public class ViceDoyen {
     @Column(name = "activity_points")
     private double activityPoints = 2;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "nom_fonction")
     private String nomFonction;
 
@@ -41,6 +44,6 @@ public class ViceDoyen {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

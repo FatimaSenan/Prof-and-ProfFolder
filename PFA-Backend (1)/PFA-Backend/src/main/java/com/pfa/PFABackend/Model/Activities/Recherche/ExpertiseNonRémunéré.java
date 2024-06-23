@@ -18,6 +18,9 @@ public class ExpertiseNonRémunéré {
     @Column(name = "activity_points")
     private double activityPoints = 0.5;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String projet;
 
     @Column(name = "nature_expertise")
@@ -36,6 +39,6 @@ public class ExpertiseNonRémunéré {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

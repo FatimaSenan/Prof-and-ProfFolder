@@ -940,4 +940,626 @@ public class ActivityServiceImpl implements ActivityService{
 
     }
 
+    @Override
+    public byte[] getJustificationPdfForSelectedUser(String activityName, int activityId, String userEmail) {
+
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+
+        switch (activityName) {
+            case "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)":
+                Ouvrage ouvrage = ouvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!ouvrage.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return ouvrage.getJustification();
+
+            case "Manuel ( exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
+                Manuel manuel = manuelRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!manuel.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+
+                return manuel.getJustification();
+
+            case "Polycopiés pédagogiques":
+                PolycopiésPédagogiques polycopiésPédagogiques = polycopiésPédagogiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!polycopiésPédagogiques.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return polycopiésPédagogiques.getJustification();
+
+            case "Petits livres de méthodologie ou de didactique pour la lecture ou l'analyse":
+                PetitsLivres petitsLivres= petitsLivresRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!petitsLivres.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return petitsLivres.getJustification();
+
+            case "Montages expérimentaux":
+                MontagesExpérimentaux montagesExpérimentaux = montagesExpérimentauxRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!montagesExpérimentaux.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return montagesExpérimentaux.getJustification();
+
+            case "Préparation de sorties de terrain":
+                PréparationSortiesTerrain préparationSortiesTerrain = préparationSortiesTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!préparationSortiesTerrain.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return préparationSortiesTerrain.getJustification();
+
+            case "Supports":
+                Supports supports= supportsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!supports.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return supports.getJustification();
+
+            case "Didacticiels":
+                Didacticiels didacticiels = didacticielsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!didacticiels.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return didacticiels.getJustification();
+
+
+            case "Coordonnateur d'une filière":
+                CoordonateurFilière coordonateurFilière = coordonateurFilièreRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!coordonateurFilière.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return coordonateurFilière.getJustification();
+
+            case "Coordonnateur d'un module (ou deux au maximum )":
+                CoordonateurModule coordonateurModule = coordonateurModuleRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!coordonateurModule.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return coordonateurModule.getJustification();
+
+            case "Chef de département":
+                ChefDépartement chefDépartement = chefDépartementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!chefDépartement.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return chefDépartement.getJustification();
+
+            case "Vice-doyen ( non cumulable avec commission permanente)":
+                ViceDoyen viceDoyen = viceDoyenRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!viceDoyen.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to delete this activity");
+                }
+                return viceDoyen.getJustification();
+
+            case "Membre élu du conseil d'établissement":
+                MembreEluConseil membreEluConseil= membreEluConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!membreEluConseil.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return membreEluConseil.getJustification();
+
+            case "Membre d'une commission permanente de l'établissement":
+                MembreCommissionEtablissement membreCommissionEtablissement = membreCommisionEtablissementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!membreCommissionEtablissement.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return membreCommissionEtablissement.getJustification();
+
+            case "Membre du conseil de coordination":
+                MembreConseilCoordination membreConseilCoordination = membreConseilCoordinationRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!membreConseilCoordination.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return membreConseilCoordination.getJustification();
+
+            case "Membre d'une commission permanente du conseil de coordination":
+                MembreCommissionConseil membreCommissionConseil= membreCommissionConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!membreCommissionConseil.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return membreCommissionConseil.getJustification();
+
+            case "Membre d'une commission ad hoc":
+                MembreCommissionAdHoc membreCommissionAdHoc = membreCommissionAdHocRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!membreCommissionAdHoc.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return membreCommissionAdHoc.getJustification();
+
+            case "Mémoire de PFE":
+                EncadrementPFE encadrementPFE = encadrementPFERepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!encadrementPFE.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return encadrementPFE.getJustification();
+
+            case "Rapport de stage de visite ou de terrain":
+                RapportStageVisiteTerrain rapportStageVisiteTerrain = rapportStageVisiteTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!rapportStageVisiteTerrain.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return rapportStageVisiteTerrain.getJustification();
+
+            case "Formation de formateurs ou du Personnel administratif ou technique":
+                EncadrementRH encadrementRH = encadrementRHRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!encadrementRH.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return encadrementRH.getJustification();
+
+            case "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON":
+                PublicationsRevuesIndexées publicationsRevuesIndexées = publicationsRevuesIndexéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!publicationsRevuesIndexées.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return publicationsRevuesIndexées.getJustification();
+
+            case "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)":
+                PublicationRevuesScientifiques publicationRevuesScientifiques = publicationRevuesScientifiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!publicationRevuesScientifiques.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return publicationRevuesScientifiques.getJustification();
+
+            case "Ouvrage spécialisé ISBN et publié par une maison d'édition":
+                OuvrageSpecialisé ouvrageSpecialisé = ouvrageSpecialiséRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!ouvrageSpecialisé.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return ouvrageSpecialisé.getJustification();
+
+            case "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN":
+                ChapitreOuvrage chapitreOuvrage = chapitreOuvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!chapitreOuvrage.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return chapitreOuvrage.getJustification();
+
+            case "Congrès ou conférence (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)":
+                CongrèsConférencesPubliées congrèsConférencesPubliées = congrèsConférencesPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!congrèsConférencesPubliées.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return  congrèsConférencesPubliées.getJustification();
+
+            case "Communications dans des congrès ou des conférences (non publiés)":
+                CongrèsConférencesNonPubliées congrèsConférencesNonPubliées = congrèsConférencesNonPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!congrèsConférencesNonPubliées.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return congrèsConférencesNonPubliées.getJustification();
+
+            case "Doctorats encadrés":
+                DoctoratsEncadrés doctoratsEncadrés = doctoratsEncadrésRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!doctoratsEncadrés.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return doctoratsEncadrés.getJustification();
+
+            case "Encadrement des mémoires de Master":
+                EncadrementMémoiresMaster encadrementMémoiresMaster= encadrementMémoiresMasterRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!encadrementMémoiresMaster.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return encadrementMémoiresMaster.getJustification();
+
+            case "Participaction à thèse doctorat ou d'habilitation":
+                ParticipationthèseDoctorat participationthèseDoctorat = participationthèseDoctoratRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!participationthèseDoctorat.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return participationthèseDoctorat.getJustification();
+
+            case "Responsable ou membre d'une structure de recherche accréditée ou d'un pole de compétence(cumulable)":
+                ResponsableMembreStructureRecherchePole responsableMembreStructureRecherchePole = responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!responsableMembreStructureRecherchePole.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return responsableMembreStructureRecherchePole.getJustification();
+
+            case "Association pour la connaissance":
+                AssociationConnaissance associationConnaissance = associationConnaissanceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!associationConnaissance.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return associationConnaissance.getJustification();
+
+            case "Projets ou contrats de recherche au niveau national ou international ou les deux":
+                ProjetsContratsRecherche projetsContratsRecherche = projetsContratsRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!projetsContratsRecherche.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return projetsContratsRecherche.getJustification();
+
+            case "Editeur, membre ou référé d'un journal ou revue scientifique":
+                EditeurMembreRéféréJournalRevue editeurMembreRéféréJournalRevue = editeurMembreRéféréJournalRevueRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!editeurMembreRéféréJournalRevue.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return editeurMembreRéféréJournalRevue.getJustification();
+
+            case "Expertise non rémunérée de projet de recherche scientifique":
+                ExpertiseNonRémunéré expertiseNonRémunéré = expertiseNonRémunéréRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!expertiseNonRémunéré.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return  expertiseNonRémunéré.getJustification();
+            case "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre)":
+                ContributionOrganisationActivitésRayonnement contributionOrganisationActivitésRayonnement = contributionOrganisationActivitésRayonnementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!contributionOrganisationActivitésRayonnement.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return contributionOrganisationActivitésRayonnement.getJustification();
+
+            case "Projet de recherche et de développement avec le secteur privé":
+                ProjetDeRechercheDeveloppement projetDeRechercheDeveloppement = projetDeRechercheDeveloppementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!projetDeRechercheDeveloppement.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return projetDeRechercheDeveloppement.getJustification();
+
+            case "Brevet":
+                Brevet brevet = brevetRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!brevet.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return brevet.getJustification();
+
+            case "Incubation de projet de recherche et de développement":
+                IncubationProjetRecherche incubationProjetRecherche = incubationProjetRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!incubationProjetRecherche.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return incubationProjetRecherche.getJustification();
+
+            case "Création de start up":
+                CréationStartUp créationStartUp = créationStartUpRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
+                if(!créationStartUp.getUser().equals(user)){
+                    throw new IllegalArgumentException("You do not have permission to get justification");
+                }
+                return créationStartUp.getJustification();
+
+            default:
+                throw new IllegalArgumentException("Unknown activity type: "+ activityName);
+        }
+
+    }
+
+    @Override
+    public void validateActivity(String activityName, int activityId) {
+        switch (activityName) {
+            case "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)":
+                Ouvrage ouvrage = ouvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                ouvrage.setPointsAttribués(ouvrage.getActivityPoints());
+                ouvrageRepository.save(ouvrage);
+                break;
+
+            case "Manuel (exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
+                Manuel manuel = manuelRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                manuel.setPointsAttribués(manuel.getActivityPoints());
+                manuelRepository.save(manuel);
+                break;
+
+            case "Polycopiés pédagogiques":
+                PolycopiésPédagogiques polycopiésPédagogiques = polycopiésPédagogiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                polycopiésPédagogiques.setPointsAttribués(polycopiésPédagogiques.getActivityPoints());
+                polycopiésPédagogiquesRepository.save(polycopiésPédagogiques);
+                break;
+
+            case "Petits livres de méthodologie ou de didactique pour la lecture ou l'analyse":
+                PetitsLivres petitsLivres = petitsLivresRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                petitsLivres.setPointsAttribués(petitsLivres.getActivityPoints());
+                petitsLivresRepository.save(petitsLivres);
+                break;
+
+            case "Montages expérimentaux":
+                MontagesExpérimentaux montagesExpérimentaux = montagesExpérimentauxRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                montagesExpérimentaux.setPointsAttribués(montagesExpérimentaux.getActivityPoints());
+                montagesExpérimentauxRepository.save(montagesExpérimentaux);
+                break;
+
+            case "Préparation de sorties de terrain":
+                PréparationSortiesTerrain préparationSortiesTerrain = préparationSortiesTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                préparationSortiesTerrain.setPointsAttribués(préparationSortiesTerrain.getActivityPoints());
+                préparationSortiesTerrainRepository.save(préparationSortiesTerrain);
+                break;
+
+            case "Supports":
+                Supports supports = supportsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                supports.setPointsAttribués(supports.getActivityPoints());
+                supportsRepository.save(supports);
+                break;
+
+            case "Didacticiels":
+                Didacticiels didacticiels = didacticielsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                didacticiels.setPointsAttribués(didacticiels.getActivityPoints());
+                didacticielsRepository.save(didacticiels);
+                break;
+
+            case "Page web à caractère pédagogique":
+                PageWeb pageWeb = pageWebRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                pageWeb.setPointsAttribués(pageWeb.getActivityPoints());
+                pageWebRepository.save(pageWeb);
+                break;
+
+            case "MOOC : Production de contenus en ligne":
+                MOOC mooc = moocRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                mooc.setPointsAttribués(mooc.getActivityPoints());
+                moocRepository.save(mooc);
+                break;
+
+            case "Coordonnateur d'une filière":
+                CoordonateurFilière coordonateurFilière = coordonateurFilièreRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                coordonateurFilière.setPointsAttribués(coordonateurFilière.getActivityPoints());
+                coordonateurFilièreRepository.save(coordonateurFilière);
+                break;
+
+            case "Coordonnateur d'un module (ou deux au maximum )":
+                CoordonateurModule coordonateurModule = coordonateurModuleRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                coordonateurModule.setPointsAttribués(coordonateurModule.getActivityPoints());
+                coordonateurModuleRepository.save(coordonateurModule);
+                break;
+
+            case "Chef de département":
+                ChefDépartement chefDépartement = chefDépartementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                chefDépartement.setPointsAttribués(chefDépartement.getActivityPoints());
+                chefDépartementRepository.save(chefDépartement);
+                break;
+
+            case "Vice-doyen ( non cumulable avec commission permanente)":
+                ViceDoyen viceDoyen = viceDoyenRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                viceDoyen.setPointsAttribués(viceDoyen.getActivityPoints());
+                viceDoyenRepository.save(viceDoyen);
+                break;
+
+            case "Membre élu du conseil d'établissement":
+                MembreEluConseil membreEluConseil = membreEluConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                membreEluConseil.setPointsAttribués(membreEluConseil.getActivityPoints());
+                membreEluConseilRepository.save(membreEluConseil);
+                break;
+
+            case "Membre d'une commission permanente de l'établissement":
+                MembreCommissionEtablissement membreCommissionEtablissement = membreCommisionEtablissementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                membreCommissionEtablissement.setPointsAttribués(membreCommissionEtablissement.getActivityPoints());
+                membreCommisionEtablissementRepository.save(membreCommissionEtablissement);
+                break;
+
+            case "Membre du conseil de coordination":
+                MembreConseilCoordination membreConseilCoordination = membreConseilCoordinationRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                membreConseilCoordination.setPointsAttribués(membreConseilCoordination.getActivityPoints());
+                membreConseilCoordinationRepository.save(membreConseilCoordination);
+                break;
+
+            case "Membre d'une commission permanente du conseil de coordination":
+                MembreCommissionConseil membreCommissionConseil = membreCommissionConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                membreCommissionConseil.setPointsAttribués(membreCommissionConseil.getActivityPoints());
+                membreCommissionConseilRepository.save(membreCommissionConseil);
+                break;
+
+            case "Membre d'une commission ad hoc":
+                MembreCommissionAdHoc membreCommissionAdHoc = membreCommissionAdHocRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                membreCommissionAdHoc.setPointsAttribués(membreCommissionAdHoc.getActivityPoints());
+                membreCommissionAdHocRepository.save(membreCommissionAdHoc);
+                break;
+
+            case "Mémoire de PFE":
+                EncadrementPFE encadrementPFE = encadrementPFERepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                encadrementPFE.setPointsAttribués(encadrementPFE.getActivityPoints());
+                encadrementPFERepository.save(encadrementPFE);
+                break;
+
+            case "Rapport de stage de visite ou de terrain":
+                RapportStageVisiteTerrain rapportStageVisiteTerrain = rapportStageVisiteTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                rapportStageVisiteTerrain.setPointsAttribués(rapportStageVisiteTerrain.getActivityPoints());
+                rapportStageVisiteTerrainRepository.save(rapportStageVisiteTerrain);
+                break;
+
+            case "Formation de formateurs ou du Personnel administratif ou technique":
+                EncadrementRH encadrementRH = encadrementRHRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                encadrementRH.setPointsAttribués(encadrementRH.getActivityPoints());
+                encadrementRHRepository.save(encadrementRH);
+                break;
+
+            case "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON":
+                PublicationsRevuesIndexées publicationsRevuesIndexées = publicationsRevuesIndexéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                publicationsRevuesIndexées.setPointsAttribués(publicationsRevuesIndexées.getActivityPoints());
+                publicationsRevuesIndexéesRepository.save(publicationsRevuesIndexées);
+                break;
+
+            case "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)":
+                PublicationRevuesScientifiques publicationRevuesScientifiques = publicationRevuesScientifiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                publicationRevuesScientifiques.setPointsAttribués(publicationRevuesScientifiques.getActivityPoints());
+                publicationRevuesScientifiquesRepository.save(publicationRevuesScientifiques);
+                break;
+
+            case "Ouvrage spécialisé ISBN et publié par une maison d'édition":
+                OuvrageSpecialisé ouvrageSpecialisé = ouvrageSpecialiséRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                ouvrageSpecialisé.setPointsAttribués(ouvrageSpecialisé.getActivityPoints());
+                ouvrageSpecialiséRepository.save(ouvrageSpecialisé);
+                break;
+
+            case "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN":
+                ChapitreOuvrage chapitreOuvrage = chapitreOuvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                chapitreOuvrage.setPointsAttribués(chapitreOuvrage.getActivityPoints());
+                chapitreOuvrageRepository.save(chapitreOuvrage);
+                break;
+
+            case "Congrès ou conférence (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)":
+                CongrèsConférencesPubliées congrèsConférencesPubliées = congrèsConférencesPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                congrèsConférencesPubliées.setPointsAttribués(congrèsConférencesPubliées.getActivityPoints());
+                congrèsConférencesPubliéesRepository.save(congrèsConférencesPubliées);
+                break;
+
+            case "Communications dans des congrès ou des conférences (non publiés)":
+                CongrèsConférencesNonPubliées congrèsConférencesNonPubliées = congrèsConférencesNonPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                congrèsConférencesNonPubliées.setPointsAttribués(congrèsConférencesNonPubliées.getActivityPoints());
+                congrèsConférencesNonPubliéesRepository.save(congrèsConférencesNonPubliées);
+                break;
+
+            case "Doctorats encadrés":
+                DoctoratsEncadrés doctoratsEncadrés = doctoratsEncadrésRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                doctoratsEncadrés.setPointsAttribués(doctoratsEncadrés.getActivityPoints());
+                doctoratsEncadrésRepository.save(doctoratsEncadrés);
+                break;
+
+            case "Encadrement des mémoires de Master":
+                EncadrementMémoiresMaster encadrementMémoiresMaster = encadrementMémoiresMasterRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                encadrementMémoiresMaster.setPointsAttribués(encadrementMémoiresMaster.getActivityPoints());
+                encadrementMémoiresMasterRepository.save(encadrementMémoiresMaster);
+                break;
+
+            case "Participaction à thèse doctorat ou d'habilitation":
+                ParticipationthèseDoctorat participationthèseDoctorat = participationthèseDoctoratRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                participationthèseDoctorat.setPointsAttribués(participationthèseDoctorat.getActivityPoints());
+                participationthèseDoctoratRepository.save(participationthèseDoctorat);
+                break;
+
+            case "Responsable ou membre d'une structure de recherche accréditée ou d'un pole de compétence(cumulable)":
+                ResponsableMembreStructureRecherchePole responsableMembreStructureRecherchePole = responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                responsableMembreStructureRecherchePole.setPointsAttribués(responsableMembreStructureRecherchePole.getActivityPoints());
+                responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.save(responsableMembreStructureRecherchePole);
+                break;
+
+            case "Association pour la connaissance":
+                AssociationConnaissance associationConnaissance = associationConnaissanceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                associationConnaissance.setPointsAttribués(associationConnaissance.getActivityPoints());
+                associationConnaissanceRepository.save(associationConnaissance);
+                break;
+
+            case "Projets ou contrats de recherche au niveau national ou international ou les deux":
+                ProjetsContratsRecherche projetsContratsRecherche = projetsContratsRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                projetsContratsRecherche.setPointsAttribués(projetsContratsRecherche.getActivityPoints());
+                projetsContratsRechercheRepository.save(projetsContratsRecherche);
+                break;
+
+            case "Editeur, membre ou référé d'un journal ou revue scientifique":
+                EditeurMembreRéféréJournalRevue editeurMembreRéféréJournalRevue = editeurMembreRéféréJournalRevueRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                editeurMembreRéféréJournalRevue.setPointsAttribués(editeurMembreRéféréJournalRevue.getActivityPoints());
+                editeurMembreRéféréJournalRevueRepository.save(editeurMembreRéféréJournalRevue);
+                break;
+
+            case "Expertise non rémunérée de projet de recherche scientifique":
+                ExpertiseNonRémunéré expertiseNonRémunéré = expertiseNonRémunéréRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                expertiseNonRémunéré.setPointsAttribués(expertiseNonRémunéré.getActivityPoints());
+                expertiseNonRémunéréRepository.save(expertiseNonRémunéré);
+                break;
+
+            case "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre)":
+                ContributionOrganisationActivitésRayonnement contributionOrganisationActivitésRayonnement = contributionOrganisationActivitésRayonnementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                contributionOrganisationActivitésRayonnement.setPointsAttribués(contributionOrganisationActivitésRayonnement.getActivityPoints());
+                contributionOrganisationActivitésRayonnementRepository.save(contributionOrganisationActivitésRayonnement);
+                break;
+
+            case "Projet de recherche et de développement avec le secteur privé":
+                ProjetDeRechercheDeveloppement projetDeRechercheDeveloppement = projetDeRechercheDeveloppementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                projetDeRechercheDeveloppement.setPointsAttribués(projetDeRechercheDeveloppement.getActivityPoints());
+                projetDeRechercheDeveloppementRepository.save(projetDeRechercheDeveloppement);
+                break;
+
+            case "Brevet":
+                Brevet brevet = brevetRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                brevet.setPointsAttribués(brevet.getActivityPoints());
+                brevetRepository.save(brevet);
+                break;
+
+            case "Incubation de projet de recherche et de développement":
+                IncubationProjetRecherche incubationProjetRecherche = incubationProjetRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                incubationProjetRecherche.setPointsAttribués(incubationProjetRecherche.getActivityPoints());
+                incubationProjetRechercheRepository.save(incubationProjetRecherche);
+                break;
+
+            case "Création de start up":
+                CréationStartUp créationStartUp = créationStartUpRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+                créationStartUp.setPointsAttribués(créationStartUp.getActivityPoints());
+                créationStartUpRepository.save(créationStartUp);
+                break;
+
+
+            default:
+                throw new IllegalArgumentException("Nom d'activité invalide");
+        }
+
+    }
+
 }

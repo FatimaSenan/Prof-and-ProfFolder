@@ -18,6 +18,10 @@ public class CoordonateurFilière {
     private String activityName;
     @Column(name = "activity_points")
     private double activityPoints;
+
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "nom_filière")
     private String nomFilière;
 
@@ -39,7 +43,7 @@ public class CoordonateurFilière {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
     @PrePersist
     @PreUpdate

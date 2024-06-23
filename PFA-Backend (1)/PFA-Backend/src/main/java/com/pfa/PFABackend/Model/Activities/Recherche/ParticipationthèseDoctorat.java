@@ -19,6 +19,9 @@ public class ParticipationthèseDoctorat {
     @Column(name = "activity_points")
     private double activityPoints;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "type_participation")
     private String typeParticipation;
 
@@ -43,7 +46,7 @@ public class ParticipationthèseDoctorat {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    //@JsonBackReference
+    @JsonBackReference
     private User user;
 
     @PrePersist

@@ -16,4 +16,8 @@ public interface ActivityService {
     public String deleteSelectedActivityForCurrentUser(String activityName, int activityId);
 
     public byte[] getJustificationPdf(String activityName, int activityId);
+
+    public byte[] getJustificationPdfForSelectedUser(String activityName, int activityId, String userEmail);
+
+    void validateActivity(String activityName, int activityId);
 }

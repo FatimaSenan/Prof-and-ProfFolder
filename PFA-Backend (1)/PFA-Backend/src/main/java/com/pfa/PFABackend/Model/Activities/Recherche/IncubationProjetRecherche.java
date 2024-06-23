@@ -18,6 +18,9 @@ public class IncubationProjetRecherche {
     @Column(name = "activity_points")
     private double activityPoints =2;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String projet;
 
     private String cadre;
@@ -37,6 +40,6 @@ public class IncubationProjetRecherche {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

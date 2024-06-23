@@ -20,6 +20,9 @@ public class MontagesExpérimentaux {
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String module;
 
     private String filière;
@@ -38,6 +41,6 @@ public class MontagesExpérimentaux {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-  //  @JsonBackReference
+    @JsonBackReference
     private User user;
 }

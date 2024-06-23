@@ -19,6 +19,9 @@ public class CongrèsConférencesPubliées {
     @Column(name = "activity_points")
     private double activityPoints;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String type;
 
     @Column(name = "nom_conference")
@@ -45,7 +48,7 @@ public class CongrèsConférencesPubliées {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    //@JsonBackReference
+    @JsonBackReference
     private User user;
 
     @PrePersist

@@ -18,6 +18,9 @@ public class CoordonateurModule {
     @Column(name = "activity_points")
     private double activityPoints = 1;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "nom_module")
     private String nomModule;
 
@@ -42,6 +45,6 @@ public class CoordonateurModule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

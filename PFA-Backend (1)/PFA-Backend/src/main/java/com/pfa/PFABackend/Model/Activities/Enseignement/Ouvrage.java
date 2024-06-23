@@ -25,6 +25,9 @@ public class Ouvrage {
     @Column(name = "activity_points")
     private double activityPoints = 3;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "titre_ouvrage")
     public String titreOuvrage;
 
@@ -53,7 +56,7 @@ public class Ouvrage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-  //  @JsonBackReference
+    @JsonBackReference
     private User user;
 
 

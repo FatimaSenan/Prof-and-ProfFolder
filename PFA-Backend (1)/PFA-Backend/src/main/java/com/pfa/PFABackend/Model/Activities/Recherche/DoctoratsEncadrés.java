@@ -19,6 +19,9 @@ public class DoctoratsEncadrés {
     @Column(name = "activity_points")
     private double activityPoints;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String status;
 
     @Column(name = "date_inscription")
@@ -50,7 +53,7 @@ public class DoctoratsEncadrés {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 
     @PrePersist

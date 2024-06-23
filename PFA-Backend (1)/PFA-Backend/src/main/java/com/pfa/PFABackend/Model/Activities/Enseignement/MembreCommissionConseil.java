@@ -17,6 +17,10 @@ public class MembreCommissionConseil {
     private String activityName;
     @Column(name = "activity_points")
     private double activityPoints = 0.75;
+
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     @Column(name = "titre_commission")
     private String titreCommission;
 
@@ -33,6 +37,6 @@ public class MembreCommissionConseil {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-  //  @JsonBackReference
+     @JsonBackReference
     private User user;
 }

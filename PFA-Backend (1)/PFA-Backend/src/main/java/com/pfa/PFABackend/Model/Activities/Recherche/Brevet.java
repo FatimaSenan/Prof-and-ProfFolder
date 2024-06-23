@@ -18,6 +18,9 @@ public class Brevet {
     @Column(name = "activity_points")
     private double activityPoints =2;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String auteur;
 
     private String titre;
@@ -46,6 +49,6 @@ public class Brevet {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

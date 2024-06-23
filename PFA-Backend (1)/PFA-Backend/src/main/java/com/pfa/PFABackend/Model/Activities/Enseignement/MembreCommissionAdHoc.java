@@ -19,6 +19,9 @@ public class MembreCommissionAdHoc {
     @Column(name = "activity_points")
     private double activityPoints = 0.75;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String typeCommissionAdHoc;
 
     private int année;
@@ -34,6 +37,6 @@ public class MembreCommissionAdHoc {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-  // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

@@ -19,6 +19,9 @@ public class PublicationsRevuesIndexées {
     @Column(name = "activity_points")
     private double activityPoints;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String niveau;
 
     private String titre;
@@ -47,7 +50,7 @@ public class PublicationsRevuesIndexées {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 
     @PrePersist

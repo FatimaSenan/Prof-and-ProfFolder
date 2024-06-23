@@ -20,6 +20,9 @@ public class Manuel {
     @Column(name = "activity_points")
     private double activityPoints = 2;
 
+    @Column(name = "points_attribués")
+    private double pointsAttribués = 0;
+
     private String module;
     @Column(name="filière_niveau")
     private String filièreNiveau;
@@ -37,7 +40,7 @@ public class Manuel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-   // @JsonBackReference
+    @JsonBackReference
     private User user;
 
 

@@ -25,7 +25,7 @@ export default function LoginPage(){
                 } else if (userData.role === 'ADMIN') {
                     navigate('/administration'); // Adapt as needed
                 } else {
-                    setError("Role not recognized"); // Handle unrecognized roles
+                    setError("Rôle non reconnu"); // Handle unrecognized roles
                 }
             }else{
                 setError(userData.message)
@@ -63,7 +63,7 @@ export default function LoginPage(){
                     </div>
                     <div className="submit-container">
                     <button type="submit" className="submit" >Se Connecter</button>
-                    {error && <p style={{color: 'red'}} className="error-message">{error}</p>}
+                    
                 </div>
                 <div className='register-link'>
                     <p>

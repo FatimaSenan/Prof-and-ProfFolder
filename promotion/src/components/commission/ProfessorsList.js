@@ -12,9 +12,9 @@ import {
     Grid,
     Typography,
     TablePagination,
-    TableFooter,
-    makeStyles
-} from '@material-ui/core';
+    TableFooter
+} from '@mui/material';
+import { makeStyles } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,10 @@ const useStyles = makeStyles((theme) => ({
     },
     name: {
         fontWeight: 'bold',
-        color: '#0D0D0D'
+        color: '#0D0D0D',
+        '&:hover': {
+            textDecoration: 'underline'
+        }
     },
     status: {
         fontWeight: 'bold',
@@ -107,7 +110,7 @@ function ProfessorsList() {
                                         <Avatar alt={`${row.firstname} ${row.lastname}`} src='.' className={classes.avatar}/>
                                     </Grid>
                                     <Grid item lg={10} style={{ paddingLeft: '10px' }}>
-                                        <Typography className={classes.name}>{`${row.firstname} ${row.lastname}`}</Typography>
+                                        <Typography className={classes.name} style={{cursor: 'pointer'}}>{`${row.firstname} ${row.lastname}`}</Typography>
                                         <Typography color="textSecondary" variant="body2">{row.email}</Typography>
                                         <Typography color="textSecondary" variant="body2">{row.phone}</Typography>
                                     </Grid>
@@ -124,7 +127,7 @@ function ProfessorsList() {
                                         backgroundColor:
                                             (row.evaluationStatus === 'Evalué' && 'green') ||
                                             (row.evaluationStatus === 'En cours' && 'blue') ||
-                                            (row.evaluationStatus === 'Not Evalué' && 'orange')
+                                            (row.evaluationStatus === 'Non Evalué' && 'orange')
                                     }}
                                 >{row.evaluationStatus}</Typography>
                             </TableCell>

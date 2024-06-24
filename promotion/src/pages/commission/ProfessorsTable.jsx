@@ -11,9 +11,9 @@ function ProfessorsTable() {
     <>
     <NavbarAdministration/>
     <Box height={30}/>
-        <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Box sx={{display:'flex'}}>
         
-        <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 15}}>
             <ProfessorsList/>  
         </Box> 
     </Box>

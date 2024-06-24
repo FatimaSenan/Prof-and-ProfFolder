@@ -87,7 +87,7 @@ function ProfessorsList() {
 
     const handleRowClick = (row) => {
         console.log(row);
-        navigate('/selected-user-activities', {state: {prof: row}}); 
+        navigate('/menu-informations', {state: {prof: row}}); 
     };
    // console.log(data);
 

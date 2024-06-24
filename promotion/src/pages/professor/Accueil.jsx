@@ -45,7 +45,7 @@ function Accueil() {
         <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <Sidenav />
           <Box sx={{ marginLeft: 'auto', marginRight: 'auto', width: '80%', height: '500px', p: 3 }}>
-            <ChoiceCardsContainer/>
+            <ChoiceCardsContainer userRole="PROFESSOR"/>
           </Box>
         </Box>
       </Box>

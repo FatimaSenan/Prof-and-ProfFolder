@@ -14,6 +14,7 @@ import ActiviteEnseignement from './pages/professor/ActiviteEnseignement';
 import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableForSelectedUser';
 import ProfessorsList from './components/commission/ProfessorsList';
 import ProfessorsListAdministration from './pages/administration/ProfessorsListAdministration';
+import ProfessorsInformationsMenu from './components/commission/ProfessorsInformationsMenu';
 
 
 const Accueil = lazy(() => import("./pages/professor/Accueil"));
@@ -29,7 +30,8 @@ const TeachingTable = lazy(() => import("./components/Professor/TeachingTable"))
 const Administration = lazy(() => import("./components/administration/Administration"))
 const ProfessorsTable = lazy(() => import("./pages/commission/ProfessorsTable"))
 const ActivitiesInformationTable = lazy(() => import("./components/Professor/ListeActivities/ActivitiesInformationsTable"))
-
+const Annexe2Informations = lazy(() => import("./components/commission/Annexe2Informations"))
+const DossierAdministratifInformations = lazy(() => import("./components/commission/DossierAdministratifInformations"))
 function App() {
   return (
     <BrowserRouter>
@@ -130,14 +132,32 @@ function App() {
                 <ProfessorsTable />
               </ProtectedRoute>
               }/>
+              <Route path='/menu-informations' exact element={
+              <ProtectedRoute role="COMMISSION">
+                <ProfessorsInformationsMenu />
+              </ProtectedRoute>
+              }/>
               <Route path='/selected-user-activities' exact element={
               <ProtectedRoute role="COMMISSION">
                 <ActivitiesTableForSelectedUser/>
               </ProtectedRoute>
               }/>
+              
               <Route path='/activite_informations' exact element={
+              <ProtectedRoute role="COMMISSION">
+                <ActivitiesInformationTable userRole="COMMISSION"/>
+              </ProtectedRoute>
+              }/>
+              
+              <Route path='/formulaire_inscription-informations' exact element={
                 <ProtectedRoute>
-                  <ActivitiesInformationTable  userRole="COMMISSION" />
+                  <Annexe2Informations/>
+                </ProtectedRoute>
+              } />
+              
+              <Route path='/dossier-administratif-informations' exact element={
+                <ProtectedRoute>
+                  <DossierAdministratifInformations/>
                 </ProtectedRoute>
               } />
                <Route path='/deconnexion' exact element={

@@ -58,7 +58,7 @@ export default function Annexe2() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/annexe2/save', annexe2Data, {
+      const response = await axios.post('http://localhost:9005/professor/annexe2/save', annexe2Data, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
@@ -142,32 +142,22 @@ export default function Annexe2() {
               />
               <TextField
                 id="etablissement"
-                select
-                label="Choisir Établissement"
+                label="Établissement"
                 variant="outlined"
                 fullWidth
                 value={etablissement}
                 onChange={handleEtablissementChange}
                 className="input-field"
-              >
-                <MenuItem value="ensa">Ensa</MenuItem>
-                <MenuItem value="est">Est</MenuItem>
-                <MenuItem value="faculteDeSciences">Faculté de Sciences</MenuItem>
-              </TextField>
+              />
               <TextField
                 id="departement"
-                select
-                label="Choisir Département"
+                label="Département"
                 variant="outlined"
                 fullWidth
                 value={departement}
                 onChange={handleDepartementChange}
                 className="input-field"
-              >
-                <MenuItem value="electroniqueInformatiqueTelecom">Électronique Informatique et Télécommunications</MenuItem>
-                <MenuItem value="mecaniqueMathematiqueAppliquee">Mécanique et Mathématique Appliquée</MenuItem>
-                <MenuItem value="humanitesManagement">Humanités et Management</MenuItem>
-              </TextField>
+              />
             </Paper>
             <Button
               variant="contained"

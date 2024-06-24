@@ -13,7 +13,7 @@ function ActivitiesTableForSelectedUser() {
   const location = useLocation();
   const {prof} = location.state || {};
   const [activities, setActivities] = useState([]);
-  console.log(prof);
+  console.log('prof', prof);
   
   
   useEffect(() => {

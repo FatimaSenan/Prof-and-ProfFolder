@@ -118,8 +118,26 @@ export default function ActivitiesInformationTable ({ userRole}) {
           setAlert({open: true, severity: 'error', message: 'Une erreur est survenue . Veuillez réessayer plus tard'});
         }
       };
-      const handleCancel = () => {
+      const handleCancel = async() => {
+        try {
+          const response = await axios.patch('http://localhost:9005/commission/activities/cancel',{}, {
+            params: {
+             activityName: activity.activityName,
+             id: activity.id
+          },
+           
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+              'Content-Type': 'application/json', 
+            },
+          
+        });
+        setAlert({open: true, severity: 'success', message: 'Cette activité a été évaluée avec succès!'});
         console.log('Annulation de la validation de l\'activité');
+      } catch (error) {
+        console.error('Erreur lors de la validation de l\'activité : ', error);
+        setAlert({open: true, severity: 'error', message: 'Une erreur est survenue . Veuillez réessayer plus tard'});
+      }
         navigate('/selected-user-activities', {state: {prof: selectedUser}});
       };
      const  handleContinueClick = () => {

@@ -22,7 +22,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 
 
 
-export default function ChoiceCard({title, icon}) {
+export default function ChoiceCard({title, icon, onClick}) {
     const [iconDossier, setIconDossier] = useState(false);
     const [iconEvaluation, setIconEvaluation] = useState(false);
     const [iconInscription, setIconInscription] = useState(false);
@@ -40,7 +40,7 @@ export default function ChoiceCard({title, icon}) {
     
   return (
   // <Box className="choice-box" sx={{ maxWidth: 180 , boxShadow: '1px 1px 4px #404040', borderRadius: '7px'}} >
-    <DemoPaper variant="elevation" className='choice-box '>
+    <DemoPaper variant="elevation" className='choice-box ' onClick={onClick}>
         {iconDossier && <AssignmentIndIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
         {iconEvaluation && <Grading sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}
         {iconInscription && <AssignmentIcon sx={{fontSize: 40, paddingBottom: '1rem'}} style={{color: "#A66253"}}/>}

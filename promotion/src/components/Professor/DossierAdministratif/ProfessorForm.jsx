@@ -118,6 +118,7 @@ export default function ProfessorForm() {
     formData.append('phdType', doctorateType);
     formData.append('applicationDemande', demandeCandidature);
     formData.append('cv', cv);
+    formData.append('equivalence', equivalence);
     formData.append('phdDiplome', diplomeDoctorat);
     formData.append('habilitationDiplome', diplomeHabilitation);
     formData.append('arretNomination', arretNomination);
@@ -239,56 +240,41 @@ export default function ProfessorForm() {
             <TextField id="drpp" label="DRPP" variant="outlined" fullWidth className="input-field" value={drpp} onChange={handleDrppChange} />
             <TextField
               id="profil"
-              select
-              label="Choisir un Profil"
+              label="Profil"
               variant="outlined"
               fullWidth
               className="input-field"
               value={profil}
               onChange={handleProfilChange}
-            >
-              <MenuItem value="prof1">Profil 1</MenuItem>
-              <MenuItem value="prof2">Profil 2</MenuItem>
-            </TextField>
+            />
+             
             <TextField
               id="specialite"
-              select
-              label="Choisir Spécialité"
+              label="Spécialité"
               variant="outlined"
               fullWidth
               value={specialite}
               onChange={handleSpecialiteChange}
               className="input-field"
-            >
-              <MenuItem value="spec1">Spécialité 1</MenuItem>
-              <MenuItem value="spec2">Spécialité 2</MenuItem>
-            </TextField>
+            />
             <TextField
               id="etablissement"
-              select
-              label="Choisir Etablissement"
+              label="Etablissement"
               variant="outlined"
               fullWidth
               className="input-field"
               value={etablissement}
               onChange={handleEtablissementChange}
-            >
-              <MenuItem value="etab1">Etablissement 1</MenuItem>
-              <MenuItem value="etab2">Etablissement 2</MenuItem>
-            </TextField>
+            />
             <TextField
               id="type_doctorat"
-              select
               label="Type de Doctorat"
               variant="outlined"
               fullWidth
               className="input-field"
               value={doctorateType}
               onChange={handleDoctorateTypeChange}
-            >
-              <MenuItem value="doc1">Doctorat 1</MenuItem>
-              <MenuItem value="doc2">Doctorat 2</MenuItem>
-            </TextField>
+            />
           </Paper>
         </Grid>
 

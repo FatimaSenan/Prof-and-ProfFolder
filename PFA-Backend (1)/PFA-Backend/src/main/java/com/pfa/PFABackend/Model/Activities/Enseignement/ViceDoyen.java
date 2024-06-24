@@ -33,6 +33,8 @@ public class ViceDoyen {
     @Column(name = "années_responsabilités")
     private String annéesResposabilité;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

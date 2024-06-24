@@ -8,7 +8,9 @@ import com.pfa.PFABackend.Repository.Activities.Enseignement.*;
 import com.pfa.PFABackend.Repository.Activities.Recherche.*;
 import com.pfa.PFABackend.Repository.ActivityRepository;
 import com.pfa.PFABackend.Repository.UserRepository;
+import com.pfa.PFABackend.Service.Activities.Recherche.PublicationsRevuesIndexéesService;
 import org.hibernate.engine.profile.Association;
+import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -1266,12 +1268,352 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
+    public void cancelActivity(String activityName, int activityId) {
+        switch (activityName) {
+            case "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)":
+                Ouvrage ouvrage = ouvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                ouvrage.setEvaluated(true);
+                ouvrageRepository.save(ouvrage);
+                break;
+
+            case "Manuel (exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
+                Manuel manuel = manuelRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                manuel.setEvaluated(true);
+                manuelRepository.save(manuel);
+                break;
+
+            case "Polycopiés pédagogiques":
+                PolycopiésPédagogiques polycopiésPédagogiques = polycopiésPédagogiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                polycopiésPédagogiques.setEvaluated(true);
+                polycopiésPédagogiquesRepository.save(polycopiésPédagogiques);
+                break;
+
+            case "Petits livres de méthodologie ou de didactique pour la lecture ou l'analyse":
+                PetitsLivres petitsLivres = petitsLivresRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                petitsLivres.setEvaluated(true);
+                petitsLivresRepository.save(petitsLivres);
+                break;
+
+            case "Montages expérimentaux":
+                MontagesExpérimentaux montagesExpérimentaux = montagesExpérimentauxRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                montagesExpérimentaux.setEvaluated(true);
+                montagesExpérimentauxRepository.save(montagesExpérimentaux);
+                break;
+
+            case "Préparation de sorties de terrain":
+                PréparationSortiesTerrain préparationSortiesTerrain = préparationSortiesTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                préparationSortiesTerrain.setEvaluated(true);
+                préparationSortiesTerrainRepository.save(préparationSortiesTerrain);
+                break;
+
+            case "Supports":
+                Supports supports = supportsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                supports.setEvaluated(true);
+                supportsRepository.save(supports);
+                break;
+
+            case "Didacticiels":
+                Didacticiels didacticiels = didacticielsRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                didacticiels.setEvaluated(true);
+                didacticielsRepository.save(didacticiels);
+                break;
+
+            case "Page web à caractère pédagogique":
+                PageWeb pageWeb = pageWebRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                pageWeb.setEvaluated(true);
+                pageWebRepository.save(pageWeb);
+                break;
+
+            case "MOOC : Production de contenus en ligne":
+                MOOC mooc = moocRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                mooc.setEvaluated(true);
+                moocRepository.save(mooc);
+                break;
+
+            case "Coordonnateur d'une filière":
+                CoordonateurFilière coordonateurFilière = coordonateurFilièreRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                coordonateurFilière.setEvaluated(true);
+                coordonateurFilièreRepository.save(coordonateurFilière);
+                break;
+
+            case "Coordonnateur d'un module (ou deux au maximum )":
+                CoordonateurModule coordonateurModule = coordonateurModuleRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                coordonateurModule.setEvaluated(true);
+                coordonateurModuleRepository.save(coordonateurModule);
+                break;
+
+            case "Chef de département":
+                ChefDépartement chefDépartement = chefDépartementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                chefDépartement.setEvaluated(true);
+                chefDépartementRepository.save(chefDépartement);
+                break;
+
+            case "Vice-doyen ( non cumulable avec commission permanente)":
+                ViceDoyen viceDoyen = viceDoyenRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                viceDoyen.setEvaluated(true);
+                viceDoyenRepository.save(viceDoyen);
+                break;
+
+            case "Membre élu du conseil d'établissement":
+                MembreEluConseil membreEluConseil = membreEluConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                membreEluConseil.setEvaluated(true);
+                membreEluConseilRepository.save(membreEluConseil);
+                break;
+
+            case "Membre d'une commission permanente de l'établissement":
+                MembreCommissionEtablissement membreCommissionEtablissement = membreCommisionEtablissementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                membreCommissionEtablissement.setEvaluated(true);
+                membreCommisionEtablissementRepository.save(membreCommissionEtablissement);
+                break;
+
+            case "Membre du conseil de coordination":
+                MembreConseilCoordination membreConseilCoordination = membreConseilCoordinationRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                membreConseilCoordination.setEvaluated(true);
+                membreConseilCoordinationRepository.save(membreConseilCoordination);
+                break;
+
+            case "Membre d'une commission permanente du conseil de coordination":
+                MembreCommissionConseil membreCommissionConseil = membreCommissionConseilRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                membreCommissionConseil.setEvaluated(true);
+                membreCommissionConseilRepository.save(membreCommissionConseil);
+                break;
+
+            case "Membre d'une commission ad hoc":
+                MembreCommissionAdHoc membreCommissionAdHoc = membreCommissionAdHocRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                membreCommissionAdHoc.setEvaluated(true);
+                membreCommissionAdHocRepository.save(membreCommissionAdHoc);
+                break;
+
+            case "Mémoire de PFE":
+                EncadrementPFE encadrementPFE = encadrementPFERepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                encadrementPFE.setEvaluated(true);
+                encadrementPFERepository.save(encadrementPFE);
+                break;
+
+            case "Rapport de stage de visite ou de terrain":
+                RapportStageVisiteTerrain rapportStageVisiteTerrain = rapportStageVisiteTerrainRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                rapportStageVisiteTerrain.setEvaluated(true);
+                rapportStageVisiteTerrainRepository.save(rapportStageVisiteTerrain);
+                break;
+
+            case "Formation de formateurs ou du Personnel administratif ou technique":
+                EncadrementRH encadrementRH = encadrementRHRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                encadrementRH.setEvaluated(true);
+                encadrementRHRepository.save(encadrementRH);
+                break;
+
+            case "Publications dans des revues indexées dans les bases internationales  comme: SCOPUS, THOMPSON":
+                PublicationsRevuesIndexées publicationsRevuesIndexées = publicationsRevuesIndexéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                publicationsRevuesIndexées.setEvaluated(true);
+                publicationsRevuesIndexéesRepository.save(publicationsRevuesIndexées);
+                break;
+
+            case "Publications dans des revues scientifiques nationales ou internationales à comité de lecture ISSN (tel qu'il est défini  dans la liste officielle du CNRST)":
+                PublicationRevuesScientifiques publicationRevuesScientifiques = publicationRevuesScientifiquesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                publicationRevuesScientifiques.setEvaluated(true);
+                publicationRevuesScientifiquesRepository.save(publicationRevuesScientifiques);
+                break;
+
+            case "Ouvrage spécialisé ISBN et publié par une maison d'édition":
+                OuvrageSpecialisé ouvrageSpecialisé = ouvrageSpecialiséRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                ouvrageSpecialisé.setEvaluated(true);
+                ouvrageSpecialiséRepository.save(ouvrageSpecialisé);
+                break;
+
+            case "Chapitre d'un ouvrage collectif publié par une maison d'édition ISBN":
+                ChapitreOuvrage chapitreOuvrage = chapitreOuvrageRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                chapitreOuvrage.setEvaluated(true);
+                chapitreOuvrageRepository.save(chapitreOuvrage);
+                break;
+
+            case "Congrès ou conférence (rédigées et publiées dans le Proceeding)(Les communications ne peuvent être comptabilisées qu'une seule fois)":
+                CongrèsConférencesPubliées congrèsConférencesPubliées = congrèsConférencesPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                congrèsConférencesPubliées.setEvaluated(true);
+                congrèsConférencesPubliéesRepository.save(congrèsConférencesPubliées);
+                break;
+
+            case "Communications dans des congrès ou des conférences (non publiés)":
+                CongrèsConférencesNonPubliées congrèsConférencesNonPubliées = congrèsConférencesNonPubliéesRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                congrèsConférencesNonPubliées.setEvaluated(true);
+                congrèsConférencesNonPubliéesRepository.save(congrèsConférencesNonPubliées);
+                break;
+
+            case "Doctorats encadrés":
+                DoctoratsEncadrés doctoratsEncadrés = doctoratsEncadrésRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                doctoratsEncadrés.setEvaluated(true);
+                doctoratsEncadrésRepository.save(doctoratsEncadrés);
+                break;
+
+            case "Encadrement des mémoires de Master":
+                EncadrementMémoiresMaster encadrementMémoiresMaster = encadrementMémoiresMasterRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                encadrementMémoiresMaster.setEvaluated(true);
+                encadrementMémoiresMasterRepository.save(encadrementMémoiresMaster);
+                break;
+
+            case "Participaction à thèse doctorat ou d'habilitation":
+                ParticipationthèseDoctorat participationthèseDoctorat = participationthèseDoctoratRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                participationthèseDoctorat.setEvaluated(true);
+                participationthèseDoctoratRepository.save(participationthèseDoctorat);
+                break;
+
+            case "Responsable ou membre d'une structure de recherche accréditée ou d'un pole de compétence(cumulable)":
+                ResponsableMembreStructureRecherchePole responsableMembreStructureRecherchePole = responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                responsableMembreStructureRecherchePole.setEvaluated(true);
+                responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.save(responsableMembreStructureRecherchePole);
+                break;
+
+            case "Association pour la connaissance":
+                AssociationConnaissance associationConnaissance = associationConnaissanceRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                associationConnaissance.setEvaluated(true);
+                associationConnaissanceRepository.save(associationConnaissance);
+                break;
+
+            case "Projets ou contrats de recherche au niveau national ou international ou les deux":
+                ProjetsContratsRecherche projetsContratsRecherche = projetsContratsRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                projetsContratsRecherche.setEvaluated(true);
+                projetsContratsRechercheRepository.save(projetsContratsRecherche);
+                break;
+
+            case "Editeur, membre ou référé d'un journal ou revue scientifique":
+                EditeurMembreRéféréJournalRevue editeurMembreRéféréJournalRevue = editeurMembreRéféréJournalRevueRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                editeurMembreRéféréJournalRevue.setEvaluated(true);
+                editeurMembreRéféréJournalRevueRepository.save(editeurMembreRéféréJournalRevue);
+                break;
+
+            case "Expertise non rémunérée de projet de recherche scientifique":
+                ExpertiseNonRémunéré expertiseNonRémunéré = expertiseNonRémunéréRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                expertiseNonRémunéré.setEvaluated(true);
+                expertiseNonRémunéréRepository.save(expertiseNonRémunéré);
+                break;
+
+            case "Contribution à l'organisation d'activités de rayonnement de l'établissement (séminaires, congrès, colloque, ateliers, formation continue, ou autre)":
+                ContributionOrganisationActivitésRayonnement contributionOrganisationActivitésRayonnement = contributionOrganisationActivitésRayonnementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                contributionOrganisationActivitésRayonnement.setEvaluated(true);
+                contributionOrganisationActivitésRayonnementRepository.save(contributionOrganisationActivitésRayonnement);
+                break;
+
+            case "Projet de recherche et de développement avec le secteur privé":
+                ProjetDeRechercheDeveloppement projetDeRechercheDeveloppement = projetDeRechercheDeveloppementRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                projetDeRechercheDeveloppement.setEvaluated(true);
+                projetDeRechercheDeveloppementRepository.save(projetDeRechercheDeveloppement);
+                break;
+
+            case "Brevet":
+                Brevet brevet = brevetRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                brevet.setEvaluated(true);
+                brevetRepository.save(brevet);
+                break;
+
+            case "Incubation de projet de recherche et de développement":
+                IncubationProjetRecherche incubationProjetRecherche = incubationProjetRechercheRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                incubationProjetRecherche.setEvaluated(true);
+                incubationProjetRechercheRepository.save(incubationProjetRecherche);
+                break;
+
+            case "Création de start up":
+                CréationStartUp créationStartUp = créationStartUpRepository.findById(activityId)
+                        .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
+
+                créationStartUp.setEvaluated(true);
+                créationStartUpRepository.save(créationStartUp);
+                break;
+
+
+            default:
+                throw new IllegalArgumentException("Nom d'activité invalide");
+        }
+
+    }
+
+
+    @Override
     public void validateActivity(String activityName, int activityId) {
         switch (activityName) {
             case "Ouvrage pédagogique et/ou didactique (ISBN ou  Maison d'édition)":
                 Ouvrage ouvrage = ouvrageRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 ouvrage.setPointsAttribués(ouvrage.getActivityPoints());
+                ouvrage.setEvaluated(true);
                 ouvrageRepository.save(ouvrage);
                 break;
 
@@ -1279,6 +1621,7 @@ public class ActivityServiceImpl implements ActivityService{
                 Manuel manuel = manuelRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 manuel.setPointsAttribués(manuel.getActivityPoints());
+                manuel.setEvaluated(true);
                 manuelRepository.save(manuel);
                 break;
 
@@ -1286,6 +1629,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PolycopiésPédagogiques polycopiésPédagogiques = polycopiésPédagogiquesRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 polycopiésPédagogiques.setPointsAttribués(polycopiésPédagogiques.getActivityPoints());
+                polycopiésPédagogiques.setEvaluated(true);
                 polycopiésPédagogiquesRepository.save(polycopiésPédagogiques);
                 break;
 
@@ -1293,6 +1637,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PetitsLivres petitsLivres = petitsLivresRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 petitsLivres.setPointsAttribués(petitsLivres.getActivityPoints());
+                petitsLivres.setEvaluated(true);
                 petitsLivresRepository.save(petitsLivres);
                 break;
 
@@ -1300,6 +1645,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MontagesExpérimentaux montagesExpérimentaux = montagesExpérimentauxRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 montagesExpérimentaux.setPointsAttribués(montagesExpérimentaux.getActivityPoints());
+                montagesExpérimentaux.setEvaluated(true);
                 montagesExpérimentauxRepository.save(montagesExpérimentaux);
                 break;
 
@@ -1307,6 +1653,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PréparationSortiesTerrain préparationSortiesTerrain = préparationSortiesTerrainRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 préparationSortiesTerrain.setPointsAttribués(préparationSortiesTerrain.getActivityPoints());
+                préparationSortiesTerrain.setEvaluated(true);
                 préparationSortiesTerrainRepository.save(préparationSortiesTerrain);
                 break;
 
@@ -1314,6 +1661,7 @@ public class ActivityServiceImpl implements ActivityService{
                 Supports supports = supportsRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 supports.setPointsAttribués(supports.getActivityPoints());
+                supports.setEvaluated(true);
                 supportsRepository.save(supports);
                 break;
 
@@ -1321,6 +1669,7 @@ public class ActivityServiceImpl implements ActivityService{
                 Didacticiels didacticiels = didacticielsRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 didacticiels.setPointsAttribués(didacticiels.getActivityPoints());
+                didacticiels.setEvaluated(true);
                 didacticielsRepository.save(didacticiels);
                 break;
 
@@ -1328,6 +1677,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PageWeb pageWeb = pageWebRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 pageWeb.setPointsAttribués(pageWeb.getActivityPoints());
+                pageWeb.setEvaluated(true);
                 pageWebRepository.save(pageWeb);
                 break;
 
@@ -1335,6 +1685,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MOOC mooc = moocRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 mooc.setPointsAttribués(mooc.getActivityPoints());
+                mooc.setEvaluated(true);
                 moocRepository.save(mooc);
                 break;
 
@@ -1342,6 +1693,7 @@ public class ActivityServiceImpl implements ActivityService{
                 CoordonateurFilière coordonateurFilière = coordonateurFilièreRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 coordonateurFilière.setPointsAttribués(coordonateurFilière.getActivityPoints());
+                coordonateurFilière.setEvaluated(true);
                 coordonateurFilièreRepository.save(coordonateurFilière);
                 break;
 
@@ -1349,6 +1701,7 @@ public class ActivityServiceImpl implements ActivityService{
                 CoordonateurModule coordonateurModule = coordonateurModuleRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 coordonateurModule.setPointsAttribués(coordonateurModule.getActivityPoints());
+                coordonateurModule.setEvaluated(true);
                 coordonateurModuleRepository.save(coordonateurModule);
                 break;
 
@@ -1356,6 +1709,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ChefDépartement chefDépartement = chefDépartementRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 chefDépartement.setPointsAttribués(chefDépartement.getActivityPoints());
+                chefDépartement.setEvaluated(true);
                 chefDépartementRepository.save(chefDépartement);
                 break;
 
@@ -1363,6 +1717,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ViceDoyen viceDoyen = viceDoyenRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 viceDoyen.setPointsAttribués(viceDoyen.getActivityPoints());
+                viceDoyen.setEvaluated(true);
                 viceDoyenRepository.save(viceDoyen);
                 break;
 
@@ -1370,6 +1725,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MembreEluConseil membreEluConseil = membreEluConseilRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 membreEluConseil.setPointsAttribués(membreEluConseil.getActivityPoints());
+                membreEluConseil.setEvaluated(true);
                 membreEluConseilRepository.save(membreEluConseil);
                 break;
 
@@ -1377,6 +1733,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MembreCommissionEtablissement membreCommissionEtablissement = membreCommisionEtablissementRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 membreCommissionEtablissement.setPointsAttribués(membreCommissionEtablissement.getActivityPoints());
+                membreCommissionEtablissement.setEvaluated(true);
                 membreCommisionEtablissementRepository.save(membreCommissionEtablissement);
                 break;
 
@@ -1384,6 +1741,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MembreConseilCoordination membreConseilCoordination = membreConseilCoordinationRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 membreConseilCoordination.setPointsAttribués(membreConseilCoordination.getActivityPoints());
+                membreConseilCoordination.setEvaluated(true);
                 membreConseilCoordinationRepository.save(membreConseilCoordination);
                 break;
 
@@ -1391,6 +1749,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MembreCommissionConseil membreCommissionConseil = membreCommissionConseilRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 membreCommissionConseil.setPointsAttribués(membreCommissionConseil.getActivityPoints());
+                membreCommissionConseil.setEvaluated(true);
                 membreCommissionConseilRepository.save(membreCommissionConseil);
                 break;
 
@@ -1398,6 +1757,7 @@ public class ActivityServiceImpl implements ActivityService{
                 MembreCommissionAdHoc membreCommissionAdHoc = membreCommissionAdHocRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 membreCommissionAdHoc.setPointsAttribués(membreCommissionAdHoc.getActivityPoints());
+                membreCommissionAdHoc.setEvaluated(true);
                 membreCommissionAdHocRepository.save(membreCommissionAdHoc);
                 break;
 
@@ -1405,6 +1765,7 @@ public class ActivityServiceImpl implements ActivityService{
                 EncadrementPFE encadrementPFE = encadrementPFERepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 encadrementPFE.setPointsAttribués(encadrementPFE.getActivityPoints());
+                encadrementPFE.setEvaluated(true);
                 encadrementPFERepository.save(encadrementPFE);
                 break;
 
@@ -1412,6 +1773,7 @@ public class ActivityServiceImpl implements ActivityService{
                 RapportStageVisiteTerrain rapportStageVisiteTerrain = rapportStageVisiteTerrainRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 rapportStageVisiteTerrain.setPointsAttribués(rapportStageVisiteTerrain.getActivityPoints());
+                rapportStageVisiteTerrain.setEvaluated(true);
                 rapportStageVisiteTerrainRepository.save(rapportStageVisiteTerrain);
                 break;
 
@@ -1419,6 +1781,7 @@ public class ActivityServiceImpl implements ActivityService{
                 EncadrementRH encadrementRH = encadrementRHRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 encadrementRH.setPointsAttribués(encadrementRH.getActivityPoints());
+                encadrementRH.setEvaluated(true);
                 encadrementRHRepository.save(encadrementRH);
                 break;
 
@@ -1426,6 +1789,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PublicationsRevuesIndexées publicationsRevuesIndexées = publicationsRevuesIndexéesRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 publicationsRevuesIndexées.setPointsAttribués(publicationsRevuesIndexées.getActivityPoints());
+                publicationsRevuesIndexées.setEvaluated(true);
                 publicationsRevuesIndexéesRepository.save(publicationsRevuesIndexées);
                 break;
 
@@ -1433,6 +1797,7 @@ public class ActivityServiceImpl implements ActivityService{
                 PublicationRevuesScientifiques publicationRevuesScientifiques = publicationRevuesScientifiquesRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 publicationRevuesScientifiques.setPointsAttribués(publicationRevuesScientifiques.getActivityPoints());
+                publicationRevuesScientifiques.setEvaluated(true);
                 publicationRevuesScientifiquesRepository.save(publicationRevuesScientifiques);
                 break;
 
@@ -1440,6 +1805,7 @@ public class ActivityServiceImpl implements ActivityService{
                 OuvrageSpecialisé ouvrageSpecialisé = ouvrageSpecialiséRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 ouvrageSpecialisé.setPointsAttribués(ouvrageSpecialisé.getActivityPoints());
+                ouvrageSpecialisé.setEvaluated(true);
                 ouvrageSpecialiséRepository.save(ouvrageSpecialisé);
                 break;
 
@@ -1447,6 +1813,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ChapitreOuvrage chapitreOuvrage = chapitreOuvrageRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 chapitreOuvrage.setPointsAttribués(chapitreOuvrage.getActivityPoints());
+                chapitreOuvrage.setEvaluated(true);
                 chapitreOuvrageRepository.save(chapitreOuvrage);
                 break;
 
@@ -1454,6 +1821,7 @@ public class ActivityServiceImpl implements ActivityService{
                 CongrèsConférencesPubliées congrèsConférencesPubliées = congrèsConférencesPubliéesRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 congrèsConférencesPubliées.setPointsAttribués(congrèsConférencesPubliées.getActivityPoints());
+                congrèsConférencesPubliées.setEvaluated(true);
                 congrèsConférencesPubliéesRepository.save(congrèsConférencesPubliées);
                 break;
 
@@ -1461,6 +1829,7 @@ public class ActivityServiceImpl implements ActivityService{
                 CongrèsConférencesNonPubliées congrèsConférencesNonPubliées = congrèsConférencesNonPubliéesRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 congrèsConférencesNonPubliées.setPointsAttribués(congrèsConférencesNonPubliées.getActivityPoints());
+                congrèsConférencesNonPubliées.setEvaluated(true);
                 congrèsConférencesNonPubliéesRepository.save(congrèsConférencesNonPubliées);
                 break;
 
@@ -1468,6 +1837,7 @@ public class ActivityServiceImpl implements ActivityService{
                 DoctoratsEncadrés doctoratsEncadrés = doctoratsEncadrésRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 doctoratsEncadrés.setPointsAttribués(doctoratsEncadrés.getActivityPoints());
+                doctoratsEncadrés.setEvaluated(true);
                 doctoratsEncadrésRepository.save(doctoratsEncadrés);
                 break;
 
@@ -1475,6 +1845,7 @@ public class ActivityServiceImpl implements ActivityService{
                 EncadrementMémoiresMaster encadrementMémoiresMaster = encadrementMémoiresMasterRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 encadrementMémoiresMaster.setPointsAttribués(encadrementMémoiresMaster.getActivityPoints());
+                encadrementMémoiresMaster.setEvaluated(true);
                 encadrementMémoiresMasterRepository.save(encadrementMémoiresMaster);
                 break;
 
@@ -1482,6 +1853,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ParticipationthèseDoctorat participationthèseDoctorat = participationthèseDoctoratRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 participationthèseDoctorat.setPointsAttribués(participationthèseDoctorat.getActivityPoints());
+                participationthèseDoctorat.setEvaluated(true);
                 participationthèseDoctoratRepository.save(participationthèseDoctorat);
                 break;
 
@@ -1489,6 +1861,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ResponsableMembreStructureRecherchePole responsableMembreStructureRecherchePole = responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 responsableMembreStructureRecherchePole.setPointsAttribués(responsableMembreStructureRecherchePole.getActivityPoints());
+                responsableMembreStructureRecherchePole.setEvaluated(true);
                 responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.save(responsableMembreStructureRecherchePole);
                 break;
 
@@ -1496,6 +1869,7 @@ public class ActivityServiceImpl implements ActivityService{
                 AssociationConnaissance associationConnaissance = associationConnaissanceRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 associationConnaissance.setPointsAttribués(associationConnaissance.getActivityPoints());
+                associationConnaissance.setEvaluated(true);
                 associationConnaissanceRepository.save(associationConnaissance);
                 break;
 
@@ -1503,6 +1877,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ProjetsContratsRecherche projetsContratsRecherche = projetsContratsRechercheRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 projetsContratsRecherche.setPointsAttribués(projetsContratsRecherche.getActivityPoints());
+                projetsContratsRecherche.setEvaluated(true);
                 projetsContratsRechercheRepository.save(projetsContratsRecherche);
                 break;
 
@@ -1510,6 +1885,7 @@ public class ActivityServiceImpl implements ActivityService{
                 EditeurMembreRéféréJournalRevue editeurMembreRéféréJournalRevue = editeurMembreRéféréJournalRevueRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 editeurMembreRéféréJournalRevue.setPointsAttribués(editeurMembreRéféréJournalRevue.getActivityPoints());
+                editeurMembreRéféréJournalRevue.setEvaluated(true);
                 editeurMembreRéféréJournalRevueRepository.save(editeurMembreRéféréJournalRevue);
                 break;
 
@@ -1517,6 +1893,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ExpertiseNonRémunéré expertiseNonRémunéré = expertiseNonRémunéréRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 expertiseNonRémunéré.setPointsAttribués(expertiseNonRémunéré.getActivityPoints());
+                expertiseNonRémunéré.setEvaluated(true);
                 expertiseNonRémunéréRepository.save(expertiseNonRémunéré);
                 break;
 
@@ -1524,6 +1901,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ContributionOrganisationActivitésRayonnement contributionOrganisationActivitésRayonnement = contributionOrganisationActivitésRayonnementRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 contributionOrganisationActivitésRayonnement.setPointsAttribués(contributionOrganisationActivitésRayonnement.getActivityPoints());
+                contributionOrganisationActivitésRayonnement.setEvaluated(true);
                 contributionOrganisationActivitésRayonnementRepository.save(contributionOrganisationActivitésRayonnement);
                 break;
 
@@ -1531,6 +1909,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ProjetDeRechercheDeveloppement projetDeRechercheDeveloppement = projetDeRechercheDeveloppementRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 projetDeRechercheDeveloppement.setPointsAttribués(projetDeRechercheDeveloppement.getActivityPoints());
+                projetDeRechercheDeveloppement.setEvaluated(true);
                 projetDeRechercheDeveloppementRepository.save(projetDeRechercheDeveloppement);
                 break;
 
@@ -1538,6 +1917,7 @@ public class ActivityServiceImpl implements ActivityService{
                 Brevet brevet = brevetRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 brevet.setPointsAttribués(brevet.getActivityPoints());
+                brevet.setEvaluated(true);
                 brevetRepository.save(brevet);
                 break;
 
@@ -1545,6 +1925,7 @@ public class ActivityServiceImpl implements ActivityService{
                 IncubationProjetRecherche incubationProjetRecherche = incubationProjetRechercheRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 incubationProjetRecherche.setPointsAttribués(incubationProjetRecherche.getActivityPoints());
+                incubationProjetRecherche.setEvaluated(true);
                 incubationProjetRechercheRepository.save(incubationProjetRecherche);
                 break;
 
@@ -1552,12 +1933,343 @@ public class ActivityServiceImpl implements ActivityService{
                 CréationStartUp créationStartUp = créationStartUpRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 créationStartUp.setPointsAttribués(créationStartUp.getActivityPoints());
+                créationStartUp.setEvaluated(true);
                 créationStartUpRepository.save(créationStartUp);
                 break;
 
 
             default:
                 throw new IllegalArgumentException("Nom d'activité invalide");
+        }
+
+    }
+
+    public String getEvaluationStatus(String userEmail){
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        boolean allEvaluated = true;
+
+        List<ChefDépartement> chefDépartementActivities = chefDépartementRepository.findByUser(user);
+        for(ChefDépartement activity: chefDépartementActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<CoordonateurFilière> coordonateurFilièreActivities = coordonateurFilièreRepository.findByUser(user);
+        for(CoordonateurFilière activity: coordonateurFilièreActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<CoordonateurModule> coordonateurModuleActivities = coordonateurModuleRepository.findByUser(user);
+        for(CoordonateurModule activity: coordonateurModuleActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<Didacticiels> didacticielsActivities = didacticielsRepository.findByUser(user);
+        for(Didacticiels activity: didacticielsActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<EncadrementPFE> encadrementPFEActivities = encadrementPFERepository.findByUser(user);
+        for(EncadrementPFE activity: encadrementPFEActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<EncadrementRH> encadrementRHActivities = encadrementRHRepository.findByUser(user);
+        for(EncadrementRH activity: encadrementRHActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<Manuel> manuelActivities = manuelRepository.findByUser(user);
+        for(Manuel activity: manuelActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<MembreCommissionAdHoc> membreCommissionAdHocActivities = membreCommissionAdHocRepository.findByUser(user);
+        for(MembreCommissionAdHoc activity: membreCommissionAdHocActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<MembreCommissionConseil> membreCommissionConseilActivities = membreCommissionConseilRepository.findByUser(user);
+        for(MembreCommissionConseil activity: membreCommissionConseilActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<MembreCommissionEtablissement> membreCommissionEtablissementActivities = membreCommisionEtablissementRepository.findByUser(user);
+        for(MembreCommissionEtablissement activity: membreCommissionEtablissementActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<MembreConseilCoordination> membreConseilCoordinationActivities = membreConseilCoordinationRepository.findByUser(user);
+        for(MembreConseilCoordination activity: membreConseilCoordinationActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<MembreEluConseil> membreEluConseilActivities = membreEluConseilRepository.findByUser(user);
+        for(MembreEluConseil activity: membreEluConseilActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<MontagesExpérimentaux> montagesExpérimentauxActivities = montagesExpérimentauxRepository.findByUser(user);
+        for(MontagesExpérimentaux activity: montagesExpérimentauxActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<MOOC> moocActivities = moocRepository.findByUser(user);
+        for(MOOC activity: moocActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<Ouvrage> ouvrageActivities = ouvrageRepository.findByUser(user);
+        for(Ouvrage activity: ouvrageActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<PageWeb> pageWebActivities = pageWebRepository.findByUser(user);
+        for(PageWeb activity: pageWebActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<PetitsLivres> petitsLivresActivities = petitsLivresRepository.findByUser(user);
+        for(PetitsLivres activity: petitsLivresActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<PolycopiésPédagogiques> polycopiésPédagogiquesActivities = polycopiésPédagogiquesRepository.findByUser(user);
+        for(PolycopiésPédagogiques activity: polycopiésPédagogiquesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+        List<PréparationSortiesTerrain> préparationSortiesTerrainsActivities = préparationSortiesTerrainRepository.findByUser(user);
+        for(PréparationSortiesTerrain activity: préparationSortiesTerrainsActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<RapportStageVisiteTerrain> rapportStageVisiteTerrainsActivities = rapportStageVisiteTerrainRepository.findByUser(user);
+        for(RapportStageVisiteTerrain activity: rapportStageVisiteTerrainsActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<Supports> supportsActivities = supportsRepository.findByUser(user);
+        for(Supports activity: supportsActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ViceDoyen> viceDoyenActivities = viceDoyenRepository.findByUser(user);
+        for(ViceDoyen activity: viceDoyenActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+
+        List<AssociationConnaissance> associationConnaissanceActivities = associationConnaissanceRepository.findByUser(user);
+        for(AssociationConnaissance activity: associationConnaissanceActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<Brevet> brevetActivities = brevetRepository.findByUser(user);
+        for(Brevet activity: brevetActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ChapitreOuvrage> chapitreOuvrageActivities = chapitreOuvrageRepository.findByUser(user);
+        for(ChapitreOuvrage activity: chapitreOuvrageActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<CongrèsConférencesNonPubliées> congrèsConférencesNonPubliéesActivities = congrèsConférencesNonPubliéesRepository.findByUser(user);
+        for(CongrèsConférencesNonPubliées activity: congrèsConférencesNonPubliéesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<CongrèsConférencesPubliées> congrèsConférencesPubliéesActivities = congrèsConférencesPubliéesRepository.findByUser(user);
+        for(CongrèsConférencesPubliées activity: congrèsConférencesPubliéesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ContributionOrganisationActivitésRayonnement> contributionOrganisationActivitésRayonnementsActivities = contributionOrganisationActivitésRayonnementRepository.findByUser(user);
+        for(ContributionOrganisationActivitésRayonnement activity: contributionOrganisationActivitésRayonnementsActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<CréationStartUp> créationStartUpActivities = créationStartUpRepository.findByUser(user);
+        for(CréationStartUp activity: créationStartUpActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<DoctoratsEncadrés> doctoratsEncadrésActivities = doctoratsEncadrésRepository.findByUser(user);
+        for(DoctoratsEncadrés activity: doctoratsEncadrésActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<EditeurMembreRéféréJournalRevue> editeurMembreRéféréJournalRevuesActivities = editeurMembreRéféréJournalRevueRepository.findByUser(user);
+        for(EditeurMembreRéféréJournalRevue activity: editeurMembreRéféréJournalRevuesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<EncadrementMémoiresMaster> encadrementMémoiresMasterActivities = encadrementMémoiresMasterRepository.findByUser(user);
+        for(EncadrementMémoiresMaster activity: encadrementMémoiresMasterActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ExpertiseNonRémunéré> expertiseNonRémunéréActivities = expertiseNonRémunéréRepository.findByUser(user);
+        for(ExpertiseNonRémunéré activity: expertiseNonRémunéréActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<IncubationProjetRecherche> incubationProjetRechercheActivities = incubationProjetRechercheRepository.findByUser(user);
+        for(IncubationProjetRecherche activity: incubationProjetRechercheActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<OuvrageSpecialisé> ouvrageSpecialiséActivities = ouvrageSpecialiséRepository.findByUser(user);
+        for(OuvrageSpecialisé activity: ouvrageSpecialiséActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ParticipationthèseDoctorat> participationthèseDoctoratActivities = participationthèseDoctoratRepository.findByUser(user);
+        for(ParticipationthèseDoctorat activity: participationthèseDoctoratActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ProjetDeRechercheDeveloppement> projetDeRechercheDeveloppementActivities = projetDeRechercheDeveloppementRepository.findByUser(user);
+        for(ProjetDeRechercheDeveloppement activity: projetDeRechercheDeveloppementActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ProjetsContratsRecherche> projetsContratsRechercheActivities = projetsContratsRechercheRepository.findByUser(user);
+        for(ProjetsContratsRecherche activity: projetsContratsRechercheActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<PublicationRevuesScientifiques> publicationRevuesScientifiquesActivities = publicationRevuesScientifiquesRepository.findByUser(user);
+        for(PublicationRevuesScientifiques activity: publicationRevuesScientifiquesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<PublicationsRevuesIndexées> publicationsRevuesIndexéesActivities = publicationsRevuesIndexéesRepository.findByUser(user);
+        for(PublicationsRevuesIndexées activity: publicationsRevuesIndexéesActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        List<ResponsableMembreStructureRecherchePole> responsableMembreStructureRecherchePoleActivities = responsableMembreStructureRechercheAccréditéePoleCompetenceRepository.findByUser(user);
+        for(ResponsableMembreStructureRecherchePole activity: responsableMembreStructureRecherchePoleActivities){
+            if(!activity.isEvaluated()){
+                allEvaluated = false;
+                break;
+            }
+        }
+
+        if (allEvaluated) {
+            return "Evalué";
+        } else {
+            return "Non évalué";
         }
 
     }

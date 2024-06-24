@@ -20,4 +20,8 @@ public interface ActivityService {
     public byte[] getJustificationPdfForSelectedUser(String activityName, int activityId, String userEmail);
 
     void validateActivity(String activityName, int activityId);
+
+   public void cancelActivity(String activityName, int activityId);
+
+    public String getEvaluationStatus(String userEmail);
 }

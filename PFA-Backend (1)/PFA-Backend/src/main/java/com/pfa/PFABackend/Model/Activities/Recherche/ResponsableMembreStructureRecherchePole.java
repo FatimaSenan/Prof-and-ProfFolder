@@ -30,6 +30,9 @@ public class ResponsableMembreStructureRecherchePole {
     private String années;
 
 
+    private boolean evaluated = false;
+
+
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

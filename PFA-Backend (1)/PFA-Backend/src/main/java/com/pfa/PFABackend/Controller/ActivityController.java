@@ -75,4 +75,19 @@ public class ActivityController {
         }
     }
 
+    @PatchMapping("/commission/activities/cancel")
+    public ResponseEntity<?> cancelActivity(@RequestParam(name = "activityName") String activityName,
+                                              @RequestParam(name = "id") int activityId) {
+        System.out.println("Activity ID: " + activityId);
+        System.out.println("Activity Name: " + activityName);
+        try {
+            activityService.cancelActivity(activityName, activityId);
+            return ResponseEntity.ok().body("Activity validated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while validating the activity");
+        }
+    }
+
 }

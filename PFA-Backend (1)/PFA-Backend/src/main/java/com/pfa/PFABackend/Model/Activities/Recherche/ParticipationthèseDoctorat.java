@@ -35,6 +35,8 @@ public class ParticipationthèseDoctorat {
 
     private String université;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

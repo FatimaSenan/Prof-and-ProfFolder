@@ -44,6 +44,8 @@ public class Ouvrage {
     @Column(name = "année_publication")
     private int annéePublication;
 
+    private boolean evaluated = false;
+
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

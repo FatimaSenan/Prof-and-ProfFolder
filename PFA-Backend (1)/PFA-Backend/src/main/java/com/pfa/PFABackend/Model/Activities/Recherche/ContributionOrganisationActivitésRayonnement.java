@@ -33,6 +33,8 @@ public class ContributionOrganisationActivitésRayonnement {
     @Column(name = "date_conference")
     private String dateConférence;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

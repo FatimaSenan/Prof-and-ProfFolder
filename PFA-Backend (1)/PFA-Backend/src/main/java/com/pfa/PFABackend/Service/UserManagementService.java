@@ -28,6 +28,9 @@ public class UserManagementService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ActivityService activityService;
+
 
 
 
@@ -297,7 +300,8 @@ public class UserManagementService {
             professorDTO.setPhone(folder != null ? folder.getPhone() : null);
             professorDTO.setProfile(folder != null ? folder.getProfile() : null);
             professorDTO.setEstablishment(folder != null ? folder.getEstablishment() : null);
-            professorDTO.setEvaluationStatus(folder != null && folder.getEvaluationStatus() != null ? folder.getEvaluationStatus() : "Not Evaluated");
+            professorDTO.setEvaluationStatus(activityService.getEvaluationStatus(user.getEmail()));
+            // professorDTO.setEvaluationStatus(folder != null && folder.getEvaluationStatus() != null ? folder.getEvaluationStatus() : "Not Evaluated");
             professors.add(professorDTO);
         }
 

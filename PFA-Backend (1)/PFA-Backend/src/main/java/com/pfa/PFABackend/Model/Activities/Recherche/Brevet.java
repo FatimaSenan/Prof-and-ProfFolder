@@ -38,6 +38,8 @@ public class Brevet {
 
     private String indexation;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

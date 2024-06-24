@@ -31,6 +31,8 @@ public class RapportStageVisiteTerrain {
 
     private String société;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

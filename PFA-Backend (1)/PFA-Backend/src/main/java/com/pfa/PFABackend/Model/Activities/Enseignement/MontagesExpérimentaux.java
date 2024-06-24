@@ -29,6 +29,8 @@ public class MontagesExpérimentaux {
     @Column(name = "nombre_manip")
     private int nombreManip;
 
+    private boolean evaluated = false;
+
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

@@ -37,6 +37,8 @@ public class CongrèsConférencesPubliées {
 
     private String auteurs;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

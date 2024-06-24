@@ -36,6 +36,8 @@ public class Supports {
     @Column(name = "type_support")
     private String typeSupport;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

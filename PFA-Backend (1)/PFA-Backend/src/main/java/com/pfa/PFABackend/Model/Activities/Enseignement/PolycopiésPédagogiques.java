@@ -32,6 +32,8 @@ public class PolycopiésPédagogiques {
     @Column(name="années_universitaires")
     private String annéesUniversitaires;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

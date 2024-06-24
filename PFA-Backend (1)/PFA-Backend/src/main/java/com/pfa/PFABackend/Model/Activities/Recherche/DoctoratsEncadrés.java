@@ -42,6 +42,8 @@ public class DoctoratsEncadrés {
     @Column(name = "date_soutenance")
     private String dateSoutenance;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

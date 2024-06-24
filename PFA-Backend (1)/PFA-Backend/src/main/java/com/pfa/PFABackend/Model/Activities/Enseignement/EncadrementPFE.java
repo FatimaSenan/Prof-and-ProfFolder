@@ -33,6 +33,8 @@ public class EncadrementPFE {
 
     private String typeEncadrement;
 
+    private boolean evaluated = false;
+
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

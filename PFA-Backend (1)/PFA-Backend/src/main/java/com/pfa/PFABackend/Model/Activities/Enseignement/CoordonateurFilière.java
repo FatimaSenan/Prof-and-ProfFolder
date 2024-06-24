@@ -32,6 +32,8 @@ public class CoordonateurFilière {
     @Column(name = "type_filière")
     private String typeFilière;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

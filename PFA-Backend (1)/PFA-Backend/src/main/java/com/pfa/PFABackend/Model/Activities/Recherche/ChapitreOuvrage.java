@@ -34,6 +34,8 @@ public class ChapitreOuvrage {
 
     private String date;
 
+    private boolean evaluated = false;
+
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

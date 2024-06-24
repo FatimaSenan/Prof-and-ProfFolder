@@ -26,6 +26,8 @@ public class MembreCommissionConseil {
 
     private String période;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

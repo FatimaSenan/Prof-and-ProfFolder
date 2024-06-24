@@ -35,6 +35,8 @@ public class EncadrementRH {
     @Column(name = "type_encadrement")
     private String typeEncadrement;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

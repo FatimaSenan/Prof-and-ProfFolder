@@ -34,6 +34,8 @@ public class CoordonateurModule {
     @Column(name = "années_responsabilités")
     private String annéesResposabilités;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

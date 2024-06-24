@@ -31,6 +31,8 @@ public class EncadrementMémoiresMaster {
 
     private  String encadrant;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

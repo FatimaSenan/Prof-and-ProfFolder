@@ -28,6 +28,8 @@ public class MOOC {
 
     private String lien;
 
+    private boolean evaluated = false;
+
     @ManyToOne
     @JoinColumn(name="activity_subtype2_id")
     @JsonBackReference

@@ -27,8 +27,11 @@ public class PréparationSortiesTerrain {
     private String cadre;
 
     private String date;
+
     @Column(name = "nom_société")
     private String nomSociété;
+
+    private boolean evaluated = false;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")

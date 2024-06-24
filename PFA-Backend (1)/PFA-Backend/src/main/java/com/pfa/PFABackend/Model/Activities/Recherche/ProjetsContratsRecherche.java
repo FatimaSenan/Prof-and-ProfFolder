@@ -35,6 +35,8 @@ public class ProjetsContratsRecherche {
 
     private String période;
 
+    private boolean evaluated = false;
+
 
 
 

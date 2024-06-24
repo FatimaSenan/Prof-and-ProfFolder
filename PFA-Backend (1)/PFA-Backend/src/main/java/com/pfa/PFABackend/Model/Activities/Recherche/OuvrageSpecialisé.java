@@ -36,6 +36,8 @@ public class OuvrageSpecialisé {
 
     private String publicateur;
 
+    private boolean evaluated = false;
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] justification;

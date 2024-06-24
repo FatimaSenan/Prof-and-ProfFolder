@@ -31,4 +31,13 @@ public class Annexe2Service {
 
         return "Annexe2 added successfully";
     }
+
+    public Annexe2 getAnnexe2ByUser(String userEmail) {
+       
+
+        return annexe2Repository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Annexe2 not found"));
+    }
+
+
 }

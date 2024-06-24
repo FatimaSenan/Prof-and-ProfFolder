@@ -1,5 +1,6 @@
 package com.pfa.PFABackend.Service;
 
+import com.pfa.PFABackend.Model.Activities.Enseignement.Ouvrage;
 import com.pfa.PFABackend.Model.User;
 import  com.pfa.PFABackend.ProfessorNotFoundException;
 import com.pfa.PFABackend.Model.Professor;
@@ -29,15 +30,7 @@ public class ProfessorFolderServiceImp implements ProfessorFolderService {
     @Override
     public String addProfessorFolder(ProfessorFolder professorFolder) {
 
-          /* // Récupérer le professeur à partir de l'ID
-            Professor professor = professorRepository.findById(professorId)
-                    .orElseThrow(() -> new ProfessorNotFoundException("Professor not found with ID: " + professorId));
 
-            // Associer le dossier du professeur au professeur
-            professorFolder.setProfessor(professor);
-
-            // Enregistrer le dossier du professeur
-            professorFolderRepository.save(professorFolder);*/
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userEmail = authentication.getName();
@@ -48,5 +41,66 @@ public class ProfessorFolderServiceImp implements ProfessorFolderService {
           professorFolder.setUser(user);
           professorFolderRepository.save(professorFolder);
             return "A new professor folder is added";
+    }
+
+    @Override
+    public ProfessorFolder getProfessorFolderByUser(String userEmail) {
+        return professorFolderRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Professor Folder not found"));
+    }
+
+    @Override
+    public byte[] getEquivalencePdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getEquivalence();
+    }
+    @Override
+    public byte[] getCVPdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getCv();
+    }
+
+    @Override
+    public byte[] getApplicationDemandePdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getApplicationDemande();
+    }
+
+    @Override
+    public byte[] getPhdDiplomePdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getPhdDiplome();
+    }
+
+    @Override
+    public byte[] getHabilitationDiplomePdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getHabilitationDiplome();
+    }
+
+    @Override
+    public byte[] getArretNominationPdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getArretNomination();
+    }
+
+    @Override
+    public byte[] getAttestationPdfForSelectedUser(int professorFolderId, String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        ProfessorFolder professorFolder = professorFolderRepository.findById(professorFolderId)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return professorFolder.getAttestation();
     }
 }

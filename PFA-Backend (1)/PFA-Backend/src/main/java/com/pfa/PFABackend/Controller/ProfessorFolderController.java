@@ -1,24 +1,29 @@
 package com.pfa.PFABackend.Controller;
 
+import com.pfa.PFABackend.Model.Annexe2;
 import com.pfa.PFABackend.Model.Professor;
 import com.pfa.PFABackend.Model.ProfessorFolder;
 import com.pfa.PFABackend.Service.ProfessorFolderService;
 import com.pfa.PFABackend.Service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/professor")
+
 @CrossOrigin
 public class ProfessorFolderController {
 
     @Autowired
     private ProfessorFolderService professorFolderService;
 
-    @PostMapping("/add-professor-folder")
+    @PostMapping("/professor/add-professor-folder")
     public String addProfessorFolder(
             //@RequestParam int professorId,
             @RequestParam String civility,
@@ -36,6 +41,7 @@ public class ProfessorFolderController {
             @RequestParam String phdType,
             @RequestParam MultipartFile cv,
             @RequestParam MultipartFile applicationDemande,
+            @RequestParam MultipartFile equivalence,
             @RequestParam MultipartFile phdDiplome,
             @RequestParam MultipartFile habilitationDiplome,
             @RequestParam MultipartFile arretNomination,
@@ -60,6 +66,7 @@ public class ProfessorFolderController {
         try {
             professorFolder.setCv(cv.getBytes());
             professorFolder.setApplicationDemande(applicationDemande.getBytes());
+            professorFolder.setEquivalence(equivalence.getBytes());
             professorFolder.setPhdDiplome(phdDiplome.getBytes());
             professorFolder.setHabilitationDiplome(habilitationDiplome.getBytes());
             professorFolder.setArretNomination(arretNomination.getBytes());
@@ -71,5 +78,70 @@ public class ProfessorFolderController {
 
         professorFolderService.addProfessorFolder( professorFolder);
         return "Professor folder added successfully";
+    }
+
+    @GetMapping("/commission/get-professor-folder")
+    public ResponseEntity<ProfessorFolder> getAnnexe2(@RequestParam(name = "userEmail") String userEmail) {
+        ProfessorFolder professorFolder = professorFolderService.getProfessorFolderByUser(userEmail);
+        return new ResponseEntity<>(professorFolder, HttpStatus.OK);
+    }
+    @GetMapping("/commission/get-equivalence")
+    public ResponseEntity<byte[]> getEquivalencePdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getEquivalencePdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+    @GetMapping("/commission/get-cv")
+    public ResponseEntity<byte[]> getCvPdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getCVPdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+    @GetMapping("/commission/get-application-demande")
+    public ResponseEntity<byte[]> getApplicationDemandePdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getApplicationDemandePdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+    @GetMapping("/commission/get-phd-diplome")
+    public ResponseEntity<byte[]> getPhdDiplomePdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getPhdDiplomePdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/commission/get-habilitation-diplome")
+    public ResponseEntity<byte[]> getHabilitationDiplomePdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getHabilitationDiplomePdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/commission/get-arret-nomination")
+    public ResponseEntity<byte[]> getArretNominationPdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getArretNominationPdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/commission/get-attestation")
+    public ResponseEntity<byte[]> getAttestationPdf(@RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = professorFolderService.getAttestationPdfForSelectedUser(id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "cv.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 }

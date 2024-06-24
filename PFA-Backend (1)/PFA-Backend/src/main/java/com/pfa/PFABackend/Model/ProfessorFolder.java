@@ -1,5 +1,6 @@
 package com.pfa.PFABackend.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -7,12 +8,10 @@ public class ProfessorFolder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int folder_id;
-    // référence au professeur
-  /*  @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_prof")
-    private Professor professor;*/
+
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     private String civility;
@@ -81,6 +80,10 @@ public class ProfessorFolder {
     private String speciality;
     private String establishment;
     private String phdType;
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] equivalence;
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] cv;
@@ -101,7 +104,7 @@ public class ProfessorFolder {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] attestation;
 
-    private String evaluationStatus;
+   // private String evaluationStatus;
 
 
     public String getCivility() {
@@ -160,6 +163,14 @@ public class ProfessorFolder {
         this.establishment = establishment;
     }
 
+    public byte[] getEquivalence() {
+        return this.equivalence;
+    }
+
+    public void setEquivalence(byte[] equivalence){
+        this.equivalence = equivalence;
+    }
+
    public byte[] getCv() {
         return cv;
     }
@@ -216,13 +227,13 @@ public class ProfessorFolder {
         this.attestation = attestation;
     }
 
-    public String getEvaluationStatus() {
+    /*public String getEvaluationStatus() {
         return evaluationStatus;
     }
 
     public void setEvaluationStatus(String evaluationStatus) {
         this.evaluationStatus = evaluationStatus;
-    }
+    }*/
 
     // Getter pour professor
     public User getUser() {

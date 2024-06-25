@@ -19,7 +19,7 @@ public class Annexe3Controller {
     @Autowired
     private Annexe3Service annexe3Service;
 
-    @PostMapping("/professor/annexe3/add-annexe3")
+    @PostMapping("/annexe3/add-annexe3")
     public String addAnnexe3(
             @RequestParam MultipartFile file,
             @RequestParam(required = false) byte[] teachingTable
@@ -38,7 +38,7 @@ public class Annexe3Controller {
         return "Annexe3 added successfully";
     }
 
-    @GetMapping("/commission/annexe3/get-annexe3")
+    @GetMapping("/annexe3/get-annexe3")
     public ResponseEntity<byte[]> getAnnexe3Pdf( @RequestParam(name = "userEmail") String userEmail) {
         byte[] pdfBytes = annexe3Service.getAnnexe3PdfForSelectedUser(userEmail);
         HttpHeaders headers = new HttpHeaders();

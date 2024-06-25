@@ -90,4 +90,14 @@ public class ActivityController {
         }
     }
 
+    @GetMapping("/administration/total-points")
+    public ResponseEntity<Double>  calculateTotalPointsForUser(@RequestParam("email") String userEmail) {
+        try {
+            double totalPoints = activityService.calculateTotalPointsForUser(userEmail);
+            return ResponseEntity.ok(totalPoints);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
 }

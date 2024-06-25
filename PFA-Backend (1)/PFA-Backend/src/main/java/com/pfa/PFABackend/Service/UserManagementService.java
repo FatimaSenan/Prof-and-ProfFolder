@@ -41,8 +41,15 @@ public class UserManagementService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final List<String> allowedEmails = Arrays.asList("m.saber@ump.ac.ma", "t.bouchentouf@ump.ac.ma", "jberrich@gmail.com", "i.elfarissi@ump.ac.ma",  "a.administration@ump.ac.ma", "c.commission@ump.ac.ma");
+
     public ReqRes register(ReqRes registrationRequest) {
         ReqRes response = new ReqRes();
+        if (!allowedEmails.contains(registrationRequest.getEmail())) {
+            response.setStatusCode(403);
+            response.setMessage("Votre email n'est pas autorisé pour l'inscription.");
+            return response;
+        }
 
         try{
 

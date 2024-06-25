@@ -1,6 +1,7 @@
 package com.pfa.PFABackend.Service;
 
 import com.pfa.PFABackend.Model.Annexe3;
+import com.pfa.PFABackend.Model.ProfessorFolder;
 import com.pfa.PFABackend.Model.User;
 import com.pfa.PFABackend.Repository.Annexe3Repository;
 import com.pfa.PFABackend.Repository.UserRepository;
@@ -30,4 +31,13 @@ public class Annexe3Service {
 
         return "Annexe3 added successfully";
     }
+
+
+    public byte[] getAnnexe3PdfForSelectedUser(String userEmail) {
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
+        Annexe3 annexe3 = annexe3Repository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Professor folder not found"));
+        return annexe3.getTeachingTable();
+    }
+
 }

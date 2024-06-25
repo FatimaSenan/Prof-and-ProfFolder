@@ -1,12 +1,13 @@
 package com.pfa.PFABackend.Service;
 
+import com.pfa.PFABackend.Model.*;
 import com.pfa.PFABackend.Model.Activities.Enseignement.*;
 import com.pfa.PFABackend.Model.Activities.Recherche.*;
-import com.pfa.PFABackend.Model.Activity;
-import com.pfa.PFABackend.Model.User;
 import com.pfa.PFABackend.Repository.Activities.Enseignement.*;
 import com.pfa.PFABackend.Repository.Activities.Recherche.*;
 import com.pfa.PFABackend.Repository.ActivityRepository;
+import com.pfa.PFABackend.Repository.ActivitySubType1Repository;
+import com.pfa.PFABackend.Repository.ActivitySubType2Repository;
 import com.pfa.PFABackend.Repository.UserRepository;
 import com.pfa.PFABackend.Service.Activities.Recherche.PublicationsRevuesIndexéesService;
 import org.hibernate.engine.profile.Association;
@@ -29,6 +30,12 @@ public class ActivityServiceImpl implements ActivityService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ActivitySubType2Repository activitySubType2Repository;
+
+    @Autowired
+    private ActivitySubType1Repository activitySubType1Repository;
 
     @Autowired
     private ChefDépartementRepository chefDépartementRepository;
@@ -1617,7 +1624,7 @@ public class ActivityServiceImpl implements ActivityService{
                 ouvrageRepository.save(ouvrage);
                 break;
 
-            case "Manuel (exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
+            case "Manuel ( exercices corrigés, annales examens corrigés, etc.) (ISBN, ou validé par le chef d'établissement)":
                 Manuel manuel = manuelRepository.findById(activityId)
                         .orElseThrow(() -> new IllegalArgumentException("Activité non trouvée"));
                 manuel.setPointsAttribués(manuel.getActivityPoints());
@@ -2270,6 +2277,866 @@ public class ActivityServiceImpl implements ActivityService{
             return "Evalué";
         } else {
             return "Non évalué";
+        }
+
+    }
+
+    @Override
+    public double calculateTotalPointsForUser(String userEmail) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        // Carte pour stocker les points par sous-type
+        Map<Integer, Double> pointsBySubType1 = new HashMap<>();
+        Map<Integer, Double> pointsBySubType2 = new HashMap<>();
+
+        // Ajouter toutes les activités pour l'utilisateur
+        addPointsFromActivities(user, pointsBySubType1, pointsBySubType2);
+
+
+        // Carte pour stocker les points ajustés par sous-type 1
+        Map<Integer, Double> adjustedPointsBySubType1 = new HashMap<>();
+        for (Map.Entry<Integer, Double> entry : pointsBySubType1.entrySet()) {
+            Integer subType1Id = entry.getKey();
+            double totalPoints = entry.getValue();
+            double maxPoints = activitySubType1Repository.findById(subType1Id)
+                    .map(ActivitySubType1::getSubTypePoints)
+                    .orElse(0);
+            adjustedPointsBySubType1.put(subType1Id, Math.min(totalPoints, maxPoints));
+        }
+
+        // Carte pour stocker les points ajustés par sous-type 2
+        Map<Integer, Double> adjustedPointsBySubType2 = new HashMap<>();
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+            double maxPoints = activitySubType2Repository.findById(subType2Id)
+                    .map(ActivitySubType2::getSubTypePoints)
+                    .orElse(0);
+            adjustedPointsBySubType2.put(subType2Id, Math.min(totalPoints, maxPoints));
+        }
+
+        // Calculer le total des points ajustés
+        double totalPoints = adjustedPointsBySubType1.values().stream().mapToDouble(Double::doubleValue).sum();
+        totalPoints += adjustedPointsBySubType2.values().stream().mapToDouble(Double::doubleValue).sum();
+
+        return totalPoints;
+
+
+    }
+
+    // Méthode pour ajouter les points des activités à la carte des points par sous-type 2
+    private void addPointsFromActivities(User user, Map<Integer, Double> pointsBySubType1, Map<Integer, Double> pointsBySubType2) {
+        addPointsFromOuvrage(user, pointsBySubType2);
+        addPointsFromManuel(user,  pointsBySubType2);
+        addPointsFromPolycopiésPédagogiques(user,pointsBySubType2);
+        addPointsFromPetitsLivres(user,pointsBySubType2);
+        addPointsFromMontagesExpérimentaux(user, pointsBySubType2);
+        addPointsFromPréparationSortiesTerrain(user,pointsBySubType2);
+        addPointsFromSupports(user,pointsBySubType2);
+        addPointsFromDidacticiels(user,pointsBySubType2);
+        addPointsFromPageWeb(user, pointsBySubType2);
+        addPointsFromRapportStageVisiteTerrain(user,pointsBySubType2);
+        addPointsFromViceDoyen(user,pointsBySubType2);
+        addPointsFromAssociationConnaissance(user,pointsBySubType2);
+        addPointsFromBrevet(user,pointsBySubType2);
+        addPointsFromChapitreOuvrage(user,pointsBySubType2);
+        addPointsFromCongrèsConférencesNonPubliées(user,pointsBySubType2);
+        addPointsFromCongrèsConférencesPubliées(user,pointsBySubType2);
+        addPointsFromContributionOrganisationActivitésRayonnement(user, pointsBySubType2);
+        addPointsFromCréationStartUp(user,pointsBySubType2);
+        addPointsFromDoctoratsEncadrés(user,pointsBySubType2);
+        addPointsFromEditeurMembreRéféréJournalRevue(user,pointsBySubType2);
+        addPointsFromEncadrementMémoiresMaster(user,pointsBySubType2);
+        addPointsFromExpertiseNonRémunéré(user, pointsBySubType2);
+        addPointsFromIncubationProjetRecherche(user,pointsBySubType2);
+        addPointsFromOuvrageSpecialisé(user,pointsBySubType2);
+        addPointsFromParticipationthèseDoctorat(user,pointsBySubType2);
+        addPointsFromProjetsContratsRecherche(user,pointsBySubType2);
+        addPointsFromPublicationRevuesScientifiques(user,pointsBySubType2);
+        addPointsFromPublicationsRevuesIndexées(user, pointsBySubType2);
+    }
+    // Méthode pour ajouter les points des ouvrages
+    private void addPointsFromOuvrage(User user, Map<Integer, Double> pointsBySubType2) {
+        List<Ouvrage> ouvrages = ouvrageRepository.findByUser(user);
+        for (Ouvrage ouvrage : ouvrages) {
+            ActivitySubType2 subType2 = ouvrage.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = ouvrage.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromManuel(User user, Map<Integer, Double> pointsBySubType2) {
+        List<Manuel> manuels = manuelRepository.findByUser(user);
+        for (Manuel manuel: manuels) {
+            ActivitySubType2 subType2 = manuel.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = manuel.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    private void addPointsFromCréationStartUp(User user,Map<Integer, Double> pointsBySubType2) {
+        List<CréationStartUp> créationStartUps = créationStartUpRepository.findByUser(user);
+        for (CréationStartUp créationStartUp: créationStartUps) {
+            ActivitySubType2 subType2 = créationStartUp.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = créationStartUp.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des polycopiés pédagogiques
+    private void addPointsFromPolycopiésPédagogiques(User user, Map<Integer, Double> pointsBySubType2) {
+        List<PolycopiésPédagogiques> polycopiésPédagogiques = polycopiésPédagogiquesRepository.findByUser(user);
+        for (PolycopiésPédagogiques polycopiésPédagogiques1 : polycopiésPédagogiques) {
+            ActivitySubType2 subType2 = polycopiésPédagogiques1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = polycopiésPédagogiques1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    // Méthode pour ajouter les points des petits livres
+    // Méthode pour ajouter les points des petits livres
+    private void addPointsFromPetitsLivres(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<PetitsLivres> petitsLivres = petitsLivresRepository.findByUser(user);
+        for (PetitsLivres petitsLivres1: petitsLivres) {
+            ActivitySubType2 subType2 = petitsLivres1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = petitsLivres1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des montages expérimentaux
+    private void addPointsFromMontagesExpérimentaux(User user, Map<Integer, Double> pointsBySubType2) {
+        List<MontagesExpérimentaux> montagesExpérimentaux = montagesExpérimentauxRepository.findByUser(user);
+        for (MontagesExpérimentaux montagesExpérimentaux1: montagesExpérimentaux) {
+            ActivitySubType2 subType2 = montagesExpérimentaux1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = montagesExpérimentaux1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des préparations de sorties terrain
+    // Méthode pour ajouter les points des préparation de sorties terrain
+    private void addPointsFromPréparationSortiesTerrain(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<PréparationSortiesTerrain> préparationSortiesTerrains = préparationSortiesTerrainRepository.findByUser(user);
+        for (PréparationSortiesTerrain préparationSortiesTerrain: préparationSortiesTerrains) {
+            ActivitySubType2 subType2 = préparationSortiesTerrain.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = préparationSortiesTerrain.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des supports
+    private void addPointsFromSupports(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<Supports> supports = supportsRepository.findByUser(user);
+        for (Supports supports1: supports) {
+            ActivitySubType2 subType2 = supports1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = supports1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des didacticiels
+    private void addPointsFromDidacticiels(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<Didacticiels> didacticiels = didacticielsRepository.findByUser(user);
+        for (Didacticiels didacticiels1: didacticiels) {
+            ActivitySubType2 subType2 = didacticiels1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = didacticiels1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    // Méthode pour ajouter les points des pages web
+    private void addPointsFromPageWeb(User user,Map<Integer, Double> pointsBySubType2) {
+        List<PageWeb> pageWebs = pageWebRepository.findByUser(user);
+        for (PageWeb pageWeb: pageWebs) {
+            ActivitySubType2 subType2 = pageWeb.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = pageWeb.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+
+    // Méthode pour ajouter les points des rapports de stage et visites de terrain
+    private void addPointsFromRapportStageVisiteTerrain(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<RapportStageVisiteTerrain> rapportStageVisiteTerrains = rapportStageVisiteTerrainRepository.findByUser(user);
+        for (RapportStageVisiteTerrain rapportStageVisiteTerrain: rapportStageVisiteTerrains) {
+            ActivitySubType2 subType2 = rapportStageVisiteTerrain.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = rapportStageVisiteTerrain.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+
+    }
+
+
+    private void addPointsFromViceDoyen(User user, Map<Integer, Double> pointsBySubType2) {
+        List<ViceDoyen> viceDoyens = viceDoyenRepository.findByUser(user);
+        for (ViceDoyen viceDoyen: viceDoyens) {
+            ActivitySubType2 subType2 = viceDoyen.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = viceDoyen.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    private void addPointsFromAssociationConnaissance(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<AssociationConnaissance> associationConnaissances = associationConnaissanceRepository.findByUser(user);
+        for (AssociationConnaissance associationConnaissance: associationConnaissances) {
+            ActivitySubType2 subType2 = associationConnaissance.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = associationConnaissance.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromBrevet(User user, Map<Integer, Double> pointsBySubType2) {
+        List<Brevet> brevets = brevetRepository.findByUser(user);
+        for (Brevet brevet: brevets) {
+            ActivitySubType2 subType2 = brevet.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = brevet.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromChapitreOuvrage(User user, Map<Integer, Double> pointsBySubType2) {
+        List<ChapitreOuvrage> chapitreOuvrages = chapitreOuvrageRepository.findByUser(user);
+        for (ChapitreOuvrage chapitreOuvrage: chapitreOuvrages) {
+            ActivitySubType2 subType2 = chapitreOuvrage.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = chapitreOuvrage.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+
+    }
+
+
+    private void addPointsFromCongrèsConférencesNonPubliées(User user, Map<Integer, Double> pointsBySubType2) {
+        List<CongrèsConférencesNonPubliées> congrèsConférencesNonPubliées = congrèsConférencesNonPubliéesRepository.findByUser(user);
+        for (CongrèsConférencesNonPubliées congrèsConférencesNonPubliées1: congrèsConférencesNonPubliées) {
+            ActivitySubType2 subType2 = congrèsConférencesNonPubliées1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = congrèsConférencesNonPubliées1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromCongrèsConférencesPubliées(User user,Map<Integer, Double> pointsBySubType2) {
+        List<CongrèsConférencesPubliées> congrèsConférencesPubliées = congrèsConférencesPubliéesRepository.findByUser(user);
+        for (CongrèsConférencesPubliées congrèsConférencesPubliées1: congrèsConférencesPubliées) {
+            ActivitySubType2 subType2 = congrèsConférencesPubliées1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = congrèsConférencesPubliées1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+
+    }
+
+
+
+    private void addPointsFromContributionOrganisationActivitésRayonnement(User user,Map<Integer, Double> pointsBySubType2) {
+        List<ContributionOrganisationActivitésRayonnement> contributionOrganisationActivitésRayonnements = contributionOrganisationActivitésRayonnementRepository.findByUser(user);
+        for (ContributionOrganisationActivitésRayonnement contributionOrganisationActivitésRayonnement: contributionOrganisationActivitésRayonnements) {
+            ActivitySubType2 subType2 = contributionOrganisationActivitésRayonnement.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = contributionOrganisationActivitésRayonnement.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+
+    }
+
+    private void addPointsFromDoctoratsEncadrés(User user, Map<Integer, Double> pointsBySubType2) {
+        List<DoctoratsEncadrés> doctoratsEncadrés = doctoratsEncadrésRepository.findByUser(user);
+        for (DoctoratsEncadrés doctoratsEncadrés1: doctoratsEncadrés) {
+            ActivitySubType2 subType2 = doctoratsEncadrés1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = doctoratsEncadrés1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromEditeurMembreRéféréJournalRevue(User user,Map<Integer, Double> pointsBySubType2) {
+        List<EditeurMembreRéféréJournalRevue> editeurMembreRéféréJournalRevues = editeurMembreRéféréJournalRevueRepository.findByUser(user);
+        for (EditeurMembreRéféréJournalRevue editeurMembreRéféréJournalRevue: editeurMembreRéféréJournalRevues) {
+            ActivitySubType2 subType2 = editeurMembreRéféréJournalRevue.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = editeurMembreRéféréJournalRevue.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    private void addPointsFromEncadrementMémoiresMaster(User user,Map<Integer, Double> pointsBySubType2) {
+        List<EncadrementMémoiresMaster> encadrementMémoiresMasters = encadrementMémoiresMasterRepository.findByUser(user);
+        for (EncadrementMémoiresMaster encadrementMémoiresMaster: encadrementMémoiresMasters) {
+            ActivitySubType2 subType2 = encadrementMémoiresMaster.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = encadrementMémoiresMaster.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+    }
+
+
+    private void addPointsFromExpertiseNonRémunéré(User user,Map<Integer, Double> pointsBySubType2) {
+        List<ExpertiseNonRémunéré> expertiseNonRémunérés = expertiseNonRémunéréRepository.findByUser(user);
+        for (ExpertiseNonRémunéré expertiseNonRémunéré: expertiseNonRémunérés) {
+            ActivitySubType2 subType2 = expertiseNonRémunéré.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = expertiseNonRémunéré.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+    }
+
+    private void addPointsFromIncubationProjetRecherche(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<IncubationProjetRecherche> incubationProjetRecherches = incubationProjetRechercheRepository.findByUser(user);
+        for (IncubationProjetRecherche incubationProjetRecherche: incubationProjetRecherches) {
+            ActivitySubType2 subType2 = incubationProjetRecherche.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = incubationProjetRecherche.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromOuvrageSpecialisé(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<OuvrageSpecialisé> ouvrageSpecialisés = ouvrageSpecialiséRepository.findByUser(user);
+        for (OuvrageSpecialisé ouvrageSpecialisé: ouvrageSpecialisés) {
+            ActivitySubType2 subType2 = ouvrageSpecialisé.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = ouvrageSpecialisé.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromParticipationthèseDoctorat(User user, Map<Integer, Double> pointsBySubType2) {
+        List<ParticipationthèseDoctorat> participationthèseDoctorats = participationthèseDoctoratRepository.findByUser(user);
+        for (ParticipationthèseDoctorat participationthèseDoctorat: participationthèseDoctorats) {
+            ActivitySubType2 subType2 = participationthèseDoctorat.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = participationthèseDoctorat.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromProjetsContratsRecherche(User user, Map<Integer, Double> pointsBySubType2) {
+        List<ProjetsContratsRecherche> projetsContratsRecherches = projetsContratsRechercheRepository.findByUser(user);
+        for (ProjetsContratsRecherche projetsContratsRecherche: projetsContratsRecherches) {
+            ActivitySubType2 subType2 = projetsContratsRecherche.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = projetsContratsRecherche.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+
+    private void addPointsFromPublicationRevuesScientifiques(User user, Map<Integer, Double> pointsBySubType2) {
+        List<PublicationRevuesScientifiques> publicationsRevuesIndexées = publicationRevuesScientifiquesRepository.findByUser(user);
+        for (PublicationRevuesScientifiques publicationRevuesScientifiques: publicationsRevuesIndexées) {
+            ActivitySubType2 subType2 = publicationRevuesScientifiques.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = publicationRevuesScientifiques.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
+        }
+
+    }
+
+    private void addPointsFromPublicationsRevuesIndexées(User user,  Map<Integer, Double> pointsBySubType2) {
+        List<PublicationsRevuesIndexées> publicationsRevuesIndexées = publicationsRevuesIndexéesRepository.findByUser(user);
+        for (PublicationsRevuesIndexées publicationsRevuesIndexées1: publicationsRevuesIndexées) {
+            ActivitySubType2 subType2 = publicationsRevuesIndexées1.getActivitySubType2();
+
+            if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = publicationsRevuesIndexées1.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+            }
+        }
+
+        for (Map.Entry<Integer, Double> entry : pointsBySubType2.entrySet()) {
+            Integer subType2Id = entry.getKey();
+            double totalPoints = entry.getValue();
+
+            ActivitySubType2 subType2 = activitySubType2Repository.findById(subType2Id).orElse(null);
+            if (subType2 != null) {
+                double maxPoints = subType2.getSubTypePoints();
+                if (totalPoints > maxPoints) {
+                    pointsBySubType2.put(subType2Id, maxPoints);
+                }
+            }
         }
 
     }

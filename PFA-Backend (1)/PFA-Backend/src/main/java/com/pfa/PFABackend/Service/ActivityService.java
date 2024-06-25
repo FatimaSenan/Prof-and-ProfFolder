@@ -24,4 +24,6 @@ public interface ActivityService {
    public void cancelActivity(String activityName, int activityId);
 
     public String getEvaluationStatus(String userEmail);
+
+    public double calculateTotalPointsForUser(String userEmail);
 }

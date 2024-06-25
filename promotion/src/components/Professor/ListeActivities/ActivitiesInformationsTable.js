@@ -68,6 +68,7 @@ export default function ActivitiesInformationTable ({ userRole}) {
       delete filteredActivity.activityPoints;
       delete filteredActivity.activityName;
       delete filteredActivity.pointsAttribués;
+      delete filteredActivity.evaluated;
 
       
       const handleViewPdf = async (activityName, id) => {

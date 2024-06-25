@@ -5,7 +5,10 @@ import UserService from "../Professor/service/UsersService";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from '@mui/icons-material/Lock';
 import MailIcon from '@mui/icons-material/Mail';
-import { Alert, Button } from "@mui/material";
+import {  Button } from "@mui/material";
+import Alert from '@mui/material/Alert';
+
+const allowedEmails = ["m.saber@ump.ac.ma", "t.bouchentouf@ump.ac.ma", "jberrich@gmail.com", "i.elfarissi@ump.ac.ma", "a.administration@ump.ac.ma", "c.commission@ump.ac.ma"]
 export default function RegistrationPage() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -23,6 +26,14 @@ export default function RegistrationPage() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!allowedEmails.includes(formData.email)) {
+            setAlert({
+                show: true,
+                severity: "error",
+                message: "Votre email n'est pas autorisé pour l'inscription."
+            });
+            return;
+        }
         try {
             // Call the register method from UserService
 
@@ -41,6 +52,7 @@ export default function RegistrationPage() {
            
            setAlert({
             show: true,
+            severity: "success",
             message: 'Le compte a été créé avec succès!'
         });
            
@@ -62,9 +74,10 @@ export default function RegistrationPage() {
         <>
         {alert.show? (
             <Alert
+            severity={alert.severity}
                 action={
                     <Button color="inherit" size="small" onClick={() => navigate('/login')}>
-                        Continuer
+                        {alert.severity === "success" ? "Continuer": "Annuler"}
                     </Button>
                 }
             >

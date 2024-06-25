@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,10 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import './Administration.css'; 
-import NavbarAdministration from './NavbarAdministration';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,40 +32,46 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, points) {
-  return { name, points };
-}
-
-const rows = [
-  createData('John Doe', 85),
-  createData('Jane Smith', 92),
-  createData('Michael Johnson', 78),
-  createData('Emily Williams', 88),
-  createData('David Brown', 95),
-];
-
-export default function Administration() {
-  const [data, setData] = useState([]);
+const Administration = () => {
+  const [professors, setProfessors] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:9005/admincommission/get-professors',
-        {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-              },
-        }
-    ) 
-        .then(response => {
-            setData(response.data);
+    axios.get('http://localhost:9005/admincommission/get-professors', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+    .then(response => {
+      // Response.data should be an array of professor objects
+      const professorsData = response.data;
+      // Map over each professor to fetch total points
+      Promise.all(professorsData.map(professor => {
+        return axios.get(`http://localhost:9005/administration/total-points`, {
+          params: { email: professor.email },
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          },
         })
-        .catch(error => {
-            console.error("Erreur lors de la récupération des données des professeurs :", error);
-        });
-}, []);
+          .then(pointsResponse => {
+            // Add total points to each professor object
+            professor.points = pointsResponse.data;
+            return professor;
+          });
+      }))
+      .then(professorsWithPoints => {
+        // Set state with professors array including points
+        setProfessors(professorsWithPoints);
+      })
+      .catch(error => {
+        console.error('Error fetching total points:', error);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching professors:', error);
+    });
+  }, []);
 
   return (
-    
-    
     <TableContainer component={Paper} className="custom-table-container" style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table" style={{marginLeft: '50px', marginRight: '50px'}}>
         <TableHead>
@@ -78,16 +81,18 @@ export default function Administration() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row, index) => (
+          {professors.map((professor, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
-                {`${row.firstname} ${row.lastname}`}
+                {`${professor.firstname} ${professor.lastname}`}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.points}</StyledTableCell>
+              <StyledTableCell align="right">{professor.points}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-      );
-}
+  );
+};
+
+export default Administration;

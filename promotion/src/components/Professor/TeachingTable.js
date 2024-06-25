@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Grid, Typography, TextField, Snackbar } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
-import MuiAlert from '@mui/material/Alert'; 
+import MuiAlert from '@mui/material/Alert';
 import Navbar from './Navbar';
 import Sidenav from './Sidenav';
 
@@ -38,7 +39,7 @@ const TeachingTable = () => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:8080/annexe3/add-annexe3', formData, {
+      const response = await axios.post('http://localhost:9005/professor/annexe3/add-annexe3', formData, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
@@ -55,16 +56,48 @@ const TeachingTable = () => {
     }
   };
 
+  const handleDownloadTemplate = async () => {
+    try {
+      const response = await axios.get('http://localhost:9005/professor/template/download', {
+        responseType: 'blob',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'template.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading template:', error);
+      alert('Erreur lors du téléchargement du template.');
+    }
+  };
+
   return (
     <>
       <Navbar />
       <Sidenav />
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} justifyContent="center" alignItems="center" direction="column" style={{ padding: '2rem', marginTop:'3.5rem' }}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center" direction="column" style={{ padding: '2rem', marginTop: '3.5rem' }}>
           <Grid item>
             <Typography variant="h5" component="h2">
               Tableau détaillé par l'enseignement aux différents niveaux
             </Typography>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" sx={{
+                backgroundColor: '#A66253',
+                '&:hover': {
+                  backgroundColor: '#7F3D30',
+                },
+              }} startIcon={<DownloadIcon />} onClick={handleDownloadTemplate}>
+              Télécharger le template
+            </Button>
           </Grid>
           <Grid item>
             <input

@@ -20,6 +20,9 @@ export default function ChoiceCardsContainer({userRole, selectedUser}) {
   const handleDossierAdministratifClick = () => {
     navigate('/dossier-administratif-informations', {state: {prof: selectedUser}});
   }
+  const handleTableauDetailléClick = () => {
+    navigate('/tableau-detaillé-informations', {state: {prof: selectedUser}});
+  }
     return(
     <Box className="choice-cards-container"
     sx={{
@@ -47,9 +50,12 @@ export default function ChoiceCardsContainer({userRole, selectedUser}) {
         :
         <ChoiceCard title="Formulaire d'inscription" icon="inscription" onClick={() => handleFormulaireInscriptionClick()}/>
         }
-        <Link to={userRole === "PROFESSOR" ?"/annexe_3": ""} style={{ textDecoration: 'none' }}>
+        {userRole === "PROFESSOR" ? (<Link to={userRole === "PROFESSOR" ?"/annexe_3": ""} style={{ textDecoration: 'none' }}>
             <ChoiceCard title="Tableau detaillé par l'enseignement aux differents niveaux" icon="tableau"/>
-        </Link>
+        </Link>) 
+        :
+        <ChoiceCard title="Tableau detaillé par l'enseignement aux differents niveaux" icon="tableau" onClick={() => handleTableauDetailléClick()}/>
+        }
     </Box>
     );
 }

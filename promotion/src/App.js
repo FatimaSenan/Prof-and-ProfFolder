@@ -32,6 +32,7 @@ const ProfessorsTable = lazy(() => import("./pages/commission/ProfessorsTable"))
 const ActivitiesInformationTable = lazy(() => import("./components/Professor/ListeActivities/ActivitiesInformationsTable"))
 const Annexe2Informations = lazy(() => import("./components/commission/Annexe2Informations"))
 const DossierAdministratifInformations = lazy(() => import("./components/commission/DossierAdministratifInformations"))
+const Annexe3Informations = lazy(() => import("./components/commission/Annexe3Informations"))
 function App() {
   return (
     <BrowserRouter>
@@ -158,6 +159,12 @@ function App() {
               <Route path='/dossier-administratif-informations' exact element={
                 <ProtectedRoute>
                   <DossierAdministratifInformations/>
+                </ProtectedRoute>
+              } />
+
+              <Route path='/tableau-detaillé-informations' exact element={
+                <ProtectedRoute>
+                  <Annexe3Informations/>
                 </ProtectedRoute>
               } />
                <Route path='/deconnexion' exact element={

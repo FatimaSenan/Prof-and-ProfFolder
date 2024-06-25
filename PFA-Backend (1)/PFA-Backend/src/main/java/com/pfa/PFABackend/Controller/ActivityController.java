@@ -42,7 +42,7 @@ public class ActivityController {
         }
     }
 
-    @GetMapping("/justification")
+    @GetMapping("/professor/activities/justification")
     public ResponseEntity<byte[]> getPdfJustification(@RequestParam(name = "activityName") String activityName, @RequestParam(name = "id") int id){
         byte[] pdfBytes = activityService.getJustificationPdf(activityName, id);
         HttpHeaders headers = new HttpHeaders();
@@ -51,9 +51,20 @@ public class ActivityController {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
-    @PostMapping("/commission/activities/validate")
+    @GetMapping("/commission/activities/justification")
+    public ResponseEntity<byte[]> getPdfJustificationForSelectedUser(@RequestParam(name = "activityName") String activityName, @RequestParam(name = "id") int id, @RequestParam(name = "userEmail") String userEmail){
+        byte[] pdfBytes = activityService.getJustificationPdfForSelectedUser(activityName, id, userEmail);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachement", "justification.pdf");
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+    @PatchMapping("/commission/activities/validate")
     public ResponseEntity<?> validateActivity(@RequestParam(name = "activityName") String activityName,
                                               @RequestParam(name = "id") int activityId) {
+        System.out.println("Activity ID: " + activityId);
+        System.out.println("Activity Name: " + activityName);
         try {
             activityService.validateActivity(activityName, activityId);
             return ResponseEntity.ok().body("Activity validated successfully");
@@ -61,6 +72,16 @@ public class ActivityController {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while validating the activity");
+        }
+    }
+
+    @GetMapping("/commission/total-points")
+    public ResponseEntity<Double>  calculateTotalPointsForUser(@RequestParam("email") String userEmail) {
+        try {
+            double totalPoints = activityService.calculateTotalPointsForUser(userEmail);
+            return ResponseEntity.ok(totalPoints);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

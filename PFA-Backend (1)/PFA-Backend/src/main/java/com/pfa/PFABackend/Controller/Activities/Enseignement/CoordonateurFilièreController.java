@@ -34,14 +34,14 @@ public class CoordonateurFilièreController {
     public String addCoordonateurFilière(@RequestParam("activityName") String activityName, @RequestParam("typeFilière") String typeFilière, @RequestParam("nomFilière") String nomFilière, @RequestParam("etablissement") String etablissement, @RequestParam("annéesResponsabilités") String annéesResponsabilités , @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(7);
 
-       try {
-           coordonateurFilièreService.saveCoordonateurFilière(specificActivitySubType2Instance, activityName, typeFilière, nomFilière, etablissement, annéesResponsabilités, file);
+        try {
+            coordonateurFilièreService.saveCoordonateurFilière(specificActivitySubType2Instance, activityName, typeFilière, nomFilière, etablissement, annéesResponsabilités, file);
 
-           return "A new Coordonateur filière is added";
-       }catch(IOException e) {
-           e.printStackTrace();
-           return "Failed to add Coordonateur filière";
-       }
+            return "A new Coordonateur filière is added";
+        }catch(IOException e) {
+            e.printStackTrace();
+            return "Failed to add Coordonateur filière";
+        }
     }
 
     @GetMapping("/coordonateur-filières")

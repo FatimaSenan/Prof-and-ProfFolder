@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Controller.Activities.Enseignement;
 
 
@@ -34,13 +35,13 @@ public class MembreCommissionEtablissementController {
     public String addMembreCommissionEtablissement(@RequestParam("activityName") String activityName, @RequestParam("titreCommission") String titreCommission, @RequestParam("typeCommission") String typeCommission, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
 
-      try{
-          membreCommissionEtablissementService.saveMembreCommissionEtablissement(specificActivitySubType2Instance, activityName, titreCommission, typeCommission, période, file);
-          return "A new membre commission etablissement  is added";
-      }catch(IOException e) {
-          e.printStackTrace();
-          return "Failed to add Membre Commission Etablissement";
-      }
+        try{
+            membreCommissionEtablissementService.saveMembreCommissionEtablissement(specificActivitySubType2Instance, activityName, titreCommission, typeCommission, période, file);
+            return "A new membre commission etablissement  is added";
+        }catch(IOException e) {
+            e.printStackTrace();
+            return "Failed to add Membre Commission Etablissement";
+        }
 
     }
 

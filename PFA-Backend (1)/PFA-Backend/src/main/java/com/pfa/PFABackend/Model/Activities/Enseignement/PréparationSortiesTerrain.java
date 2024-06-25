@@ -27,7 +27,7 @@ public class PréparationSortiesTerrain {
     //@Enumerated(value = EnumType.STRING)
     private String cadre;
 
-    private int date;
+    private String date;
     @Column(name = "nom_société")
     private String nomSociété;
 
@@ -42,6 +42,6 @@ public class PréparationSortiesTerrain {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

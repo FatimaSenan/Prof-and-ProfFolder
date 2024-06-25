@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.CoordonateurModule;
@@ -36,6 +37,7 @@ public class CoordonateurModuleServiceImpl implements CoordonateurModuleService{
         coordonateurModule.setEtablissement(etablissement);
         coordonateurModule.setAnnéesResposabilités(annéesResponsabilités);
         coordonateurModule.setJustification(file.getBytes());
+        coordonateurModule.setUser(user);
         coordonateurModuleRepository.save(coordonateurModule);
     }
 

@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.MembreCommissionEtablissement;
@@ -22,18 +23,18 @@ public class MembreCommissionEtablissementServiceImpl implements MembreCommissio
 
     @Override
     public void saveMembreCommissionEtablissement(ActivitySubType2 activitySubType2, String activityName, String titreCommission, String typeCommission, String période, MultipartFile file) throws IOException {
-       MembreCommissionEtablissement membreCommissionEtablissement = new MembreCommissionEtablissement();
-       membreCommissionEtablissement.setActivitySubType2(activitySubType2);
+        MembreCommissionEtablissement membreCommissionEtablissement = new MembreCommissionEtablissement();
+        membreCommissionEtablissement.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
 
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
-       membreCommissionEtablissement.setActivityName(activityName);
-       membreCommissionEtablissement.setTitreCommission(titreCommission);
-       membreCommissionEtablissement.setTypeCommission(typeCommission);
-       membreCommissionEtablissement.setPériode(période);
-       membreCommissionEtablissement.setJustification(file.getBytes());
-       membreCommissionEtablissement.setUser(user);
+        membreCommissionEtablissement.setActivityName(activityName);
+        membreCommissionEtablissement.setTitreCommission(titreCommission);
+        membreCommissionEtablissement.setTypeCommission(typeCommission);
+        membreCommissionEtablissement.setPériode(période);
+        membreCommissionEtablissement.setJustification(file.getBytes());
+        membreCommissionEtablissement.setUser(user);
         membreCommisionEtablissementRepository.save(membreCommissionEtablissement);
     }
 

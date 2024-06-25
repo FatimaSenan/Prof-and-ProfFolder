@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Controller.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.MembreCommissionConseil;
@@ -30,13 +31,13 @@ public class MembreConseilCoordinationController {
     public String addMembreConseilCoordination(@RequestParam("activityName") String activityName, @RequestParam("titreConseil") String titreConseil, @RequestParam("période") String période, @RequestParam("file")MultipartFile file) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(8);
 
-       try{
-           membreConseilCoordinationService.saveMembreConseilCoordination(specificActivitySubType2Instance, activityName, titreConseil, période, file);
-           return "A new Membre Conseil Coordination is added";
-       } catch(IOException e) {
-           e.printStackTrace();
-           return "Failed to add Membre Conseil Coordination ";
-       }
+        try{
+            membreConseilCoordinationService.saveMembreConseilCoordination(specificActivitySubType2Instance, activityName, titreConseil, période, file);
+            return "A new Membre Conseil Coordination is added";
+        } catch(IOException e) {
+            e.printStackTrace();
+            return "Failed to add Membre Conseil Coordination ";
+        }
 
     }
 

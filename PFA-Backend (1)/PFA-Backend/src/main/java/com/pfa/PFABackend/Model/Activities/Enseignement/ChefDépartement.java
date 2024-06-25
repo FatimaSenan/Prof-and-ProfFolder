@@ -26,6 +26,7 @@ public class ChefDépartement {
 
     @Column(name = "points_attribués")
     private double pointsAttribués = 0;
+
     private String département;
 
     private String établissement;
@@ -48,7 +49,7 @@ public class ChefDépartement {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    // @JsonBackReference
+    @JsonBackReference
     private User user;
 
 

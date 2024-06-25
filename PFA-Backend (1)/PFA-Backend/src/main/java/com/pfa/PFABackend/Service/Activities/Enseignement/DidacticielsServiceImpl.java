@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.Didacticiels;
@@ -34,6 +35,7 @@ public class DidacticielsServiceImpl implements DidacticielsService{
         didacticiels.setSupport(support);
         didacticiels.setModule(module);
         didacticiels.setAnnée(année);
+        didacticiels.setUser(user);
         didacticiels.setJustification(file.getBytes());
 
         didacticielsRepository.save(didacticiels);

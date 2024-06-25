@@ -41,6 +41,6 @@ public class CréationStartUp {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    // @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

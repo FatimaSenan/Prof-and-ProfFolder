@@ -1,4 +1,3 @@
-
 package com.pfa.PFABackend.Model.Activities.Enseignement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -21,6 +20,7 @@ public class MembreEluConseil {
 
     @Column(name = "points_attribués")
     private double pointsAttribués = 0;
+
     @Column(name = "membre_conseil")
     private String membreConseil;
 
@@ -37,7 +37,7 @@ public class MembreEluConseil {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // @JsonBackReference
+    @JsonBackReference
     private User user;
 
 }

@@ -47,207 +47,207 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "chefDepartementeReference")
+    @JsonManagedReference(value = "chefDepartementeReference")
     private List<ChefDépartement> chefDepartementList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "coordonateurFilièreReference")
+    @JsonManagedReference(value = "coordonateurFilièreReference")
     private List<CoordonateurFilière> coordonateurFilièreList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "coordonateurModuleReference")
+    @JsonManagedReference(value = "coordonateurModuleReference")
     private List<CoordonateurModule> coordonateurModuleList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "didacticielsReference")
+    @JsonManagedReference(value = "didacticielsReference")
     private List<Didacticiels> didacticielsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "encadrementPFEReference")
+    @JsonManagedReference(value = "encadrementPFEReference")
     private List<EncadrementPFE> encadrementPFEList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "encadrementRHReference")
+    @JsonManagedReference(value = "encadrementRHReference")
     private List<EncadrementRH> encadrementRHList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "manuelReference")
+    @JsonManagedReference(value = "manuelReference")
     private List<Manuel> manuelList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference("membreCommissionAdHocReference")
+    @JsonManagedReference("membreCommissionAdHocReference")
     private List<MembreCommissionAdHoc> membreCommissionAdHocList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "membreCommissionConseilRefrence")
+    @JsonManagedReference(value = "membreCommissionConseilRefrence")
     private List<MembreCommissionConseil> membreCommissionConseilList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "membreCommissionEtablissementReference")
+    @JsonManagedReference(value = "membreCommissionEtablissementReference")
     private List<MembreCommissionEtablissement> membreCommissionEtablissementList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "membreConseilCoordinationReference")
+    @JsonManagedReference(value = "membreConseilCoordinationReference")
     private List<MembreConseilCoordination> membreConseilCoordinationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "membreEluConseilReference")
+    @JsonManagedReference(value = "membreEluConseilReference")
     private List<MembreEluConseil> membreEluConseilList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "montagesExpérimentauxReference")
+    @JsonManagedReference(value = "montagesExpérimentauxReference")
     private List<MontagesExpérimentaux> montagesExpérimentauxList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "moocReference")
+    @JsonManagedReference(value = "moocReference")
     private List<MOOC> moocList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "ouvrageReference")
+    @JsonManagedReference(value = "ouvrageReference")
     private List<Ouvrage> ouvrageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "pageWebReference")
+    @JsonManagedReference(value = "pageWebReference")
     private List<PageWeb> pageWebList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "petitsLivresReference")
+    @JsonManagedReference(value = "petitsLivresReference")
     private List<PetitsLivres> petitsLivresList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "polycopiésPédagogiquesReference")
+    @JsonManagedReference(value = "polycopiésPédagogiquesReference")
     private List<PolycopiésPédagogiques> polycopiésPédagogiquesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "préparationSortiesTerrainReference")
+    @JsonManagedReference(value = "préparationSortiesTerrainReference")
     private List<PréparationSortiesTerrain> préparationSortiesTerrainList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "rapportStageVisiteTerrainReference")
+    @JsonManagedReference(value = "rapportStageVisiteTerrainReference")
     private List<RapportStageVisiteTerrain> rapportStageVisiteTerrainList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "supportsReference")
+    @JsonManagedReference(value = "supportsReference")
     private List<Supports> supportsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "viceDoyenReference")
+    @JsonManagedReference(value = "viceDoyenReference")
     private List<ViceDoyen> viceDoyenList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "associationConnaissanceReference")
+    @JsonManagedReference(value = "associationConnaissanceReference")
     private List<AssociationConnaissance> associationConnaissanceList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "brevetReference")
+    @JsonManagedReference(value = "brevetReference")
     private List<Brevet> brevetList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "chapitreOvrageReference")
+    @JsonManagedReference(value = "chapitreOvrageReference")
     private List<ChapitreOuvrage> chapitreOuvrageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "congrèsConférencesNonPubliéesReference")
+    @JsonManagedReference(value = "congrèsConférencesNonPubliéesReference")
     private List<CongrèsConférencesNonPubliées> congrèsConférencesNonPubliéesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "congrèsConférencesPubliéesReference")
+    @JsonManagedReference(value = "congrèsConférencesPubliéesReference")
     private List<CongrèsConférencesPubliées> congrèsConférencesPubliéesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "contributionOrganisationActivitésRayonnementReference")
+    @JsonManagedReference(value = "contributionOrganisationActivitésRayonnementReference")
     private List<ContributionOrganisationActivitésRayonnement> contributionOrganisationActivitésRayonnementList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "créationStartUpReference")
+    @JsonManagedReference(value = "créationStartUpReference")
     private List<CréationStartUp> créationStartUpList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "doctoratsEncadrésReference")
+    @JsonManagedReference(value = "doctoratsEncadrésReference")
     private List<DoctoratsEncadrés> doctoratsEncadrésList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "editeurMembreRéféréJournalRevuesReference")
+    @JsonManagedReference(value = "editeurMembreRéféréJournalRevuesReference")
     private List<EditeurMembreRéféréJournalRevue> editeurMembreRéféréJournalRevuesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "encadrementMémoiresMasterReference")
+    @JsonManagedReference(value = "encadrementMémoiresMasterReference")
     private List<EncadrementMémoiresMaster> encadrementMémoiresMasterList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "expertiseNonRémunéréReference")
+    @JsonManagedReference(value = "expertiseNonRémunéréReference")
     private List<ExpertiseNonRémunéré> expertiseNonRémunéréList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "incubationProjetRechercheReference")
+    @JsonManagedReference(value = "incubationProjetRechercheReference")
     private List<IncubationProjetRecherche> incubationProjetRechercheList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "ovragesSpecialiséReference")
+    @JsonManagedReference(value = "ovragesSpecialiséReference")
     private List<OuvrageSpecialisé> ouvrageSpecialiséList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "participationthèseDoctoratReference")
+    @JsonManagedReference(value = "participationthèseDoctoratReference")
     private List<ParticipationthèseDoctorat> participationthèseDoctoratList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "projetDeRechercheDeveloppementReference")
+    @JsonManagedReference(value = "projetDeRechercheDeveloppementReference")
     private List<ProjetDeRechercheDeveloppement> projetDeRechercheDeveloppementList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "projetsContratsRechercheReference")
+    @JsonManagedReference(value = "projetsContratsRechercheReference")
     private List<ProjetsContratsRecherche> projetsContratsRechercheList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    // @JsonManagedReference(value = "publicationRevuesScientifiquesReference")
+    @JsonManagedReference(value = "publicationRevuesScientifiquesReference")
     private List<PublicationRevuesScientifiques> publicationRevuesScientifiquesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    //@JsonManagedReference(value = "publicationsRevuesIndexéesReference")
+    @JsonManagedReference(value = "publicationsRevuesIndexéesReference")
     private List<PublicationsRevuesIndexées> publicationsRevuesIndexéesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    // @JsonManagedReference(value = "responsableMembreStructureRecherchePoleReference")
+    @JsonManagedReference(value = "responsableMembreStructureRecherchePoleReference")
     private List<ResponsableMembreStructureRecherchePole> responsableMembreStructureRecherchePoleList = new ArrayList<>();
 
 

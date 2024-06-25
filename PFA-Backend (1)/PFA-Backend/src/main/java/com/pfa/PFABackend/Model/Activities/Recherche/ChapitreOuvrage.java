@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Model.Activities.Recherche;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -46,6 +47,6 @@ public class ChapitreOuvrage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // @JsonBackReference
+    @JsonBackReference
     private User user;
 }

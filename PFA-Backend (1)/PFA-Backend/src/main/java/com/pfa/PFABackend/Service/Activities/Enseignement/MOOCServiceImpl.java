@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Service.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.MOOC;
@@ -20,7 +21,7 @@ public class MOOCServiceImpl implements MOOCService{
     private UserRepository userRepository;
 
     @Override
-    public void saveMOOC(ActivitySubType2 activitySubType2, String activityName, String titreMooc, int datePublication, String lien) throws IOException {
+    public void saveMOOC(ActivitySubType2 activitySubType2, String activityName, String titreMooc, String datePublication, String lien) throws IOException {
         MOOC mooc = new MOOC();
         mooc.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

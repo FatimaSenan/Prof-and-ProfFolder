@@ -22,6 +22,7 @@ public class PageWeb {
 
     @Column(name = "points_attribués")
     private double pointsAttribués = 0;
+
     private String link;
 
     @ManyToOne
@@ -31,7 +32,7 @@ public class PageWeb {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // @JsonBackReference
+    @JsonBackReference
     private User user;
 
 }

@@ -17,5 +17,9 @@ public interface ActivityService {
 
     public byte[] getJustificationPdf(String activityName, int activityId);
 
-    void validateActivity(String activityName, int activityId);}
+    public byte[] getJustificationPdfForSelectedUser(String activityName, int activityId, String userEmail);
 
+    void validateActivity(String activityName, int activityId);
+
+    public double calculateTotalPointsForUser(String userEmail);
+}

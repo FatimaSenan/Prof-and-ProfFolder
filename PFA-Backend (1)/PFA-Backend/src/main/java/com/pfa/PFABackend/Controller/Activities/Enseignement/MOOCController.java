@@ -1,3 +1,4 @@
+
 package com.pfa.PFABackend.Controller.Activities.Enseignement;
 
 import com.pfa.PFABackend.Model.Activities.Enseignement.MOOC;
@@ -28,7 +29,7 @@ public class MOOCController {
 
     @PostMapping("/add-mooc")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public String addMooc(@RequestParam("activityName") String activityName, @RequestParam("titreMooc") String titreMooc, @RequestParam("datePublication") int datePublication, @RequestParam("lien") String lien) {
+    public String addMooc(@RequestParam("activityName") String activityName, @RequestParam("titreMooc") String titreMooc, @RequestParam("datePublication") String datePublication, @RequestParam("lien") String lien) {
         ActivitySubType2 specificActivitySubType2Instance = activitySubType2Service.findById(3);
 
         try{

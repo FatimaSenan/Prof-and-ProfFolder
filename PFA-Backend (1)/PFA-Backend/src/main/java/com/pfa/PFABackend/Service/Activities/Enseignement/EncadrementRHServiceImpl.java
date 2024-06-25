@@ -22,9 +22,9 @@ public class EncadrementRHServiceImpl implements  EncadrementRHService{
     @Autowired
     private UserRepository userRepository;
     @Override
-    public void saveEncadrementRH(ActivitySubType2 activitySubType2, String activityName, String typeEncadrement, String titre, String membres, int dateDébut, int dateFin, MultipartFile file) throws IOException {
-       EncadrementRH encadrementRH  = new EncadrementRH();
-       encadrementRH.setActivitySubType2(activitySubType2);
+    public void saveEncadrementRH(ActivitySubType2 activitySubType2, String activityName, String typeEncadrement, String titre, String membres, String dateDébut, String dateFin, MultipartFile file) throws IOException {
+        EncadrementRH encadrementRH  = new EncadrementRH();
+        encadrementRH.setActivitySubType2(activitySubType2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
 

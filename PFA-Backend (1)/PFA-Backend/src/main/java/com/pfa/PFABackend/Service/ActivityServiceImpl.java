@@ -2319,35 +2319,21 @@ public class ActivityServiceImpl implements ActivityService{
             ActivitySubType2 subType2 = doctorat.getActivitySubType2();
 
             if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = doctorat.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+
+                // Accéder à subType1 à partir de subType2
                 ActivitySubType1 subType1 = subType2.getActivitySubType1();
 
-                // Vérifie si subType1 est non null avant d'accéder à son ID et ActivityType
                 if (subType1 != null) {
-                    ActivityType activityType1 = subType1.getActivityType();
-
-                    // Vérifie si activityType1 est non null avant d'accéder à son ID
-                    if (activityType1 != null) {
-                        // Vérifie si l'ID de activityType1 correspond à 1
-                        if (activityType1.getId_type() == 1) {
-                            Integer subType1Id = subType1.getId_subtype1();
-                            double points = doctorat.getPointsAttribués();
-                            pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
-                        }
-                    }
-                }
-
-                // Vérifie si subType2 est non null avant d'accéder à son ActivityType
-                ActivityType activityType2 = subType2.getActivityType();
-
-                // Vérifie si activityType2 est non null avant d'accéder à son ID
-                if (activityType2 != null && activityType2.getId_type() == 2) {
-                    Integer subType2Id = subType2.getId_subtype2();
-                    double points = doctorat.getPointsAttribués();
-                    pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+                    Integer subType1Id = subType1.getId_subtype1();
+                    pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
                 }
             }
         }
     }
+
 
 
     private void addPointsFromEditeurMembreRéféréJournalRevue(User user, Map<Integer, Double> pointsBySubType1, Map<Integer, Double> pointsBySubType2) {
@@ -2392,35 +2378,21 @@ public class ActivityServiceImpl implements ActivityService{
             ActivitySubType2 subType2 = encadrement.getActivitySubType2();
 
             if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = encadrement.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+
+                // Accéder à subType1 à partir de subType2
                 ActivitySubType1 subType1 = subType2.getActivitySubType1();
 
-                // Vérifie si subType1 est non null avant d'accéder à son ID et ActivityType
                 if (subType1 != null) {
-                    ActivityType activityType1 = subType1.getActivityType();
-
-                    // Vérifie si activityType1 est non null avant d'accéder à son ID
-                    if (activityType1 != null) {
-                        // Vérifie si l'ID de activityType1 correspond à 1
-                        if (activityType1.getId_type() == 1) {
-                            Integer subType1Id = subType1.getId_subtype1();
-                            double points = encadrement.getPointsAttribués();
-                            pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
-                        }
-                    }
-                }
-
-                // Vérifie si subType2 est non null avant d'accéder à son ActivityType
-                ActivityType activityType2 = subType2.getActivityType();
-
-                // Vérifie si activityType2 est non null avant d'accéder à son ID
-                if (activityType2 != null && activityType2.getId_type() == 2) {
-                    Integer subType2Id = subType2.getId_subtype2();
-                    double points = encadrement.getPointsAttribués();
-                    pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+                    Integer subType1Id = subType1.getId_subtype1();
+                    pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
                 }
             }
         }
     }
+
 
 
     private void addPointsFromExpertiseNonRémunéré(User user, Map<Integer, Double> pointsBySubType1, Map<Integer, Double> pointsBySubType2) {
@@ -2539,35 +2511,21 @@ public class ActivityServiceImpl implements ActivityService{
             ActivitySubType2 subType2 = participation.getActivitySubType2();
 
             if (subType2 != null) {
+                Integer subType2Id = subType2.getId_subtype2();
+                double points = participation.getPointsAttribués();
+                pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+
+                // Accéder à subType1 à partir de subType2
                 ActivitySubType1 subType1 = subType2.getActivitySubType1();
 
-                // Vérifie si subType1 est non null avant d'accéder à son ID et ActivityType
                 if (subType1 != null) {
-                    ActivityType activityType1 = subType1.getActivityType();
-
-                    // Vérifie si activityType1 est non null avant d'accéder à son ID
-                    if (activityType1 != null) {
-                        // Vérifie si l'ID de activityType1 correspond à 1
-                        if (activityType1.getId_type() == 1) {
-                            Integer subType1Id = subType1.getId_subtype1();
-                            double points = participation.getPointsAttribués();
-                            pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
-                        }
-                    }
-                }
-
-                // Vérifie si subType2 est non null avant d'accéder à son ActivityType
-                ActivityType activityType2 = subType2.getActivityType();
-
-                // Vérifie si activityType2 est non null avant d'accéder à son ID
-                if (activityType2 != null && activityType2.getId_type() == 2) {
-                    Integer subType2Id = subType2.getId_subtype2();
-                    double points = participation.getPointsAttribués();
-                    pointsBySubType2.put(subType2Id, pointsBySubType2.getOrDefault(subType2Id, 0.0) + points);
+                    Integer subType1Id = subType1.getId_subtype1();
+                    pointsBySubType1.put(subType1Id, pointsBySubType1.getOrDefault(subType1Id, 0.0) + points);
                 }
             }
         }
     }
+
 
 
     private void addPointsFromProjetsContratsRecherche(User user, Map<Integer, Double> pointsBySubType1, Map<Integer, Double> pointsBySubType2) {

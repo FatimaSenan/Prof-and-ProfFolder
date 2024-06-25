@@ -1613,17 +1613,17 @@ public class ActivityServiceImpl implements ActivityService{
     // Méthode pour ajouter les points des activités à la carte des points par sous-type 2
     private void addPointsFromActivities(User user, Map<Integer, Double> pointsBySubType1, Map<Integer, Double> pointsBySubType2) {
         addPointsFromOuvrage(user, pointsBySubType2);
-       /* addPointsFromManuel(user, pointsBySubType1, pointsBySubType2);
-        addPointsFromPolycopiésPédagogiques(user, pointsBySubType1, pointsBySubType2);
-        addPointsFromPetitsLivres(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromMontagesExpérimentaux(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromPréparationSortiesTerrain(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromSupports(user, pointsBySubType1,pointsBySubType2);
-        addPointsFromDidacticiels(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromPageWeb(user, pointsBySubType1,pointsBySubType2);
-        addPointsFromRapportStageVisiteTerrain(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromViceDoyen(user,pointsBySubType1, pointsBySubType2);
-        addPointsFromAssociationConnaissance(user,pointsBySubType1, pointsBySubType2);
+     // addPointsFromManuel(user, pointsBySubType1, pointsBySubType2);
+      //  addPointsFromPolycopiésPédagogiques(user, pointsBySubType1, pointsBySubType2);
+       // addPointsFromPetitsLivres(user,pointsBySubType1, pointsBySubType2);
+        //addPointsFromMontagesExpérimentaux(user,pointsBySubType1, pointsBySubType2);
+        //addPointsFromPréparationSortiesTerrain(user,pointsBySubType1, pointsBySubType2);
+        //addPointsFromSupports(user, pointsBySubType1,pointsBySubType2);
+        addPointsFromDidacticiels(user, pointsBySubType2);
+        addPointsFromPageWeb(user,pointsBySubType2);
+        //addPointsFromRapportStageVisiteTerrain(user,pointsBySubType1, pointsBySubType2);
+       // addPointsFromViceDoyen(user,pointsBySubType1, pointsBySubType2);
+       /* addPointsFromAssociationConnaissance(user,pointsBySubType1, pointsBySubType2);
         addPointsFromBrevet(user,pointsBySubType1, pointsBySubType2);
         addPointsFromChapitreOuvrage(user,pointsBySubType1, pointsBySubType2);
         addPointsFromCongrèsConférencesNonPubliées(user,pointsBySubType1, pointsBySubType2);
@@ -1640,7 +1640,7 @@ public class ActivityServiceImpl implements ActivityService{
         addPointsFromProjetsContratsRecherche(user,pointsBySubType1, pointsBySubType2);
         addPointsFromPublicationRevuesScientifiques(user, pointsBySubType1,pointsBySubType2);
         addPointsFromPublicationsRevuesIndexées(user,pointsBySubType1, pointsBySubType2);
-       */ //addPointsFromResponsableMembreStructureRechercheAccréditéePoleCompetence(user, pointsBySubType2);
+      */ //addPointsFromResponsableMembreStructureRechercheAccréditéePoleCompetence(user, pointsBySubType2);
     }
 
     // Méthode pour ajouter les points des ouvrages

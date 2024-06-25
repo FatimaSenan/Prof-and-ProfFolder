@@ -39,7 +39,7 @@ const TeachingTable = () => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:9005/professor/annexe3/add-annexe3', formData, {
+      const response = await axios.post('http://localhost:9005/annexe3/add-annexe3', formData, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }

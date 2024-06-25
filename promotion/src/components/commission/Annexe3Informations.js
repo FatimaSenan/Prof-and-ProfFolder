@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect} from 'react';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -23,7 +23,12 @@ import NavbarAdministration from '../administration/NavbarAdministration';
 import Alert from '@mui/material/Alert';
 
 
-
+const StyledLink = styled('div')({
+    textDecoration: 'underline',
+    color: '#404040',
+    cursor: 'pointer',
+    
+  });
 export default function Annexe3Informations () {
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -54,27 +59,35 @@ export default function Annexe3Informations () {
     const theme = useTheme();
     const navigate = useNavigate();
     const [annexe3, setAnnexe3] = useState({});
+
+    console.log(prof);
+    
    
    
 
-    const handleViewPdf = async () => {
+    const handleDownloadExcel = async () => {
         try{
            
             
-               const response = await axios.get('http://localhost:9005/commission/annexe3/get-annexe3', {
+               const response = await axios.get('http://localhost:9005/annexe3/get-annexe3', {
                     responseType: 'blob',
                     params: {userEmail: prof.email},
                     headers: {
                       'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                      
                   },
                 });
-                const extractedData = response.data;
-                setAnnexe3(extractedData);
-            const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-              window.open(fileURL);
+                const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+                // Use FileSaver.js or similar library to trigger download
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'annexe3.xlsx'; // Adjust filename as needed
+                link.click();
     
             } catch (error) {
-                console.error('Error fetching PDF: ', error);
+                console.error('Error fetching Excel file: ', error);
               }
     
        }
@@ -83,7 +96,6 @@ export default function Annexe3Informations () {
    
   
  
-  delete annexe3.id;
           
     return (
       <>
@@ -116,7 +128,9 @@ export default function Annexe3Informations () {
              </StyledTableCell>
              <StyledTableCell align="right"> 
              
-             <PictureAsPdfIcon color='#404040' style={{cursor: 'pointer'}} onClick={() => handleViewPdf()} />
+             <StyledLink onClick={handleDownloadExcel}>
+                  Télécharger le document
+            </StyledLink>
              </StyledTableCell>
             
            </StyledTableRow>

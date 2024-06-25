@@ -16,8 +16,9 @@ export default function LoginPage(){
             const userData = await UserService.login(email, password)
             console.log(userData)
             if (userData.token) {
-                localStorage.setItem('token', userData.token)
-                localStorage.setItem('role', userData.role)
+                localStorage.setItem('token', userData.token);
+                localStorage.setItem('role', userData.role);
+                window.dispatchEvent(new Event('storage')); 
                 if (userData.role === 'PROFESSOR') {
                     navigate('/acceuil');
                 } else if (userData.role === 'COMMISSION') {

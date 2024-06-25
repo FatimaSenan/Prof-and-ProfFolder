@@ -15,7 +15,7 @@ import ActivitiesTableForSelectedUser from './pages/commission/ActivitiesTableFo
 import ProfessorsList from './components/commission/ProfessorsList';
 import ProfessorsListAdministration from './pages/administration/ProfessorsListAdministration';
 import ProfessorsInformationsMenu from './components/commission/ProfessorsInformationsMenu';
-
+import { useState, useEffect } from 'react';
 
 const Accueil = lazy(() => import("./pages/professor/Accueil"));
 const Profile = lazy(() => import("./pages/professor/Profile"));
@@ -34,6 +34,23 @@ const Annexe2Informations = lazy(() => import("./components/commission/Annexe2In
 const DossierAdministratifInformations = lazy(() => import("./components/commission/DossierAdministratifInformations"))
 const Annexe3Informations = lazy(() => import("./components/commission/Annexe3Informations"))
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(UserService.isAuthenticated());
+  const [role, setRole] = useState(UserService.getRole());
+
+  useEffect(() => {
+    const updateAuthState = () => {
+      setIsAuthenticated(UserService.isAuthenticated());
+      setRole(UserService.getRole());
+    };
+
+    window.addEventListener('storage', updateAuthState);
+
+    return () => {
+      window.removeEventListener('storage', updateAuthState);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Suspense fallback={<LoadingComponent/>}>
